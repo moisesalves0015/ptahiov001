@@ -1,0 +1,9 @@
+{
+  "name": "ptah.io",
+  "description": "Plataforma premium de construção: inspire-se, contrate especialistas e compre materiais com segurança total.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
