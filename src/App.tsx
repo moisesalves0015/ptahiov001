@@ -3,10 +3,12 @@ import { Routes, Route, useNavigate, useLocation, useParams, Link } from 'react-
 import { 
   Search, Bell, Menu, ArrowLeft, Filter, Map as MapIcon, List, User as UserIcon,
   Camera, Upload, X, Check, ShoppingBag, Store as StoreIcon, Tag, Zap, Film,
-  ChevronRight, Search as SearchIcon, Heart, MapPin, CheckCircle2, Star 
+  ChevronRight, Search as SearchIcon, Heart, MapPin, CheckCircle2, Star, ArrowRight,
+  HardHat, Paintbrush, Droplets, Hammer, Layers, PencilRuler, Compass, Wind, Sprout, Sparkles, Home
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AppView, Professional, User, UserRole, Store, Product } from './types';
+import { Footer } from './components/Footer';
 import { BottomNav } from './components/BottomNav';
 import { VideoCard } from './components/VideoCard';
 import { ProfessionalCard } from './components/ProfessionalCard';
@@ -24,6 +26,38 @@ import { ProductManagement } from './components/ProductManagement';
 import { ProductForm } from './components/ProductForm';
 import { generateEncartePDF } from './components/EncarteGenerator';
 import { MOCK_VIDEOS, MOCK_PROFESSIONALS, MOCK_QUOTES, MOCK_MATERIAL_QUOTES, MOCK_BANNERS, MOCK_STORES, MOCK_PRODUCTS } from './constants';
+
+const Typer = ({ words }: { words: string[] }) => {
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [reverse, setReverse] = useState(false);
+
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !reverse) {
+      const timeout = setTimeout(() => setReverse(true), 1500);
+      return () => clearTimeout(timeout);
+    }
+
+    if (subIndex === 0 && reverse) {
+      setReverse(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => prev + (reverse ? -1 : 1));
+    }, reverse ? 30 : 100);
+
+    return () => clearTimeout(timeout);
+  }, [subIndex, index, reverse, words]);
+
+  return (
+    <span>
+      {`${words[index].substring(0, subIndex)}`}
+      <span className="inline-block w-[2px] h-5 bg-emerald-600 ml-1 animate-pulse align-middle" />
+    </span>
+  );
+};
 
 export default function App() {
   const navigate = useNavigate();
@@ -167,13 +201,13 @@ export default function App() {
             {['professional-detail', 'store-detail', 'photo-request', 'all-professionals', 'all-stores', 'all-categories', 'product-detail', 'store-products', 'store-products-new'].includes(currentView) || location.pathname.startsWith('/store/') || location.pathname.startsWith('/product/') ? (
               <button 
                 onClick={() => navigate(-1)}
-                className="rounded-full p-2 hover:bg-slate-100 transition-colors"
+                className="rounded-lg p-2 hover:bg-slate-100 transition-colors"
               >
                 <ArrowLeft size={24} className="text-slate-900" />
               </button>
             ) : (
               <Link to="/" className="flex items-center gap-2.5 group">
-                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl bg-slate-900 text-white shadow-lg transition-transform group-active:scale-95">
+                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-slate-900 text-white shadow-lg transition-transform group-active:scale-95">
                   <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-transparent opacity-50" />
                   <span className="relative text-xl font-black italic">P</span>
                 </div>
@@ -186,9 +220,9 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-4">
-            <button className="relative rounded-full p-2.5 text-slate-600 hover:bg-slate-100 transition-colors">
+            <button className="relative rounded-lg p-2.5 text-slate-600 hover:bg-slate-100 transition-colors">
               <Bell size={22} />
-              <span className="absolute right-2 top-2 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-black text-slate-900 ring-2 ring-white">
+              <span className="absolute right-2 top-2 flex h-4 w-4 items-center justify-center rounded-md bg-accent text-[10px] font-black text-slate-900 ring-2 ring-white">
                 3
               </span>
             </button>
@@ -196,14 +230,14 @@ export default function App() {
             {user ? (
               <button 
                 onClick={() => handleViewChange('profile')}
-                className="h-10 w-10 overflow-hidden rounded-xl border-2 border-slate-100 shadow-sm transition-transform active:scale-95"
+                className="h-10 w-10 overflow-hidden rounded-lg border-2 border-slate-100 shadow-sm transition-transform active:scale-95"
               >
                 <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
               </button>
             ) : (
               <button 
                 onClick={() => handleViewChange('profile')}
-                className="rounded-xl bg-slate-900 px-6 py-2.5 text-xs font-black text-white shadow-lg shadow-slate-900/20 transition-all active:scale-95 hover:bg-slate-800"
+                className="rounded-lg bg-slate-900 px-6 py-2.5 text-xs font-black text-white shadow-lg shadow-slate-900/20 transition-all active:scale-95 hover:bg-slate-800"
               >
                 Entrar
               </button>
@@ -222,74 +256,102 @@ export default function App() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="p-4 space-y-10 pb-24"
+              className="max-w-7xl mx-auto p-4 space-y-10 pb-24"
             >
               {(!user || user.role === 'client') && (
                 <>
-                  {/* Hero Section for Clients */}
-                  <section className="overflow-hidden rounded-3xl bg-primary p-8 text-white shadow-xl relative">
-                    <div className="relative z-10">
-                      <h1 className="text-4xl font-black leading-[1.1] tracking-tight">
-                        Construa com <br />
-                        <span className="text-accent">excelência.</span>
-                      </h1>
-                      <p className="mt-4 text-sm font-medium text-slate-300 max-w-[240px]">
-                        A plataforma definitiva para conectar você aos melhores especialistas.
-                      </p>
-                      <div className="mt-8 flex flex-col gap-3">
-                        <button 
-                          onClick={() => handleViewChange('search')}
-                          className="w-full rounded-2xl bg-white py-4 font-black text-primary shadow-lg transition-all active:scale-95 hover:bg-slate-100"
+                  {/* Hero Banner Section */}
+                  <section className="relative overflow-hidden bg-slate-900 rounded-xl shadow-2xl">
+                    <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
+                      {/* Left: Content Area */}
+                      <div className="relative z-20 flex flex-col justify-center px-6 py-8 lg:px-12 lg:py-12">
+                        <motion.div
+                          initial={{ opacity: 0, x: -50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8 }}
                         >
-                          Encontrar Especialista
-                        </button>
-                        <button 
-                          onClick={() => handleViewChange('photo-request')}
-                          className="w-full flex items-center justify-center gap-2 rounded-2xl bg-white/10 py-4 font-black text-white backdrop-blur-md transition-all active:scale-95 hover:bg-white/20 border border-white/10"
+                          <div className="mb-4 inline-flex items-center gap-2 rounded-xl bg-accent/10 px-4 py-2 border border-accent/20">
+                            <Zap size={14} className="text-accent ring-accent/20 animate-pulse" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-accent">Plataforma nº1 do Brasil</span>
+                          </div>
+                          <h1 className="text-5xl font-black text-white leading-[1.05] tracking-tight sm:text-7xl">
+                            Construa com <br />
+                            <span className="text-accent italic">excelência.</span>
+                          </h1>
+                          <p className="mt-6 text-lg font-medium text-slate-400 max-w-sm leading-relaxed">
+                            A plataforma definitiva para conectar você aos especialistas verificados e materiais de alto padrão.
+                          </p>
+                          <div className="mt-8 flex flex-col gap-4 max-w-sm">
+                            <button 
+                              onClick={() => handleViewChange('search')}
+                              className="group flex items-center justify-center gap-3 rounded-xl bg-accent px-8 py-5 font-black text-slate-900 shadow-xl shadow-accent/20 transition-all hover:scale-105 active:scale-95"
+                            >
+                              Encontrar Especialista
+                              <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
+                            </button>
+                            <button 
+                              onClick={() => handleViewChange('photo-request')}
+                              className="flex items-center justify-center gap-3 rounded-xl bg-white/5 px-8 py-5 font-black text-white backdrop-blur-md border border-white/10 transition-all hover:bg-white/10 active:scale-95"
+                            >
+                              <Camera size={20} className="text-accent" />
+                              Orçamento por Foto
+                            </button>
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Right: Visual Support */}
+                      <div className="relative hidden lg:flex items-center justify-center p-8 bg-gradient-to-br from-slate-800 to-slate-900">
+                        {/* Interactive Floating Card */}
+                        <motion.div 
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.5, duration: 1 }}
+                          className="relative z-20 bg-white/5 backdrop-blur-3xl rounded-xl p-8 border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] max-w-md"
                         >
-                          <Camera size={20} className="text-accent" />
-                          Orçamento por Foto
-                        </button>
+                          <div className="flex items-center gap-4 mb-6">
+                            <div className="flex -space-x-3">
+                              {[10, 11, 12].map(i => (
+                                <div key={i} className="h-14 w-14 rounded-full border-4 border-slate-900 bg-slate-700 overflow-hidden shadow-xl">
+                                  <img src={`https://i.pravatar.cc/150?u=${i}`} alt="User" className="h-full w-full object-cover" />
+                                </div>
+                              ))}
+                            </div>
+                            <div className="flex flex-col">
+                              <div className="flex items-center gap-1 text-accent">
+                                {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
+                              </div>
+                              <span className="text-white/60 text-[10px] font-bold uppercase tracking-widest mt-1">+2.4k Avaliações</span>
+                            </div>
+                          </div>
+
+                          <blockquote className="text-3xl font-black text-white leading-[1.1] tracking-tight mb-6">
+                            "A melhor escolha <br />
+                            <span className="text-accent italic">para minha obra!</span>"
+                          </blockquote>
+
+                          <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                            <div className="flex flex-col">
+                              <span className="text-3xl font-black text-white">5.0</span>
+                              <span className="text-accent text-[9px] font-black uppercase tracking-[0.2em]">Nota Máxima</span>
+                            </div>
+                            <div className="bg-emerald-500/10 border border-emerald-500/20 px-4 py-2 rounded-lg flex items-center gap-2">
+                              <CheckCircle2 size={14} className="text-emerald-500" />
+                              <span className="text-emerald-500 text-[9px] font-black uppercase tracking-widest">Verificado</span>
+                            </div>
+                          </div>
+                        </motion.div>
+
+                        {/* Background Visual Interest */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[400px] bg-accent/10 blur-[100px] rounded-full animate-pulse" />
+                        <div className="absolute top-0 right-0 h-48 w-48 bg-primary/10 blur-[80px] rounded-full" />
                       </div>
                     </div>
-                    {/* Abstract background elements */}
-                    <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-accent/20 blur-3xl" />
-                    <div className="absolute -left-10 -bottom-10 h-40 w-40 rounded-full bg-secondary/20 blur-3xl" />
+
+                    {/* Mobile background glow */}
+                    <div className="absolute lg:hidden -right-10 top-0 h-40 w-40 rounded-full bg-accent/20 blur-3xl" />
                   </section>
 
-                  {/* Direct Communication Incentives */}
-                  <section className="rounded-3xl bg-slate-900 p-6 text-white shadow-xl">
-                    <h2 className="text-lg font-black leading-tight">Sua obra sem estresse começa aqui.</h2>
-                    <div className="mt-6 space-y-4">
-                      <div className="flex items-start gap-3">
-                        <div className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-slate-900">
-                          <Check size={12} strokeWidth={4} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-widest text-accent">Contratação 100% Segura</p>
-                          <p className="mt-0.5 text-[10px] font-medium text-slate-400">Você só libera o pagamento após a conclusão do serviço.</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-slate-900">
-                          <Check size={12} strokeWidth={4} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-widest text-accent">Especialistas Verificados</p>
-                          <p className="mt-0.5 text-[10px] font-medium text-slate-400">Analisamos documentos e referências de cada profissional para você.</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="mt-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-slate-900">
-                          <Check size={12} strokeWidth={4} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-widest text-accent">Materiais com Garantia</p>
-                          <p className="mt-0.5 text-[10px] font-medium text-slate-400">Compre tudo o que precisa com a segurança e entrega do ptah.io.</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
 
                   {/* Banners */}
                   <section>
@@ -307,22 +369,32 @@ export default function App() {
                           Ver todas <ChevronRight size={14} />
                         </button>
                       </div>
-                      <div className="flex gap-5 overflow-x-auto no-scrollbar pb-2">
+                      <div className="grid grid-rows-2 lg:grid-rows-1 grid-flow-col gap-x-8 lg:gap-x-12 gap-y-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
                         {[
-                          { name: 'Pedreiro', icon: '🏗️' },
-                          { name: 'Pintor', icon: '🎨' },
-                          { name: 'Elétrica', icon: '⚡' },
-                          { name: 'Hidráulica', icon: '🚰' },
-                          { name: 'Marceneiro', icon: '🪚' },
-                          { name: 'Gesso', icon: '🧱' },
-                          { name: 'Telhado', icon: '🏠' }
+                          { name: 'Pedreiro', icon: <HardHat size={28} /> },
+                          { name: 'Pintor', icon: <Paintbrush size={28} /> },
+                          { name: 'Elétrica', icon: <Zap size={28} /> },
+                          { name: 'Hidráulica', icon: <Droplets size={28} /> },
+                          { name: 'Marceneiro', icon: <Hammer size={28} /> },
+                          { name: 'Gesso', icon: <Layers size={28} /> },
+                          { name: 'Telhado', icon: <Home size={28} /> },
+                          { name: 'Arquiteto', icon: <PencilRuler size={28} /> },
+                          { name: 'Engenharia', icon: <Compass size={28} /> },
+                          { name: 'Climatização', icon: <Wind size={28} /> },
+                          { name: 'Jardinagem', icon: <Sprout size={28} /> },
+                          { name: 'Limpeza', icon: <Sparkles size={28} /> }
                         ].map((cat) => (
-                          <button key={cat.name} className="flex flex-col items-center gap-3 flex-shrink-0 group">
-                            <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-slate-100 bg-white text-2xl shadow-sm transition-all active:scale-95 hover:shadow-md">
+                          <motion.button 
+                            key={cat.name} 
+                            whileHover={{ y: -5 }}
+                            whileTap={{ scale: 0.95 }}
+                            className="flex flex-col items-center gap-3 flex-shrink-0 group outline-none"
+                          >
+                            <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-slate-50 text-slate-600 shadow-sm transition-all group-hover:shadow-xl group-hover:scale-110 group-hover:bg-emerald-50 group-hover:text-emerald-600 border border-white/50">
                               {cat.icon}
                             </div>
-                            <span className="text-[10px] font-bold text-slate-900 uppercase tracking-widest">{cat.name}</span>
-                          </button>
+                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none text-center max-w-[80px] group-hover:text-emerald-600 transition-colors">{cat.name}</span>
+                          </motion.button>
                         ))}
                       </div>
                     </section>
@@ -343,7 +415,7 @@ export default function App() {
                           <button 
                             key={video.id}
                             onClick={() => handleVideoClick(index)}
-                            className="relative h-64 w-44 flex-shrink-0 overflow-hidden rounded-3xl bg-slate-100 shadow-md transition-all active:scale-95"
+                            className="relative h-64 w-44 flex-shrink-0 overflow-hidden rounded-xl bg-slate-100 shadow-md transition-all active:scale-95"
                           >
                             <img 
                               src={video.thumbnail || "https://picsum.photos/seed/video/400/600"} 
@@ -356,7 +428,7 @@ export default function App() {
                               <p className="text-[10px] font-black text-white/80 uppercase tracking-widest">@{video.user.handle}</p>
                               <p className="mt-1 text-xs font-bold text-white line-clamp-1">{video.description}</p>
                             </div>
-                            <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/20">
+                            <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md border border-white/20">
                               <Film size={14} className="text-white" />
                             </div>
                           </button>
@@ -365,23 +437,96 @@ export default function App() {
                     </section>
 
                   {/* Flash Deals / Offers */}
-                  <section className="bg-emerald-50/50 -mx-4 p-6 rounded-3xl border border-emerald-100">
+                  <section className="bg-emerald-50/50 -mx-4 p-6 rounded-xl border border-emerald-100">
                     <div className="mb-5 flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Zap size={20} className="text-accent fill-accent" />
                         <h2 className="text-xl font-black text-slate-900">Ofertas Relâmpago</h2>
                       </div>
-                      <div className="flex items-center gap-2 bg-accent text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                      <div className="flex items-center gap-2 bg-accent text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
                         02:45:12
                       </div>
                     </div>
-                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
                       {MOCK_PRODUCTS.slice(0, 4).map((product) => (
-                        <div key={product.id} className="w-40 flex-shrink-0">
+                        <div key={product.id} className="w-40 sm:w-48 md:w-56 flex-shrink-0">
                           <ProductCard product={product} onClick={handleProductClick} />
                         </div>
                       ))}
                     </div>
+                  </section>
+
+                  {/* Refined Simulated Search Section - Dark & Side-by-Side */}
+                  <section className="relative overflow-hidden rounded-xl bg-slate-900 border border-slate-800 shadow-2xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                      {/* Left Side: Search Simulation */}
+                      <div className="p-10 lg:p-16 relative z-10 flex flex-col justify-center">
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8 }}
+                        >
+                          <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-8">
+                            A tecnologia que <br /><span className="text-emerald-500">facilita sua obra.</span>
+                          </h2>
+                          
+                          {/* Search Bar Simulation */}
+                          <div className="relative flex items-center bg-white rounded-xl p-2 shadow-xl mb-6">
+                            <div className="bg-emerald-600 h-10 w-10 lg:h-12 lg:w-12 rounded-lg flex items-center justify-center text-white shadow-lg">
+                              <Search size={22} />
+                            </div>
+                            <div className="flex-1 ml-4 flex items-center overflow-hidden">
+                              <span className="text-slate-900 font-bold text-sm lg:text-base whitespace-nowrap">Onde contratar</span>
+                              <span className="ml-1.5 text-emerald-600 font-black text-sm lg:text-base">
+                                <Typer words={['um eletricista?', 'um pintor?', 'um pedreiro?', 'um arquiteto?']} />
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Suggestions Simulation */}
+                          <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.5 }}
+                            className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 space-y-4"
+                          >
+                            {[
+                              { text: "ptah.io é a", highlight: "escolha perfeita!", icon: <CheckCircle2 size={16} /> },
+                              { text: "ptah.io vai ser", highlight: "sua melhor escolha!", icon: <CheckCircle2 size={16} /> },
+                              { text: "Você pesquisou", highlight: "por ptah.io!", icon: <CheckCircle2 size={16} /> }
+                            ].map((item, idx) => (
+                              <div key={idx} className="flex items-center gap-3 text-slate-300">
+                                <div className="text-emerald-500">{item.icon}</div>
+                                <p className="text-xs lg:text-sm font-medium">
+                                  {item.text} <span className="text-emerald-500 font-bold">{item.highlight}</span>
+                                </p>
+                              </div>
+                            ))}
+                          </motion.div>
+                        </motion.div>
+                      </div>
+
+                      {/* Right Side: Professional Image */}
+                      <div className="relative h-64 lg:h-auto overflow-hidden">
+                        <img 
+                          src="/src/professional_electrician.png" 
+                          className="h-full w-full object-cover" 
+                          alt="Profissional Ptah"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent lg:block hidden" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent lg:hidden block" />
+                        
+                        {/* Status Badge */}
+                        <div className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10 bg-emerald-600/90 backdrop-blur-md px-4 py-2 rounded-full border border-emerald-500/50 flex items-center gap-2">
+                          <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                          <span className="text-white text-[10px] font-black uppercase tracking-widest">Especialistas Disponíveis</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Background decorations */}
+                    <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-600/10 blur-[100px]" />
+                    <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-[100px]" />
                   </section>
 
                   {/* Featured Professionals */}
@@ -395,7 +540,7 @@ export default function App() {
                         Ver todos <ChevronRight size={14} />
                       </button>
                     </div>
-                    <div className="flex flex-col gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                       {MOCK_PROFESSIONALS.map((prof) => (
                         <ProfessionalCard 
                           key={prof.id} 
@@ -407,12 +552,12 @@ export default function App() {
                   </section>
 
                   {/* Ad Banner 1 */}
-                  <section className="relative h-32 overflow-hidden rounded-[2rem] bg-slate-900">
+                  <section className="relative h-32 overflow-hidden rounded-xl bg-slate-900">
                     <img src="https://picsum.photos/seed/ad1/800/200" className="h-full w-full object-cover opacity-60" />
                     <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
                       <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Patrocinado</span>
                       <h3 className="text-lg font-black text-white">Reforme sua cozinha com 20% OFF</h3>
-                      <button className="mt-2 rounded-full bg-white px-4 py-1 text-[10px] font-black uppercase text-slate-900">Saiba mais</button>
+                      <button className="mt-2 rounded-lg bg-white px-4 py-1 text-[10px] font-black uppercase text-slate-900">Saiba mais</button>
                     </div>
                   </section>
 
@@ -427,7 +572,7 @@ export default function App() {
                         Ver todas <ChevronRight size={14} />
                       </button>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {MOCK_STORES.map((store) => (
                         <StoreCard 
                           key={store.id} 
@@ -445,18 +590,18 @@ export default function App() {
                     <div className="mb-5 flex items-center justify-between">
                       <h2 className="text-xl font-black text-slate-900">Marketplace</h2>
                       <div className="flex gap-2">
-                        <button className="p-2 bg-slate-100 rounded-xl text-slate-600"><Tag size={18} /></button>
-                        <button className="p-2 bg-slate-100 rounded-xl text-slate-600"><Filter size={18} /></button>
+                        <button className="p-2 bg-slate-100 rounded-lg text-slate-600"><Tag size={18} /></button>
+                        <button className="p-2 bg-slate-100 rounded-lg text-slate-600"><Filter size={18} /></button>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                       {MOCK_PRODUCTS.map((product) => (
                         <ProductCard key={product.id} product={product} onClick={handleProductClick} />
                       ))}
                     </div>
                     <button 
                       onClick={() => handleViewChange('marketplace')}
-                      className="mt-8 w-full rounded-2xl bg-slate-900 py-4 font-black text-white shadow-xl transition-all active:scale-95"
+                      className="mt-8 w-full rounded-xl bg-slate-900 py-4 font-black text-white shadow-xl transition-all active:scale-95"
                     >
                       Ver Mais Produtos
                     </button>
@@ -474,11 +619,11 @@ export default function App() {
                   <section className="mb-10">
                     <div className="mb-5 flex items-center justify-between">
                       <h2 className="text-xl font-black text-slate-900">Propostas Pendentes</h2>
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">
+                      <span className="rounded-md bg-primary/10 px-3 py-1 text-xs font-black text-primary">
                         {MOCK_QUOTES.length} novas
                       </span>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {MOCK_QUOTES.map((quote) => (
                         <QuoteCard key={quote.id} quote={quote} />
                       ))}
@@ -506,8 +651,8 @@ export default function App() {
 
                   <section className="mb-10">
                     <h2 className="mb-5 text-xl font-black text-slate-900">Suas Obras Ativas</h2>
-                    <div className="rounded-3xl border-2 border-dashed border-slate-200 p-8 text-center">
-                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-50 text-slate-400">
+                    <div className="rounded-xl border-2 border-dashed border-slate-200 p-8 text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-slate-50 text-slate-400">
                         <Check size={32} />
                       </div>
                       <p className="text-sm font-bold text-slate-500">Nenhuma obra em andamento no momento.</p>
@@ -527,11 +672,11 @@ export default function App() {
                   <section className="mb-10">
                     <div className="mb-5 flex items-center justify-between">
                       <h2 className="text-xl font-black text-slate-900">Cotações de Materiais</h2>
-                      <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">
+                      <span className="rounded-md bg-primary/10 px-3 py-1 text-xs font-black text-primary">
                         {MOCK_MATERIAL_QUOTES.length} pendentes
                       </span>
                     </div>
-                    <div className="flex flex-col gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {MOCK_MATERIAL_QUOTES.map((quote) => (
                         <MaterialQuoteCard key={quote.id} quote={quote} />
                       ))}
@@ -587,7 +732,7 @@ export default function App() {
               </div>
 
               <div className="space-y-8">
-                <div className="rounded-2xl bg-blue-50 p-4 border border-blue-100 flex items-start gap-3">
+                <div className="rounded-lg bg-blue-50 p-4 border border-blue-100 flex items-start gap-3">
                   <div className="mt-1 text-blue-600">
                     <Zap size={20} />
                   </div>
@@ -597,13 +742,13 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="rounded-[2rem] bg-primary/5 p-8 text-center border-2 border-dashed border-primary/20">
-                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-primary text-white shadow-xl shadow-primary/20">
+                <div className="rounded-xl bg-primary/5 p-8 text-center border-2 border-dashed border-primary/20">
+                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-primary text-white shadow-xl shadow-primary/20">
                     <Upload size={32} />
                   </div>
                   <h3 className="text-lg font-black text-slate-900">Tire ou envie fotos</h3>
                   <p className="mt-2 text-sm font-medium text-slate-500">Mostre o que precisa ser feito para receber orçamentos precisos.</p>
-                  <button className="mt-6 rounded-2xl bg-primary px-8 py-4 font-black text-white shadow-lg shadow-primary/20 transition-all active:scale-95">
+                  <button className="mt-6 rounded-lg bg-primary px-8 py-4 font-black text-white shadow-lg shadow-primary/20 transition-all active:scale-95">
                     Selecionar Fotos
                   </button>
                 </div>
@@ -612,7 +757,7 @@ export default function App() {
                   <label className="text-sm font-black text-slate-900 uppercase tracking-widest">Descrição do Serviço</label>
                   <textarea 
                     placeholder="Ex: Preciso trocar o piso da sala e pintar as paredes..."
-                    className="w-full h-40 rounded-3xl bg-slate-100 p-6 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                    className="w-full h-40 rounded-xl bg-slate-100 p-6 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                     value={photoRequestData.description}
                     onChange={(e) => setPhotoRequestData({ ...photoRequestData, description: e.target.value })}
                   />
@@ -624,7 +769,7 @@ export default function App() {
                     {['Pedreiro', 'Pintor', 'Eletricista', 'Encanador', 'Outros'].map((cat) => (
                       <button 
                         key={cat}
-                        className="rounded-full bg-slate-100 px-6 py-3 text-xs font-black text-slate-600 transition-all hover:bg-primary hover:text-white active:scale-95"
+                        className="rounded-lg bg-slate-100 px-6 py-3 text-xs font-black text-slate-600 transition-all hover:bg-primary hover:text-white active:scale-95"
                       >
                         {cat}
                       </button>
@@ -632,7 +777,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <button className="w-full rounded-3xl bg-slate-900 py-5 font-black text-white shadow-xl transition-all active:scale-95 hover:bg-slate-800">
+                <button className="w-full rounded-xl bg-slate-900 py-5 font-black text-white shadow-xl transition-all active:scale-95 hover:bg-slate-800">
                   Enviar Solicitação
                 </button>
               </div>
@@ -670,7 +815,7 @@ export default function App() {
             >
               <div className="mb-8 flex items-center justify-between">
                 <h1 className="text-2xl font-black text-slate-900">Buscar</h1>
-                <button className="p-3 bg-slate-100 rounded-2xl text-slate-600"><Filter size={20} /></button>
+                <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><Filter size={20} /></button>
               </div>
 
               <div className="relative mb-8">
@@ -678,13 +823,13 @@ export default function App() {
                 <input
                   type="text"
                   placeholder="O que você precisa hoje?"
-                  className="w-full rounded-2xl bg-slate-100 py-4 pl-12 pr-4 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all"
+                  className="w-full rounded-lg bg-slate-100 py-4 pl-12 pr-4 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
               </div>
 
-              <div className="mb-8 rounded-2xl bg-emerald-50 p-4 border border-emerald-100">
+              <div className="mb-8 rounded-lg bg-emerald-50 p-4 border border-emerald-100">
                 <p className="text-xs font-bold text-emerald-800 flex items-center gap-2">
                   <CheckCircle2 size={14} /> 
                   Você está seguro: Procure pelo selo de verificação para garantir um serviço de excelência.
@@ -694,7 +839,7 @@ export default function App() {
               <div className="mb-8 flex items-center gap-3">
                 <button 
                   onClick={() => setSearchTab('profissionais')}
-                  className={`flex-1 rounded-2xl py-3 text-xs font-black uppercase tracking-widest transition-all ${
+                  className={`flex-1 rounded-lg py-3 text-xs font-black uppercase tracking-widest transition-all ${
                     searchTab === 'profissionais' ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'bg-slate-100 text-slate-500'
                   }`}
                 >
@@ -702,7 +847,7 @@ export default function App() {
                 </button>
                 <button 
                   onClick={() => setSearchTab('produtos')}
-                  className={`flex-1 rounded-2xl py-3 text-xs font-black uppercase tracking-widest transition-all ${
+                  className={`flex-1 rounded-lg py-3 text-xs font-black uppercase tracking-widest transition-all ${
                     searchTab === 'produtos' ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'bg-slate-100 text-slate-500'
                   }`}
                 >
@@ -719,7 +864,7 @@ export default function App() {
                         <button 
                           key={tag}
                           onClick={() => setSearchQuery(tag)}
-                          className="rounded-full bg-slate-100 px-5 py-2 text-xs font-black text-slate-600 hover:bg-accent hover:text-white transition-all"
+                          className="rounded-md bg-slate-100 px-5 py-2 text-xs font-black text-slate-600 hover:bg-accent hover:text-white transition-all"
                         >
                           {tag}
                         </button>
@@ -767,8 +912,8 @@ export default function App() {
               <h2 className="mb-6 text-2xl font-black text-slate-900">Notificações</h2>
               <div className="flex flex-col gap-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex gap-4 rounded-2xl border border-border bg-white p-4 shadow-sm">
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div key={i} className="flex gap-4 rounded-lg border border-border bg-white p-4 shadow-sm">
+                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <Bell size={24} />
                     </div>
                     <div>
@@ -792,13 +937,13 @@ export default function App() {
             >
               {!user ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-primary">
+                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <UserIcon size={40} />
                   </div>
                   <h2 className="text-2xl font-black text-slate-900">Bem-vindo ao ptah.io</h2>
                   <p className="mt-2 text-slate-500">Escolha como deseja entrar na plataforma</p>
                   
-                  <div className="mt-6 w-full rounded-2xl bg-primary/5 p-4 border border-primary/10">
+                  <div className="mt-6 w-full rounded-lg bg-primary/5 p-4 border border-primary/10">
                     <p className="text-xs font-bold text-primary text-center">
                       Sua conta é sua segurança: salve favoritos, analise avaliações reais e tenha suporte total em suas obras.
                     </p>
@@ -807,39 +952,39 @@ export default function App() {
                   <div className="mt-8 flex w-full flex-col gap-3">
                     <button 
                       onClick={() => handleLogin('client')}
-                      className="flex w-full items-center justify-between rounded-2xl border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
+                      className="flex w-full items-center justify-between rounded-lg border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
                     >
                       <div>
                         <p className="font-black text-slate-900">Sou Cliente</p>
                         <p className="text-xs text-slate-500">Quero reformar ou construir</p>
                       </div>
-                      <div className="rounded-full bg-slate-100 p-2 text-slate-400">
+                      <div className="rounded-lg bg-slate-100 p-2 text-slate-400">
                         <ArrowLeft size={20} className="rotate-180" />
                       </div>
                     </button>
 
                     <button 
                       onClick={() => handleLogin('professional')}
-                      className="flex w-full items-center justify-between rounded-2xl border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
+                      className="flex w-full items-center justify-between rounded-lg border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
                     >
                       <div>
                         <p className="font-black text-slate-900">Sou Profissional</p>
                         <p className="text-xs text-slate-500">Quero oferecer meus serviços</p>
                       </div>
-                      <div className="rounded-full bg-slate-100 p-2 text-slate-400">
+                      <div className="rounded-lg bg-slate-100 p-2 text-slate-400">
                         <ArrowLeft size={20} className="rotate-180" />
                       </div>
                     </button>
 
                     <button 
                       onClick={() => handleLogin('store')}
-                      className="flex w-full items-center justify-between rounded-2xl border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
+                      className="flex w-full items-center justify-between rounded-lg border border-border bg-white p-5 text-left transition-all hover:border-primary/50 hover:shadow-md"
                     >
                       <div>
                         <p className="font-black text-slate-900">Sou Loja</p>
                         <p className="text-xs text-slate-500">Quero vender meus produtos</p>
                       </div>
-                      <div className="rounded-full bg-slate-100 p-2 text-slate-400">
+                      <div className="rounded-lg bg-slate-100 p-2 text-slate-400">
                         <ArrowLeft size={20} className="rotate-180" />
                       </div>
                     </button>
@@ -868,7 +1013,7 @@ export default function App() {
 
                     <button 
                       onClick={handleLogout}
-                      className="mt-6 rounded-full bg-red-50 px-6 py-2 text-xs font-black text-red-500 transition-all active:scale-95"
+                      className="mt-6 rounded-md bg-red-50 px-6 py-2 text-xs font-black text-red-500 transition-all active:scale-95"
                     >
                       Sair da conta
                     </button>
@@ -890,7 +1035,7 @@ export default function App() {
                       { label: 'Configurações', icon: <Menu size={20} /> },
                       { label: 'Ajuda', icon: <Bell size={20} /> }
                     ].map((item) => (
-                      <button key={item.label} className="flex flex-col items-center gap-3 rounded-3xl border border-border bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md">
+                      <button key={item.label} className="flex flex-col items-center gap-3 rounded-xl border border-border bg-white p-6 transition-all hover:border-primary/50 hover:shadow-md">
                         <div className="text-primary">{item.icon}</div>
                         <span className="text-xs font-black text-slate-700">{item.label}</span>
                       </button>
@@ -915,13 +1060,13 @@ export default function App() {
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => handleViewChange('home')}
-                    className="rounded-full bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
+                    className="rounded-lg bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
                   >
                     <ArrowLeft size={24} />
                   </button>
                   <h1 className="text-2xl font-black text-slate-900">Especialistas</h1>
                 </div>
-                <button className="p-3 bg-slate-100 rounded-2xl text-slate-600"><Filter size={20} /></button>
+                <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><Filter size={20} /></button>
               </div>
 
               <div className="relative mb-8">
@@ -929,7 +1074,7 @@ export default function App() {
                 <input 
                   type="text" 
                   placeholder="Buscar por nome ou especialidade..."
-                  className="w-full rounded-2xl bg-slate-100 py-4 pl-12 pr-4 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all"
+                  className="w-full rounded-lg bg-slate-100 py-4 pl-12 pr-4 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                 />
               </div>
 
@@ -953,13 +1098,13 @@ export default function App() {
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => handleViewChange('home')}
-                    className="rounded-full bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
+                    className="rounded-lg bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
                   >
                     <ArrowLeft size={24} />
                   </button>
                   <h1 className="text-2xl font-black text-slate-900">Lojas Parceiras</h1>
                 </div>
-                <button className="p-3 bg-slate-100 rounded-2xl text-slate-600"><Filter size={20} /></button>
+                <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><Filter size={20} /></button>
               </div>
 
               <div className="flex flex-col gap-6">
@@ -991,15 +1136,15 @@ export default function App() {
                 <div className="flex items-center gap-4">
                   <button 
                     onClick={() => handleViewChange('home')}
-                    className="rounded-full bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
+                    className="rounded-lg bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
                   >
                     <ArrowLeft size={24} />
                   </button>
                   <h1 className="text-2xl font-black text-slate-900">Marketplace</h1>
                 </div>
                 <div className="flex gap-2">
-                  <button className="p-3 bg-slate-100 rounded-2xl text-slate-600"><SearchIcon size={20} /></button>
-                  <button className="p-3 bg-slate-100 rounded-2xl text-slate-600"><Filter size={20} /></button>
+                  <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><SearchIcon size={20} /></button>
+                  <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><Filter size={20} /></button>
                 </div>
               </div>
 
@@ -1008,7 +1153,7 @@ export default function App() {
                 {['Todos', 'Ferramentas', 'Materiais', 'Pintura', 'Elétrica', 'Hidráulica'].map((cat, i) => (
                   <button 
                     key={cat}
-                    className={`flex-shrink-0 rounded-full px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all ${
+                    className={`flex-shrink-0 rounded-lg px-6 py-2.5 text-xs font-black uppercase tracking-widest transition-all ${
                       i === 0 ? 'bg-accent text-white shadow-lg shadow-accent/20' : 'bg-slate-100 text-slate-500'
                     }`}
                   >
@@ -1017,9 +1162,9 @@ export default function App() {
                 ))}
               </div>
 
-              <div className="mb-8 rounded-3xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white shadow-xl shadow-orange-200">
+              <div className="mb-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white shadow-xl shadow-orange-200">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-md">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md">
                     <ShoppingBag size={20} className="text-white" />
                   </div>
                   <h4 className="text-lg font-black">Garantia ptah.io</h4>
@@ -1061,25 +1206,32 @@ export default function App() {
                 <h1 className="text-2xl font-black text-slate-900">Categorias</h1>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                 {[
-                  { name: 'Pedreiro', icon: '🏗️' },
-                  { name: 'Pintor', icon: '🎨' },
-                  { name: 'Elétrica', icon: '⚡' },
-                  { name: 'Hidráulica', icon: '🚰' },
-                  { name: 'Marceneiro', icon: '🪚' },
-                  { name: 'Gesso', icon: '🧱' },
-                  { name: 'Telhado', icon: '🏠' },
-                  { name: 'Piso', icon: '📐' },
-                  { name: 'Vidraceiro', icon: '🪟' },
-                  { name: 'Jardinagem', icon: '🌿' }
+                  { name: 'Pedreiro', icon: <HardHat size={32} /> },
+                  { name: 'Pintor', icon: <Paintbrush size={32} /> },
+                  { name: 'Elétrica', icon: <Zap size={32} /> },
+                  { name: 'Hidráulica', icon: <Droplets size={32} /> },
+                  { name: 'Marceneiro', icon: <Hammer size={32} /> },
+                  { name: 'Gesso', icon: <Layers size={32} /> },
+                  { name: 'Telhado', icon: <Home size={32} /> },
+                  { name: 'Arquiteto', icon: <PencilRuler size={32} /> },
+                  { name: 'Engenharia', icon: <Compass size={32} /> },
+                  { name: 'Climatização', icon: <Wind size={32} /> },
+                  { name: 'Jardinagem', icon: <Sprout size={32} /> },
+                  { name: 'Limpeza', icon: <Sparkles size={32} /> }
                 ].map((cat) => (
-                  <button key={cat.name} className="flex flex-col items-center gap-4 p-6 rounded-3xl border border-slate-100 bg-white shadow-sm transition-all active:scale-95 hover:shadow-md">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-slate-50 text-4xl">
+                  <motion.button 
+                    key={cat.name} 
+                    whileHover={{ scale: 1.02, y: -5 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="flex flex-col items-center justify-center gap-4 rounded-xl bg-slate-50 p-8 border border-white transition-all hover:bg-emerald-50 hover:border-emerald-100 hover:shadow-xl group outline-none"
+                  >
+                    <div className="text-slate-600 group-hover:text-emerald-600 transition-colors">
                       {cat.icon}
                     </div>
-                    <span className="text-xs font-bold text-slate-900 uppercase tracking-widest">{cat.name}</span>
-                  </button>
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest group-hover:text-emerald-600 transition-colors text-center">{cat.name}</span>
+                  </motion.button>
                 ))}
               </div>
             </motion.div>
@@ -1124,6 +1276,7 @@ export default function App() {
 
             <Route path="*" element={<div className="p-10 text-center">Página não encontrada</div>} />
           </Routes>
+          <Footer />
         </AnimatePresence>
       </main>
 
@@ -1166,7 +1319,7 @@ function ProfessionalDetailView() {
       
       <div className="relative -mt-12 px-4">
         <div className="flex items-end gap-4">
-          <div className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-lg">
+          <div className="h-24 w-24 overflow-hidden rounded-lg border-4 border-white bg-white shadow-lg">
             <img src={professional.avatar} className="h-full w-full object-cover" alt={professional.name} />
           </div>
           <div className="mb-2">
@@ -1175,7 +1328,7 @@ function ProfessionalDetailView() {
           </div>
         </div>
 
-        <div className="mt-6 flex items-center justify-around rounded-2xl border border-border bg-white p-4 shadow-sm">
+        <div className="mt-6 flex items-center justify-around rounded-lg border border-border bg-white p-4 shadow-sm">
           <div className="text-center">
             <p className="text-lg font-black text-slate-900">{professional.rating}</p>
             <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Rating</p>
@@ -1199,9 +1352,9 @@ function ProfessionalDetailView() {
           </p>
         </div>
 
-        <div className="mt-8 rounded-2xl bg-emerald-50 p-5 border border-emerald-100">
+        <div className="mt-8 rounded-lg bg-emerald-50 p-5 border border-emerald-100">
           <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 text-white">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-600 text-white">
               <CheckCircle2 size={16} />
             </div>
             <h4 className="text-sm font-black text-emerald-900">Sua Contratação Segura</h4>
@@ -1240,10 +1393,10 @@ function ProfessionalDetailView() {
 
         <div className="fixed bottom-20 left-0 right-0 z-40 border-t border-border bg-white/80 p-4 backdrop-blur-md md:bottom-0">
           <div className="mx-auto flex max-w-md gap-3">
-            <button className="flex-1 rounded-2xl bg-primary py-4 font-black text-white shadow-lg shadow-primary/20 transition-transform active:scale-95">
+            <button className="flex-1 rounded-lg bg-primary py-4 font-black text-white shadow-lg shadow-primary/20 transition-transform active:scale-95">
               Solicitar Orçamento
             </button>
-            <button className="rounded-2xl bg-slate-900 px-6 py-4 font-black text-white transition-transform active:scale-95">
+            <button className="rounded-lg bg-slate-900 px-6 py-4 font-black text-white transition-transform active:scale-95">
               Chat
             </button>
           </div>
@@ -1286,9 +1439,9 @@ function StoreDetailView() {
 
       <div className="flex flex-col items-center text-center mb-10">
         <div className="relative h-32 w-32 mb-4">
-          <img src={store.avatar} className="h-full w-full rounded-[2.5rem] object-cover shadow-xl" />
+          <img src={store.avatar} className="h-full w-full rounded-xl object-cover shadow-xl" />
           {store.isVerified && (
-            <div className="absolute -bottom-2 -right-2 rounded-full bg-white p-2 shadow-lg">
+            <div className="absolute -bottom-2 -right-2 rounded-md bg-white p-2 shadow-lg">
               <CheckCircle2 size={24} className="fill-accent text-white" />
             </div>
           )}
@@ -1311,7 +1464,7 @@ function StoreDetailView() {
           </p>
         )}
 
-        <div className="mt-8 w-full rounded-2xl bg-blue-50 p-5 border border-blue-100">
+        <div className="mt-8 w-full rounded-lg bg-blue-50 p-5 border border-blue-100">
           <div className="flex items-center gap-3 mb-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
               <StoreIcon size={16} />
@@ -1344,7 +1497,7 @@ function StoreDetailView() {
           <h3 className="text-xl font-black text-slate-900 mb-5">Categorias da Loja</h3>
           <div className="flex flex-wrap gap-2">
             {store.categories.map(cat => (
-              <span key={cat} className="rounded-full bg-slate-100 px-6 py-3 text-sm font-black text-slate-600">
+              <span key={cat} className="rounded-lg bg-slate-100 px-6 py-3 text-sm font-black text-slate-600">
                 {cat}
               </span>
             ))}
@@ -1384,7 +1537,7 @@ function ProductDetailView() {
         </div>
         <button 
           onClick={() => navigate(-1)}
-          className="absolute left-4 top-4 rounded-full bg-white/80 p-3 text-slate-600 backdrop-blur-md shadow-lg z-10"
+          className="absolute left-4 top-4 rounded-lg bg-white/80 p-3 text-slate-600 backdrop-blur-md shadow-lg z-10"
         >
           <ArrowLeft size={24} />
         </button>
@@ -1417,9 +1570,9 @@ function ProductDetailView() {
         </div>
 
         <div className="mt-10 space-y-10">
-          <div className="rounded-2xl bg-amber-50 p-5 border border-amber-100">
+          <div className="rounded-lg bg-amber-50 p-5 border border-amber-100">
             <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-600 text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-600 text-white">
                 <Zap size={16} />
               </div>
               <h4 className="text-sm font-black text-amber-900">Sua Compra Protegida</h4>
@@ -1444,10 +1597,10 @@ function ProductDetailView() {
 
           <div 
             onClick={() => navigate(`/store/${product.storeId}`)}
-            className="rounded-3xl bg-slate-50 p-6 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all"
+            className="rounded-xl bg-slate-50 p-6 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all"
           >
             <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-2xl bg-white shadow-sm flex items-center justify-center">
+              <div className="h-12 w-12 rounded-lg bg-white shadow-sm flex items-center justify-center">
                 <StoreIcon size={24} className="text-primary" />
               </div>
               <div>
@@ -1460,10 +1613,10 @@ function ProductDetailView() {
         </div>
 
         <div className="fixed bottom-20 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-border flex gap-4 z-40 md:bottom-0">
-          <button className="flex-1 rounded-2xl bg-slate-100 py-4 font-black text-slate-900 transition-all active:scale-95">
+          <button className="flex-1 rounded-lg bg-slate-100 py-4 font-black text-slate-900 transition-all active:scale-95">
             Carrinho
           </button>
-          <button className="flex-1 rounded-2xl bg-primary py-4 font-black text-white shadow-xl shadow-primary/20 transition-all active:scale-95">
+          <button className="flex-1 rounded-lg bg-primary py-4 font-black text-white shadow-xl shadow-primary/20 transition-all active:scale-95">
             Comprar Agora
           </button>
         </div>

@@ -34,7 +34,7 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
         </div>
         <button 
           onClick={onLogout}
-          className="p-4 bg-white border border-slate-100 text-red-500 rounded-2xl shadow-sm transition-all active:scale-90"
+          className="p-4 bg-white border border-slate-100 text-red-500 rounded-lg shadow-sm transition-all active:scale-90"
           title="Sair"
         >
           <LogOut size={20} />
@@ -49,9 +49,9 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
-            className="bg-white p-5 rounded-3xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)]"
+            className="bg-white p-5 rounded-xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)]"
           >
-            <div className={`h-10 w-10 ${stat.lightColor} ${stat.textColor} rounded-2xl flex items-center justify-center mb-4`}>
+            <div className={`h-10 w-10 ${stat.lightColor} ${stat.textColor} rounded-lg flex items-center justify-center mb-4`}>
               {stat.icon}
             </div>
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-2">{stat.label}</p>
@@ -67,10 +67,10 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
         <div className="grid grid-cols-1 gap-4">
           <button 
             onClick={() => navigate('/store/products')}
-            className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-[2rem] text-slate-900 shadow-xl shadow-slate-200/20 group transition-all active:scale-[0.98]"
+            className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-xl text-slate-900 shadow-xl shadow-slate-200/20 group transition-all active:scale-[0.98]"
           >
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-accent rounded-2xl flex items-center justify-center text-slate-900 shadow-lg shadow-accent/20">
+              <div className="h-14 w-14 bg-accent rounded-lg flex items-center justify-center text-slate-900 shadow-lg shadow-accent/20">
                 <ShoppingBag size={28} />
               </div>
               <div className="text-left">
@@ -78,14 +78,14 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
                 <p className="text-xs font-semibold text-slate-400">Ver e editar catálogo</p>
               </div>
             </div>
-            <div className="h-10 w-10 bg-slate-50 rounded-full flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
+            <div className="h-10 w-10 bg-slate-50 rounded-lg flex items-center justify-center group-hover:bg-slate-900 group-hover:text-white transition-all">
               <ChevronRight size={20} />
             </div>
           </button>
 
-          <button className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-[2rem] text-slate-900 shadow-xl shadow-slate-200/20 group transition-all active:scale-[0.98]">
+          <button className="flex items-center justify-between p-6 bg-white border border-slate-100 rounded-xl text-slate-900 shadow-xl shadow-slate-200/20 group transition-all active:scale-[0.98]">
             <div className="flex items-center gap-4">
-              <div className="h-14 w-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
+              <div className="h-14 w-14 bg-blue-600 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-600/20">
                 <MessageSquare size={28} />
               </div>
               <div className="text-left">
@@ -102,12 +102,12 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
 
       {/* Secondary Actions */}
       <section className="grid grid-cols-2 gap-3">
-        <button className="flex flex-col items-start p-6 bg-white border border-slate-100 rounded-[2rem] text-slate-900 shadow-sm transition-all active:scale-95 hover:border-slate-300">
+        <button className="flex flex-col items-start p-6 bg-white border border-slate-100 rounded-xl text-slate-900 shadow-sm transition-all active:scale-95 hover:border-slate-300">
           <FileText size={20} className="mb-3 text-slate-400" />
           <p className="font-black text-sm uppercase tracking-wider">Relatórios</p>
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">PDF e CSV</p>
         </button>
-        <button className="flex flex-col items-start p-6 bg-white border border-slate-100 rounded-[2rem] text-slate-900 shadow-sm transition-all active:scale-95 hover:border-slate-300">
+        <button className="flex flex-col items-start p-6 bg-white border border-slate-100 rounded-xl text-slate-900 shadow-sm transition-all active:scale-95 hover:border-slate-300">
           <Settings size={20} className="mb-3 text-slate-400" />
           <p className="font-black text-sm uppercase tracking-wider">Perfil</p>
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Configuração</p>
@@ -115,7 +115,7 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
       </section>
 
       {/* Recent Activity Placeholder */}
-      <section className="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)]">
+      <section className="bg-white p-8 rounded-xl border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)]">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-xs font-black text-slate-400 uppercase tracking-widest">Atividade Recente</h2>
           <Clock size={16} className="text-slate-300" />

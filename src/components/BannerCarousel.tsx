@@ -28,7 +28,7 @@ export function BannerCarousel({ banners, onBannerClick }: BannerCarouselProps) 
   };
 
   return (
-    <div className="relative h-56 w-full overflow-hidden rounded-3xl bg-slate-100 shadow-xl shadow-slate-200/50">
+    <div className="relative h-56 w-full overflow-hidden rounded-xl bg-slate-100 shadow-xl shadow-slate-200/50">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentIndex}
@@ -59,7 +59,7 @@ export function BannerCarousel({ banners, onBannerClick }: BannerCarouselProps) 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="mt-4 rounded-xl bg-accent px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-accent/20 transition-all hover:bg-white hover:text-accent active:scale-95"
+              className="mt-4 rounded-md bg-accent px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-xl shadow-accent/20 transition-all hover:bg-white hover:text-accent active:scale-95"
             >
               Confira agora
             </motion.button>

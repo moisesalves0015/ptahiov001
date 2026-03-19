@@ -20,10 +20,10 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
               <p className="text-xs font-medium text-slate-500">{album.description}</p>
             </div>
             <div className="flex gap-2">
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-400 active:scale-95">
+              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-400 active:scale-95">
                 <ChevronLeft size={18} />
               </button>
-              <button className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-900 active:scale-95">
+              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-900 active:scale-95">
                 <ChevronRight size={18} />
               </button>
             </div>
@@ -34,7 +34,7 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
               <motion.div 
                 key={idx}
                 whileTap={{ scale: 0.98 }}
-                className="relative h-64 w-80 flex-shrink-0 snap-center overflow-hidden rounded-3xl bg-slate-100 shadow-sm"
+                className="relative h-64 w-80 flex-shrink-0 snap-center overflow-hidden rounded-xl bg-slate-100 shadow-sm"
               >
                 <img 
                   src={image} 
@@ -42,7 +42,7 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
                   className="h-full w-full object-cover"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute bottom-4 right-4 rounded-full bg-black/40 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-md">
+                <div className="absolute bottom-4 right-4 rounded-md bg-black/40 px-3 py-1 text-[10px] font-bold text-white backdrop-blur-md">
                   {idx + 1} / {album.images.length}
                 </div>
               </motion.div>

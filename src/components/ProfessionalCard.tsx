@@ -15,14 +15,14 @@ export function ProfessionalCard({ professional, onClick }: ProfessionalCardProp
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick(professional.id)}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
     >
       <div className="flex p-4 gap-4">
         <div className="relative h-20 w-20 flex-shrink-0">
           <img
             src={professional.avatar}
             alt={professional.name}
-            className="h-full w-full rounded-xl object-cover"
+            className="h-full w-full rounded-md object-cover"
             referrerPolicy="no-referrer"
           />
           {professional.isVerified && (

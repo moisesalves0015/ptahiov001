@@ -31,7 +31,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
         <div className="flex items-center gap-4">
           <button 
             onClick={() => navigate('/dashboard/store')}
-            className="p-3 bg-white border border-slate-100 rounded-2xl text-slate-600 active:scale-90 transition-all shadow-sm"
+            className="p-3 bg-white border border-slate-100 rounded-lg text-slate-600 active:scale-90 transition-all shadow-sm"
           >
             <ArrowLeft size={20} />
           </button>
@@ -39,7 +39,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
         </div>
         <button 
           onClick={() => navigate('/store/products/new')}
-          className="p-4 bg-slate-900 text-accent rounded-2xl shadow-xl shadow-slate-900/10 active:scale-90 transition-all"
+          className="p-4 bg-slate-900 text-accent rounded-lg shadow-xl shadow-slate-900/10 active:scale-90 transition-all"
         >
           <Plus size={20} />
         </button>
@@ -52,23 +52,23 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
           <input 
             type="text"
             placeholder="Buscar nos seus produtos..."
-            className="w-full bg-white border border-slate-100 rounded-2xl py-5 pl-14 pr-5 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all shadow-sm"
+            className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-sm font-medium outline-none focus:ring-2 focus:ring-accent/20 transition-all shadow-sm"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex gap-2 p-1.5 bg-white border border-slate-100 rounded-2xl shadow-sm">
+          <div className="flex gap-2 p-1.5 bg-white border border-slate-100 rounded-lg shadow-sm">
             <button 
               onClick={() => setViewMode('grid')}
-              className={`p-2.5 rounded-xl transition-all ${viewMode === 'grid' ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`p-2.5 rounded-md transition-all ${viewMode === 'grid' ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
             >
               <LayoutGrid size={18} />
             </button>
             <button 
               onClick={() => setViewMode('list')}
-              className={`p-2.5 rounded-xl transition-all ${viewMode === 'list' ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`p-2.5 rounded-md transition-all ${viewMode === 'list' ? 'bg-slate-900 text-white shadow-md' : 'text-slate-400 hover:text-slate-600'}`}
             >
               <ListIcon size={18} />
             </button>
@@ -76,7 +76,7 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
 
           <button 
             onClick={() => onGeneratePDF(filteredProducts)}
-            className="flex items-center gap-2 px-6 py-3 bg-accent text-slate-900 rounded-2xl text-xs font-black uppercase tracking-widest shadow-lg shadow-accent/10 active:scale-95 transition-all"
+            className="flex items-center gap-2 px-6 py-3 bg-accent text-slate-900 rounded-lg text-xs font-black uppercase tracking-widest shadow-lg shadow-accent/10 active:scale-95 transition-all"
           >
             <FileDown size={18} />
             Gerar Encarte
@@ -87,8 +87,8 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
       {/* Grid/List View */}
       <section>
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm">
-            <div className="h-24 w-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6 text-slate-200">
+          <div className="text-center py-24 bg-white rounded-xl border border-slate-100 shadow-sm">
+            <div className="h-24 w-24 bg-slate-50 rounded-xl flex items-center justify-center mx-auto mb-6 text-slate-200">
               <Package size={48} />
             </div>
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Nenhum produto encontrado</p>
@@ -104,17 +104,17 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
                   transition={{ delay: i * 0.05 }}
                   layout
                   className={`bg-white border border-slate-100 group active:scale-[0.98] transition-all shadow-[0_10px_30px_rgba(0,0,0,0.02)] hover:border-accent/30 ${
-                    viewMode === 'grid' ? 'rounded-[2rem] p-4 flex flex-col' : 'rounded-3xl p-5 flex items-center gap-5'
+                    viewMode === 'grid' ? 'rounded-xl p-4 flex flex-col' : 'rounded-xl p-5 flex items-center gap-5'
                   }`}
                 >
-                  <div className={`relative overflow-hidden rounded-2xl bg-slate-50 ${viewMode === 'grid' ? 'aspect-square mb-4' : 'h-20 w-20 flex-shrink-0'}`}>
+                  <div className={`relative overflow-hidden rounded-lg bg-slate-50 ${viewMode === 'grid' ? 'aspect-square mb-4' : 'h-20 w-20 flex-shrink-0'}`}>
                     <img 
                       src={p.image} 
                       className="h-full w-full object-cover group-hover:scale-110 transition-transform duration-700" 
                       alt={p.name} 
                     />
                     {p.rating && viewMode === 'grid' && (
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-md flex items-center gap-1 shadow-sm">
                         <Star size={10} className="fill-amber-400 text-amber-400" />
                         <span className="text-[10px] font-black text-slate-900">{p.rating}</span>
                       </div>
@@ -126,10 +126,10 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
                     <div className="flex items-center justify-between">
                       <p className="text-xl font-black text-slate-900">R$ {p.price.toFixed(2)}</p>
                       <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition-all">
+                        <button className="p-2.5 text-slate-400 hover:text-slate-900 hover:bg-slate-50 rounded-md transition-all">
                           <Edit2 size={18} />
                         </button>
-                        <button className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all">
+                        <button className="p-2.5 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-md transition-all">
                           <Trash2 size={18} />
                         </button>
                       </div>
@@ -143,10 +143,10 @@ export const ProductManagement: React.FC<ProductManagementProps> = ({ storeId, o
       </section>
 
       {/* Stats Summary */}
-      <section className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden">
+      <section className="bg-slate-900 rounded-xl p-8 text-white shadow-2xl shadow-slate-900/20 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl pointer-events-none" />
         <div className="flex items-center gap-4 mb-4">
-          <div className="h-10 w-10 bg-accent text-slate-900 rounded-full flex items-center justify-center">
+          <div className="h-10 w-10 bg-accent text-slate-900 rounded-lg flex items-center justify-center">
             <Package size={20} />
           </div>
           <h3 className="text-sm font-black uppercase tracking-widest text-accent">Resumo do Estoque</h3>

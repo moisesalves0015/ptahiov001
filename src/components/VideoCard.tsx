@@ -77,7 +77,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
         {!isYT && (
           <button
             onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
-            className="rounded-full bg-black/10 p-2 backdrop-blur-sm border border-white/10"
+            className="rounded-lg bg-black/10 p-2 backdrop-blur-sm border border-white/10"
           >
             {isMuted
               ? <VolumeX size={18} className="text-white/80" />
@@ -111,7 +111,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       <div className="absolute bottom-28 right-4 z-20 flex flex-col items-center gap-6">
         {/* Salvar */}
         <div className="flex flex-col items-center gap-1">
-          <button className="flex h-12 w-12 items-center justify-center rounded-full bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
+          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
             <Bookmark size={22} className="text-white/90" />
           </button>
           <span className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Salvar</span>
@@ -119,7 +119,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
         {/* Compartilhar */}
         <div className="flex flex-col items-center gap-1">
-          <button className="flex h-12 w-12 items-center justify-center rounded-full bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
+          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
             <Share2 size={22} className="text-white/90" />
           </button>
           <span className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Enviar</span>
@@ -130,7 +130,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
           <div className="flex flex-col items-center gap-1">
             <button
               onClick={(e) => { e.stopPropagation(); setShowProducts(true); }}
-              className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/90 backdrop-blur-xl border border-emerald-400/40 active:scale-90 transition-all shadow-lg shadow-emerald-900/30"
+              className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/90 backdrop-blur-xl border border-emerald-400/40 active:scale-90 transition-all shadow-lg shadow-emerald-900/30"
             >
               <ShoppingBag size={22} className="text-white" />
             </button>
@@ -164,7 +164,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 z-50 rounded-t-[2rem] bg-white shadow-2xl overflow-hidden"
+              className="absolute bottom-0 left-0 right-0 z-50 rounded-t-2xl bg-white shadow-2xl overflow-hidden"
             >
               <div className="px-8 pt-4 pb-8">
                 <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-slate-200" />
@@ -173,7 +173,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
                     <h3 className="text-xl font-bold text-slate-900 tracking-tight">Produtos Utilizados</h3>
                     <p className="text-xs text-slate-400 mt-1">Toque para ver detalhes e comprar</p>
                   </div>
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                  <span className="rounded-md bg-slate-100 px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                     {post.products?.length} {post.products?.length === 1 ? 'item' : 'itens'}
                   </span>
                 </div>
@@ -183,9 +183,9 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
                     <div
                       key={product.id}
                       onClick={() => { onProductClick?.(product); setShowProducts(false); }}
-                      className="group flex cursor-pointer items-center gap-4 rounded-2xl border border-slate-100 p-3 transition-all hover:bg-slate-50 active:scale-[0.98]"
+                      className="group flex cursor-pointer items-center gap-4 rounded-lg border border-slate-100 p-3 transition-all hover:bg-slate-50 active:scale-[0.98]"
                     >
-                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl bg-slate-50">
+                      <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-slate-50">
                         <img
                           src={product.image}
                           alt={product.name}
@@ -209,7 +209,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
                 <button
                   onClick={() => setShowProducts(false)}
-                  className="mt-6 w-full rounded-2xl bg-slate-900 py-4 text-xs font-bold text-white uppercase tracking-[0.2em] transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/20"
+                  className="mt-6 w-full rounded-lg bg-slate-900 py-4 text-xs font-bold text-white uppercase tracking-[0.2em] transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/20"
                 >
                   Continuar Assistindo
                 </button>

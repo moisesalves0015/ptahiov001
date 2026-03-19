@@ -14,14 +14,14 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, onClick }) => {
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick?.(store.id)}
-      className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
     >
       <div className="flex p-4 gap-4">
         <div className="relative h-16 w-16 flex-shrink-0">
           <img
             src={store.avatar}
             alt={store.name}
-            className="h-full w-full rounded-xl object-cover"
+            className="h-full w-full rounded-md object-cover"
             referrerPolicy="no-referrer"
           />
           {store.isVerified && (
@@ -59,7 +59,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, onClick }) => {
       </div>
 
       <div className="px-4 pb-4">
-        <button className="w-full flex items-center justify-center gap-2 rounded-xl bg-slate-100 py-2.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-900 hover:text-white active:scale-95 whitespace-nowrap truncate">
+        <button className="w-full flex items-center justify-center gap-2 rounded-md bg-slate-100 py-2.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-900 hover:text-white active:scale-95 whitespace-nowrap truncate">
           <ShoppingBag size={14} className="flex-shrink-0" />
           Ver Catálogo
         </button>

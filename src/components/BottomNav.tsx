@@ -35,7 +35,7 @@ export function BottomNav({ currentView, onViewChange }: BottomNavProps) {
             className="relative flex flex-col items-center justify-center gap-1 transition-all active:scale-90"
           >
             <div
-              className={`flex h-12 w-12 items-center justify-center rounded-2xl transition-all duration-300 ${
+              className={`flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 ${
                 isActive 
                   ? (currentView === 'feed' ? 'bg-white text-black shadow-xl shadow-white/10' : 'bg-slate-900 text-white shadow-xl shadow-slate-900/20')
                   : (currentView === 'feed' ? 'text-white/40 hover:bg-white/5' : 'text-slate-400 hover:bg-slate-50')

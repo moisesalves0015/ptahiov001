@@ -15,7 +15,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick?.(product)}
-      className="group cursor-pointer overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
     >
       <div className="relative aspect-square overflow-hidden bg-slate-50">
         <img
@@ -40,7 +40,7 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
           <span className="text-[10px] text-slate-400 line-through">R$ {(product.price * 1.15).toFixed(2)}</span>
         </div>
 
-        <button className="mt-3 w-full rounded-xl bg-slate-900 py-2 text-[10px] font-bold text-white transition-all active:scale-95 whitespace-nowrap truncate">
+        <button className="mt-3 w-full rounded-md bg-slate-900 py-2 text-[10px] font-bold text-white transition-all active:scale-95 whitespace-nowrap truncate">
           Comprar
         </button>
       </div>

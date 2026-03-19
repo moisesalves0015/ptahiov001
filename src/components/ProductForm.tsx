@@ -43,7 +43,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
       <section className="flex items-center gap-4">
         <button 
           onClick={() => navigate(-1)}
-          className="p-3 bg-white border border-slate-100 rounded-2xl text-slate-600 active:scale-90 transition-all shadow-sm"
+          className="p-3 bg-white border border-slate-100 rounded-lg text-slate-600 active:scale-90 transition-all shadow-sm"
         >
           <ArrowLeft size={20} />
         </button>
@@ -59,19 +59,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
           <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
             <button 
               type="button"
-              className="h-32 w-32 flex-shrink-0 bg-white border-2 border-dashed border-slate-200 rounded-[2rem] flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-accent hover:text-accent transition-all active:scale-95 shadow-sm"
+              className="h-32 w-32 flex-shrink-0 bg-white border-2 border-dashed border-slate-200 rounded-xl flex flex-col items-center justify-center gap-2 text-slate-400 hover:border-accent hover:text-accent transition-all active:scale-95 shadow-sm"
             >
               <Camera size={24} />
               <span className="text-[10px] font-black uppercase tracking-widest">Adicionar</span>
             </button>
             
             {previews.map((src, i) => (
-              <div key={i} className="relative h-32 w-32 flex-shrink-0 rounded-[2rem] overflow-hidden group shadow-md">
+              <div key={i} className="relative h-32 w-32 flex-shrink-0 rounded-xl overflow-hidden group shadow-md">
                 <img src={src} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" alt={`Preview ${i}`} />
                 <button 
                   type="button"
                   onClick={() => setPreviews(prev => prev.filter((_, idx) => idx !== i))}
-                  className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm text-red-500 rounded-xl shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white"
+                  className="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-sm text-red-500 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white"
                 >
                   <X size={16} />
                 </button>
@@ -90,7 +90,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                 type="text"
                 required
                 placeholder="Ex: Porcelanato Retificado 60x60"
-                className="w-full bg-white border border-slate-100 rounded-2xl py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm placeholder:text-slate-300"
+                className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm placeholder:text-slate-300"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
@@ -107,7 +107,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                   required
                   step="0.01"
                   placeholder="0,00"
-                  className="w-full bg-white border border-slate-100 rounded-2xl py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-black shadow-sm"
+                  className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-black shadow-sm"
                   value={formData.price || ''}
                   onChange={handlePriceChange}
                 />
@@ -117,7 +117,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Unidade</label>
               <div className="relative">
-                <select className="w-full bg-white border border-slate-100 rounded-2xl py-5 px-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm appearance-none">
+                <select className="w-full bg-white border border-slate-100 rounded-lg py-5 px-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm appearance-none">
                   <option>Unidade (un)</option>
                   <option>Metro (m)</option>
                   <option>Metro Quadrado (m²)</option>
@@ -135,7 +135,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
               <AlignLeft className="absolute left-5 top-5 text-slate-300" size={20} />
               <textarea 
                 placeholder="Descreva as especificações técnicas, marca, cores disponíveis..."
-                className="w-full bg-white border border-slate-100 rounded-[2rem] py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium h-40 resize-none shadow-sm placeholder:text-slate-300"
+                className="w-full bg-white border border-slate-100 rounded-xl py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium h-40 resize-none shadow-sm placeholder:text-slate-300"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
@@ -149,7 +149,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                 <button 
                   key={cat}
                   type="button"
-                  className="rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] transition-all bg-white border border-slate-100 text-slate-400 hover:border-slate-900 hover:text-slate-900 active:scale-95 shadow-sm"
+                  className="rounded-md px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] transition-all bg-white border border-slate-100 text-slate-400 hover:border-slate-900 hover:text-slate-900 active:scale-95 shadow-sm"
                 >
                   {cat}
                 </button>
@@ -163,13 +163,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
           <button 
             type="button"
             onClick={() => navigate(-1)}
-            className="flex-1 py-5 rounded-2xl bg-white border border-slate-100 text-slate-400 font-black uppercase tracking-widest text-xs active:scale-95 transition-all shadow-sm"
+            className="flex-1 py-5 rounded-lg bg-white border border-slate-100 text-slate-400 font-black uppercase tracking-widest text-xs active:scale-95 transition-all shadow-sm"
           >
             Cancelar
           </button>
           <button 
             type="submit"
-            className="flex-[2] py-5 rounded-2xl bg-slate-900 text-white font-black uppercase tracking-widest text-xs shadow-2xl shadow-slate-900/20 active:scale-95 transition-all flex items-center justify-center gap-2 group"
+            className="flex-[2] py-5 rounded-lg bg-slate-900 text-white font-black uppercase tracking-widest text-xs shadow-2xl shadow-slate-900/20 active:scale-95 transition-all flex items-center justify-center gap-2 group"
           >
             <Save size={18} className="group-hover:scale-110 transition-transform" />
             {product ? 'Salvar Alterações' : 'Cadastrar Produto'}
@@ -178,10 +178,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
       </form>
 
       {/* Security Tip */}
-      <section className="bg-white rounded-[2.5rem] p-8 border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] relative overflow-hidden">
+      <section className="bg-white rounded-xl p-8 border border-slate-100 shadow-[0_10px_30px_rgba(0,0,0,0.02)] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-24 h-24 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
         <div className="flex items-center gap-4 mb-4">
-          <div className="h-10 w-10 bg-accent/10 text-accent rounded-full flex items-center justify-center">
+          <div className="h-10 w-10 bg-accent/10 text-accent rounded-lg flex items-center justify-center">
             <Check size={20} strokeWidth={3} />
           </div>
           <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">Dica de Vendas</h3>
