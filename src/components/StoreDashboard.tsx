@@ -25,7 +25,7 @@ export const StoreDashboard: React.FC<StoreDashboardProps> = ({ user, onLogout }
   ];
 
   return (
-    <div className="p-6 pb-24 space-y-8 max-w-lg mx-auto bg-slate-50 min-h-screen">
+    <div className="p-6 pb-32 space-y-8 max-w-lg mx-auto bg-slate-50 min-h-screen">
       {/* Welcome Header */}
       <section className="flex items-center justify-between">
         <div>

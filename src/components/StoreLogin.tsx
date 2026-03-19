@@ -44,7 +44,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
       </header>
 
       {/* Hero Section */}
-      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pb-12">
+      <main className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 pb-32">
         <div className="max-w-md w-full">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

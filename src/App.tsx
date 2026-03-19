@@ -247,7 +247,7 @@ export default function App() {
       )}
 
       {/* Main Content Area */}
-      <main className={`h-full w-full ${currentView === 'feed' ? 'no-scrollbar overflow-hidden' : 'overflow-y-auto pb-20'}`}>
+      <main className={`h-full w-full ${currentView === 'feed' ? 'no-scrollbar overflow-hidden' : 'overflow-y-auto pb-32'}`}>
         <AnimatePresence mode="wait">
           <Routes location={location}>
             <Route path="/" element={

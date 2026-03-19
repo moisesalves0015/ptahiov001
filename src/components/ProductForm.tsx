@@ -38,7 +38,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
   };
 
   return (
-    <div className="p-6 pb-24 space-y-8 max-w-lg mx-auto bg-slate-50 min-h-screen">
+    <div className="p-6 pb-32 space-y-8 max-w-lg mx-auto bg-slate-50 min-h-screen">
       {/* Header */}
       <section className="flex items-center gap-4">
         <button 
