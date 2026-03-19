@@ -88,7 +88,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
       {/* ── Overlay inferior (autor + descrição) ── */}
       {/* pb-24 garante espaço acima do BottomNav */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/85 via-black/30 to-transparent px-6 pb-[88px] pt-20 text-white pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/85 via-black/30 to-transparent px-6 pb-44 pt-20 text-white pointer-events-none">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 overflow-hidden rounded-full border border-white/20 p-0.5 flex-shrink-0">
             <img
@@ -108,7 +108,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       </div>
 
       {/* ── Sidebar de ações (Salvar / Compartilhar / Produtos) ── */}
-      <div className="absolute bottom-28 right-4 z-20 flex flex-col items-center gap-6">
+      <div className="absolute bottom-48 right-4 z-20 flex flex-col items-center gap-6">
         {/* Salvar */}
         <div className="flex flex-col items-center gap-1">
           <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">

@@ -791,8 +791,9 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="h-full w-full snap-y snap-mandatory overflow-y-auto no-scrollbar scroll-smooth"
+              className="h-full w-full snap-y snap-mandatory overflow-y-auto no-scrollbar scroll-smooth bg-black"
               onScroll={handleFeedScroll}
+              style={{ scrollSnapType: 'y mandatory', height: '100%' }}
             >
               {MOCK_VIDEOS.map((post, index) => (
                 <VideoCard 
