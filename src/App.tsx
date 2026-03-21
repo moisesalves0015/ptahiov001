@@ -4,7 +4,8 @@ import {
   Search, Bell, Menu, ArrowLeft, Filter, Map as MapIcon, List, User as UserIcon,
   Camera, Upload, X, Check, ShoppingBag, Store as StoreIcon, Tag, Zap, Film,
   ChevronRight, Search as SearchIcon, Heart, MapPin, CheckCircle2, Star, ArrowRight,
-  HardHat, Paintbrush, Droplets, Hammer, Layers, PencilRuler, Compass, Wind, Sprout, Sparkles, Home
+  HardHat, Paintbrush, Droplets, Hammer, Layers, PencilRuler, Compass, Wind, Sprout, Sparkles, Home,
+  Award, PlayCircle, MessageCircle, Info, ExternalLink, ShieldCheck
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { AppView, Professional, User, UserRole, Store, Product } from './types';
@@ -64,7 +65,7 @@ export default function App() {
   const location = useLocation();
   const [user, setUser] = useState<User | null>(() => {
     try {
-      const saved = localStorage.getItem('ptah_user');
+      const saved = localStorage.getItem('gramin_user');
       return saved ? JSON.parse(saved) : null;
     } catch (e) {
       console.error('Erro ao carregar usuário do localStorage', e);
@@ -74,9 +75,9 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      localStorage.setItem('ptah_user', JSON.stringify(user));
+      localStorage.setItem('gramin_user', JSON.stringify(user));
     } else {
-      localStorage.removeItem('ptah_user');
+      localStorage.removeItem('gramin_user');
     }
   }, [user]);
   
@@ -196,48 +197,98 @@ export default function App() {
       <ScrollToTop />
       {/* Header - Hidden on Feed View */}
       {currentView !== 'feed' && (
-        <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-slate-100 bg-white/90 px-6 backdrop-blur-xl">
-          <div className="flex items-center gap-4">
-            {['professional-detail', 'store-detail', 'photo-request', 'all-professionals', 'all-stores', 'all-categories', 'product-detail', 'store-products', 'store-products-new'].includes(currentView) || location.pathname.startsWith('/store/') || location.pathname.startsWith('/product/') ? (
-              <button 
-                onClick={() => navigate(-1)}
-                className="rounded-lg p-2 hover:bg-slate-100 transition-colors"
-              >
-                <ArrowLeft size={24} className="text-slate-900" />
-              </button>
-            ) : (
-              <Link to="/" className="flex items-center gap-2.5 group">
-                <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-slate-900 text-white shadow-lg transition-transform group-active:scale-95">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-transparent opacity-50" />
-                  <span className="relative text-xl font-black italic">P</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-xl font-black tracking-tight text-slate-900 leading-none">ptah.io</span>
-                  <span className="text-[8px] font-black uppercase tracking-[0.3em] text-accent leading-none mt-1">Materiais e profissionais</span>
-                </div>
-              </Link>
-            )}
+        <header className="sticky top-0 z-50 flex h-20 items-center justify-between border-b border-slate-100 bg-white/80 px-6 backdrop-blur-md">
+          {/* Logo & Navigation */}
+          <div className="flex items-center gap-6">
+            <Link to="/" className="flex items-center gap-3 group">
+              <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-slate-900 text-white shadow-xl shadow-slate-900/10 transition-all group-hover:shadow-emerald-500/20 group-active:scale-95">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/40 to-transparent opacity-50" />
+                <span className="relative text-2xl font-black italic">G</span>
+              </div>
+              <div className="hidden sm:flex flex-col">
+                <span className="text-xl font-black tracking-tighter text-slate-900 leading-none group-hover:text-emerald-600 transition-colors uppercase">Gramin</span>
+                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-slate-400 group-hover:text-emerald-500 transition-colors leading-none mt-1.5">Materiais e profissionais</span>
+              </div>
+            </Link>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button className="relative rounded-lg p-2.5 text-slate-600 hover:bg-slate-100 transition-colors">
-              <Bell size={22} />
-              <span className="absolute right-2 top-2 flex h-4 w-4 items-center justify-center rounded-md bg-accent text-[10px] font-black text-slate-900 ring-2 ring-white">
+          {/* Navigation Menu - Desktop/Tablet */}
+          <nav className="hidden md:flex items-center gap-1 bg-slate-100/50 p-1.5 rounded-2xl border border-slate-200/50">
+            <button 
+              onClick={() => navigate('/')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                location.pathname === '/' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Home size={14} />
+              Início
+            </button>
+            <button 
+              onClick={() => navigate('/all-professionals')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                location.pathname === '/all-professionals' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Award size={14} />
+              Profissionais
+            </button>
+            <button 
+              onClick={() => navigate('/all-stores')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                location.pathname === '/all-stores' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <ShoppingBag size={14} />
+              Lojas
+            </button>
+            <button 
+              onClick={() => navigate('/marketplace')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                location.pathname === '/marketplace' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <Tag size={14} />
+              Produtos
+            </button>
+            <button 
+              onClick={() => navigate('/feed')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+                location.pathname === '/feed' ? 'bg-white text-emerald-600 shadow-sm' : 'text-slate-500 hover:text-slate-900'
+              }`}
+            >
+              <PlayCircle size={14} />
+              Feed
+            </button>
+          </nav>
+
+          {/* Actions Column */}
+          <div className="flex items-center gap-3">
+            <button className="relative rounded-xl p-3 text-slate-600 hover:bg-slate-100 hover:text-emerald-600 transition-all active:scale-90 group/bell">
+              <Bell size={22} className="group-hover/bell:animate-bounce" />
+              <span className="absolute right-2.5 top-2.5 flex h-4.5 w-4.5 items-center justify-center rounded-lg bg-emerald-500 text-[9px] font-black text-white ring-4 ring-white shadow-sm">
                 3
               </span>
             </button>
             
+            <div className="h-8 w-px bg-slate-100 mx-1 hidden sm:block" />
+
             {user ? (
               <button 
                 onClick={() => handleViewChange('profile')}
-                className="h-10 w-10 overflow-hidden rounded-lg border-2 border-slate-100 shadow-sm transition-transform active:scale-95"
+                className="group relative flex items-center gap-2 p-1 pl-1 pr-3 rounded-xl border border-transparent hover:border-slate-100 hover:bg-slate-50 transition-all active:scale-95"
               >
-                <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
+                <div className="h-10 w-10 overflow-hidden rounded-lg shadow-sm border border-slate-200">
+                  <img src={user.avatar} alt={user.name} className="h-full w-full object-cover" />
+                </div>
+                <div className="hidden lg:flex flex-col items-start">
+                  <p className="text-[10px] font-black text-slate-900 leading-none">{user.name.split(' ')[0]}</p>
+                  <p className="text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Perfil</p>
+                </div>
               </button>
             ) : (
               <button 
                 onClick={() => handleViewChange('profile')}
-                className="rounded-lg bg-slate-900 px-6 py-2.5 text-xs font-black text-white shadow-lg shadow-slate-900/20 transition-all active:scale-95 hover:bg-slate-800"
+                className="rounded-xl bg-slate-900 px-6 py-3 text-xs font-black text-white shadow-xl shadow-slate-900/10 transition-all active:scale-95 hover:bg-slate-800 hover:-translate-y-0.5"
               >
                 Entrar
               </button>
@@ -353,10 +404,7 @@ export default function App() {
                   </section>
 
 
-                  {/* Banners */}
-                  <section>
-                    <BannerCarousel banners={MOCK_BANNERS} onBannerClick={(link) => handleViewChange(link as any)} />
-                  </section>
+
 
                     {/* Categories */}
                     <section>
@@ -491,9 +539,9 @@ export default function App() {
                             className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 space-y-4"
                           >
                             {[
-                              { text: "ptah.io é a", highlight: "escolha perfeita!", icon: <CheckCircle2 size={16} /> },
-                              { text: "ptah.io vai ser", highlight: "sua melhor escolha!", icon: <CheckCircle2 size={16} /> },
-                              { text: "Você pesquisou", highlight: "por ptah.io!", icon: <CheckCircle2 size={16} /> }
+                              { text: "Gramin é a", highlight: "escolha perfeita!", icon: <CheckCircle2 size={16} /> },
+                              { text: "Gramin vai ser", highlight: "sua melhor escolha!", icon: <CheckCircle2 size={16} /> },
+                              { text: "Você pesquisou", highlight: "por Gramin!", icon: <CheckCircle2 size={16} /> }
                             ].map((item, idx) => (
                               <div key={idx} className="flex items-center gap-3 text-slate-300">
                                 <div className="text-emerald-500">{item.icon}</div>
@@ -511,7 +559,7 @@ export default function App() {
                         <img 
                           src="/src/professional_electrician.png" 
                           className="h-full w-full object-cover" 
-                          alt="Profissional Ptah"
+                          alt="Profissional Gramin"
                         />
                         <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent lg:block hidden" />
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent lg:hidden block" />
@@ -541,7 +589,7 @@ export default function App() {
                       </button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                      {MOCK_PROFESSIONALS.map((prof) => (
+                      {MOCK_PROFESSIONALS.slice(0, 6).map((prof) => (
                         <ProfessionalCard 
                           key={prof.id} 
                           professional={prof} 
@@ -573,7 +621,7 @@ export default function App() {
                       </button>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {MOCK_STORES.map((store) => (
+                      {MOCK_STORES.slice(0, 6).map((store) => (
                         <StoreCard 
                           key={store.id} 
                           store={store} 
@@ -586,6 +634,10 @@ export default function App() {
                     </div>
                   </section>
 
+                  {/* Banners - Reposicionados */}
+                  <section>
+                    <BannerCarousel banners={MOCK_BANNERS} onBannerClick={(link) => handleViewChange(link as any)} />
+                  </section>
                   {/* Marketplace Feed */}
                   <section>
                     <div className="mb-5 flex items-center justify-between">
@@ -715,72 +767,81 @@ export default function App() {
             } />
 
             <Route path="/photo-request" element={
-              <motion.div
-                key="photo-request"
+            <motion.div
+              key="photo-request"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
-              <div className="mb-8 flex items-center gap-4">
+              <div className="mb-10 flex items-center gap-4">
                 <button 
                   onClick={() => handleViewChange('home')}
-                  className="rounded-full bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
+                  className="rounded-xl bg-slate-100 p-3 text-slate-600 hover:bg-slate-200 transition-all active:scale-95"
                 >
                   <ArrowLeft size={24} />
                 </button>
-                <h1 className="text-2xl font-black text-slate-900">Orçamento por Foto</h1>
+                <h2 className="text-3xl font-black text-slate-900 leading-none">Orçamento por Foto</h2>
               </div>
 
-              <div className="space-y-8">
-                <div className="rounded-lg bg-blue-50 p-4 border border-blue-100 flex items-start gap-3">
-                  <div className="mt-1 text-blue-600">
-                    <Zap size={20} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                {/* Visual/Instruction Column */}
+                <div className="space-y-8">
+                  <div className="rounded-3xl bg-slate-50 p-12 text-center border-2 border-dashed border-slate-200 hover:border-emerald-500/30 transition-all group flex flex-col items-center justify-center min-h-[400px]">
+                    <div className="mb-6 rounded-3xl bg-white p-8 text-emerald-600 shadow-2xl shadow-emerald-500/10 group-hover:scale-110 transition-transform">
+                      <Upload size={48} />
+                    </div>
+                    <h3 className="text-2xl font-black text-slate-900">Tire ou envie fotos</h3>
+                    <p className="mt-4 text-base font-medium text-slate-500 max-w-xs mx-auto leading-relaxed">Mostre o que precisa ser feito para receber orçamentos precisos de especialistas verificados.</p>
+                    <button className="mt-8 rounded-2xl bg-emerald-600 px-10 py-5 font-black text-white shadow-xl shadow-emerald-500/20 transition-all active:scale-95 hover:bg-emerald-700">
+                      Selecionar dos Meus Arquivos
+                    </button>
                   </div>
-                  <div>
-                    <h4 className="text-sm font-black text-blue-900">Economize Tempo</h4>
-                    <p className="text-xs font-medium text-blue-700/80">Ao enviar fotos, nossos especialistas conseguem dar orçamentos muito mais precisos e rápidos sem precisar de visita técnica imediata.</p>
+
+                  <div className="p-8 rounded-3xl bg-amber-50 border border-amber-100 flex items-start gap-4">
+                    <div className="p-3 rounded-xl bg-amber-500 text-white shadow-lg">
+                      <Info size={24} />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-black text-amber-900 mb-1">Dica de Especialista</h4>
+                      <p className="text-xs font-bold text-amber-800/70 leading-relaxed">
+                        Ao enviar fotos, nossos especialistas conseguem dar orçamentos muito mais precisos e rápidos sem precisar de visita técnica imediata.
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="rounded-xl bg-primary/5 p-8 text-center border-2 border-dashed border-primary/20">
-                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-xl bg-primary text-white shadow-xl shadow-primary/20">
-                    <Upload size={32} />
+                {/* Form Column */}
+                <div className="space-y-10">
+                  <div className="space-y-4">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">O que você precisa?</label>
+                    <textarea 
+                      placeholder="Descreva aqui o serviço em detalhes... exemplo: Instalação de porcelanato em sala de 20m²."
+                      className="w-full h-48 rounded-2xl bg-slate-50 p-8 text-base font-medium outline-none border border-transparent focus:border-emerald-500/30 focus:bg-white focus:ring-4 focus:ring-emerald-500/5 transition-all resize-none shadow-inner"
+                      value={photoRequestData.description}
+                      onChange={(e) => setPhotoRequestData({ ...photoRequestData, description: e.target.value })}
+                    />
                   </div>
-                  <h3 className="text-lg font-black text-slate-900">Tire ou envie fotos</h3>
-                  <p className="mt-2 text-sm font-medium text-slate-500">Mostre o que precisa ser feito para receber orçamentos precisos.</p>
-                  <button className="mt-6 rounded-lg bg-primary px-8 py-4 font-black text-white shadow-lg shadow-primary/20 transition-all active:scale-95">
-                    Selecionar Fotos
+
+                  <div className="space-y-4">
+                    <label className="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Qual a categoria?</label>
+                    <div className="flex flex-wrap gap-3">
+                      {['Pedreiro', 'Pintor', 'Eletricista', 'Encanador', 'Outros'].map((cat) => (
+                        <button 
+                          key={cat}
+                          className="rounded-xl bg-slate-100 px-6 py-4 text-sm font-black text-slate-600 transition-all border border-transparent hover:border-emerald-500/30 hover:bg-white active:scale-95"
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button className="w-full rounded-2xl bg-slate-900 py-6 font-black text-white shadow-2xl transition-all active:scale-95 hover:bg-slate-800 flex items-center justify-center gap-3">
+                    Enviar Solicitação Segura
+                    <ChevronRight size={20} />
                   </button>
                 </div>
-
-                <div className="space-y-4">
-                  <label className="text-sm font-black text-slate-900 uppercase tracking-widest">Descrição do Serviço</label>
-                  <textarea 
-                    placeholder="Ex: Preciso trocar o piso da sala e pintar as paredes..."
-                    className="w-full h-40 rounded-xl bg-slate-100 p-6 text-sm font-medium outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
-                    value={photoRequestData.description}
-                    onChange={(e) => setPhotoRequestData({ ...photoRequestData, description: e.target.value })}
-                  />
-                </div>
-
-                <div className="space-y-4">
-                  <label className="text-sm font-black text-slate-900 uppercase tracking-widest">Categoria</label>
-                  <div className="flex flex-wrap gap-2">
-                    {['Pedreiro', 'Pintor', 'Eletricista', 'Encanador', 'Outros'].map((cat) => (
-                      <button 
-                        key={cat}
-                        className="rounded-lg bg-slate-100 px-6 py-3 text-xs font-black text-slate-600 transition-all hover:bg-primary hover:text-white active:scale-95"
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <button className="w-full rounded-xl bg-slate-900 py-5 font-black text-white shadow-xl transition-all active:scale-95 hover:bg-slate-800">
-                  Enviar Solicitação
-                </button>
               </div>
             </motion.div>
             } />
@@ -813,7 +874,7 @@ export default function App() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               <div className="mb-8 flex items-center justify-between">
                 <h1 className="text-2xl font-black text-slate-900">Buscar</h1>
@@ -879,7 +940,7 @@ export default function App() {
                   <h2 className="mb-5 text-sm font-black text-slate-900 uppercase tracking-widest">
                     {searchQuery === '' ? 'Populares' : 'Resultados'}
                   </h2>
-                  <div className="space-y-6">
+                  <div className={searchTab === 'profissionais' ? "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6" : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4"}>
                     {searchTab === 'profissionais' ? (
                       MOCK_PROFESSIONALS
                         .filter(p => searchQuery === '' || p.name.toLowerCase().includes(searchQuery.toLowerCase()) || p.specialty.toLowerCase().includes(searchQuery.toLowerCase()))
@@ -887,13 +948,11 @@ export default function App() {
                           <ProfessionalCard key={prof.id} professional={prof} onClick={handleProfessionalClick} />
                         ))
                     ) : (
-                      <div className="grid grid-cols-2 gap-4">
-                        {MOCK_PRODUCTS
-                          .filter(p => searchQuery === '' || p.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                          .map(product => (
-                            <ProductCard key={product.id} product={product} onClick={handleProductClick} />
-                          ))}
-                      </div>
+                      MOCK_PRODUCTS
+                        .filter(p => searchQuery === '' || p.name.toLowerCase().includes(searchQuery.toLowerCase()))
+                        .map(product => (
+                          <ProductCard key={product.id} product={product} onClick={handleProductClick} />
+                        ))
                     )}
                   </div>
                 </section>
@@ -912,20 +971,20 @@ export default function App() {
               className="p-4"
             >
               <h2 className="mb-6 text-2xl font-black text-slate-900">Notificações</h2>
-              <div className="flex flex-col gap-4">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="flex gap-4 rounded-lg border border-border bg-white p-4 shadow-sm">
-                    <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                      <Bell size={24} />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="flex gap-4 rounded-xl border border-slate-100 bg-white p-6 shadow-sm hover:shadow-md transition-all">
+                      <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+                        <Bell size={28} />
+                      </div>
+                      <div>
+                        <p className="text-base font-black text-slate-900 leading-tight">Novo orçamento respondido!</p>
+                        <p className="mt-2 text-sm font-medium text-slate-500">João Silva enviou uma proposta para sua reforma no Centro.</p>
+                        <span className="mt-3 block text-[10px] font-black text-slate-400 uppercase tracking-widest">Há 2 horas</span>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-bold text-slate-900">Novo orçamento respondido!</p>
-                      <p className="mt-1 text-xs text-slate-500">João Silva enviou uma proposta para sua reforma no Centro.</p>
-                      <span className="mt-2 block text-[10px] font-medium text-slate-400">Há 2 horas</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
             </motion.div>
             } />
 
@@ -935,14 +994,14 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="p-4"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               {!user ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
                   <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-xl bg-primary/10 text-primary">
                     <UserIcon size={40} />
                   </div>
-                  <h2 className="text-2xl font-black text-slate-900">Bem-vindo ao ptah.io</h2>
+                  <h2 className="text-2xl font-black text-slate-900">Bem-vindo ao Gramin</h2>
                   <p className="mt-2 text-slate-500">Escolha como deseja entrar na plataforma</p>
                   
                   <div className="mt-6 w-full rounded-lg bg-primary/5 p-4 border border-primary/10">
@@ -1056,7 +1115,7 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               <div className="mb-8 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -1080,7 +1139,7 @@ export default function App() {
                 />
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {MOCK_PROFESSIONALS.map(prof => (
                   <ProfessionalCard key={prof.id} professional={prof} onClick={handleProfessionalClick} />
                 ))}
@@ -1094,7 +1153,7 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               <div className="mb-8 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -1109,7 +1168,36 @@ export default function App() {
                 <button className="p-3 bg-slate-100 rounded-lg text-slate-600"><Filter size={20} /></button>
               </div>
 
-              <div className="flex flex-col gap-6">
+              {/* Simplified Minimalist Ad Card */}
+              <div className="relative mb-12 mt-4 overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-slate-800 to-emerald-950 p-6 md:p-10 text-white shadow-xl border border-white/5">
+                <div className="relative z-20 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="max-w-2xl">
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-4 inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 px-4 py-1.5 border border-emerald-500/20 backdrop-blur-md"
+                    >
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-400">Do piso ao teto</span>
+                    </motion.div>
+                    
+                    <h2 className="text-3xl font-black leading-tight md:text-4xl tracking-tight">
+                      Temos tudo para sua <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">casa dos sonhos</span>
+                    </h2>
+                  </div>
+                  
+                  <div className="flex-shrink-0">
+                    <button className="rounded-xl bg-emerald-500 px-8 py-4 font-black text-slate-950 shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-3">
+                      Ver Ofertas
+                      <ArrowRight size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Subtle background glow for depth */}
+                <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-500/10 blur-[100px]" />
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {MOCK_STORES.map(store => (
                   <StoreCard 
                     key={store.id} 
@@ -1133,7 +1221,7 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               <div className="mb-8 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -1165,19 +1253,33 @@ export default function App() {
                 ))}
               </div>
 
-              <div className="mb-8 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white shadow-xl shadow-orange-200">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md">
-                    <ShoppingBag size={20} className="text-white" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                <div className="rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 text-white shadow-xl shadow-emerald-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md">
+                      <Zap size={20} className="text-white" />
+                    </div>
+                    <h4 className="text-lg font-black">Entrega Turbo</h4>
                   </div>
-                  <h4 className="text-lg font-black">Garantia ptah.io</h4>
+                  <p className="text-xs font-bold leading-relaxed opacity-90">
+                    Sua obra não pode parar. Receba seus materiais com velocidade prioritária e rastreamento em tempo real.
+                  </p>
                 </div>
-                <p className="text-xs font-bold leading-relaxed opacity-90">
-                  Tudo o que você precisa para sua obra com entrega rápida e segura. Se não chegar como esperado, nós resolvemos para você.
-                </p>
+
+                <div className="rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 p-6 text-white shadow-xl shadow-orange-200">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md">
+                      <ShieldCheck size={20} className="text-white" />
+                    </div>
+                    <h4 className="text-lg font-black">Satisfação Gramin</h4>
+                  </div>
+                  <p className="text-xs font-bold leading-relaxed opacity-90">
+                    Segurança total para sua compra. Se o material não chegar exatamente como esperado, nós resolvemos.
+                  </p>
+                </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
                 {MOCK_PRODUCTS.map(product => (
                   <ProductCard key={product.id} product={product} onClick={handleProductClick} />
                 ))}
@@ -1197,7 +1299,7 @@ export default function App() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="p-6 pb-24"
+              className="p-6 pb-24 max-w-7xl mx-auto w-full"
             >
               <div className="mb-8 flex items-center gap-4">
                 <button 
@@ -1209,7 +1311,7 @@ export default function App() {
                 <h1 className="text-2xl font-black text-slate-900">Categorias</h1>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                 {[
                   { name: 'Pedreiro', icon: <HardHat size={32} /> },
                   { name: 'Pintor', icon: <Paintbrush size={32} /> },
@@ -1309,9 +1411,9 @@ function ProfessionalDetailView() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
-      className="pb-24"
+      className="pb-24 max-w-7xl mx-auto w-full"
     >
-      <div className="relative h-48 w-full bg-slate-200">
+      <div className="relative h-64 w-full bg-slate-200 overflow-hidden lg:rounded-2xl lg:mt-6">
         <img 
           src={professional.portfolio[0]} 
           className="h-full w-full object-cover" 
@@ -1320,86 +1422,137 @@ function ProfessionalDetailView() {
         <div className="absolute inset-0 bg-black/20" />
       </div>
       
-      <div className="relative -mt-12 px-4">
-        <div className="flex items-end gap-4">
-          <div className="h-24 w-24 overflow-hidden rounded-lg border-4 border-white bg-white shadow-lg">
-            <img src={professional.avatar} className="h-full w-full object-cover" alt={professional.name} />
-          </div>
-          <div className="mb-2">
-            <h1 className="text-2xl font-black text-slate-900">{professional.name}</h1>
-            <p className="text-sm font-bold text-primary">{professional.specialty}</p>
-          </div>
-        </div>
-
-        <div className="mt-6 flex items-center justify-around rounded-lg border border-border bg-white p-4 shadow-sm">
-          <div className="text-center">
-            <p className="text-lg font-black text-slate-900">{professional.rating}</p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Rating</p>
-          </div>
-          <div className="h-8 w-px bg-slate-100" />
-          <div className="text-center">
-            <p className="text-lg font-black text-slate-900">{professional.projectsCount}</p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Obras</p>
-          </div>
-          <div className="h-8 w-px bg-slate-100" />
-          <div className="text-center">
-            <p className="text-lg font-black text-slate-900">{professional.reviewCount}</p>
-            <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Reviews</p>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-bold text-slate-900">Sobre</h2>
-          <p className="mt-2 text-sm leading-relaxed text-slate-600">
-            {professional.bio}
-          </p>
-        </div>
-
-        <div className="mt-8 rounded-lg bg-emerald-50 p-5 border border-emerald-100">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-emerald-600 text-white">
-              <CheckCircle2 size={16} />
+      <div className="relative -mt-16 px-4 sm:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          {/* Main Content Column */}
+          <div className="lg:col-span-2">
+            <div className="flex items-end gap-6 mb-10">
+              <div className="h-32 w-32 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-2xl">
+                <img src={professional.avatar} className="h-full w-full object-cover" alt={professional.name} />
+              </div>
+              <div className="mb-4">
+                <h1 className="text-4xl font-black text-slate-900 leading-none">{professional.name}</h1>
+                <p className="mt-2 text-lg font-bold text-emerald-600">{professional.specialty}</p>
+                <div className="mt-4 flex items-center gap-4">
+                  <div className="flex items-center gap-1 bg-amber-50 px-3 py-1 rounded-lg border border-amber-100">
+                    <Star size={16} className="fill-amber-400 text-amber-400" />
+                    <span className="text-sm font-black text-slate-700">{professional.rating}</span>
+                  </div>
+                  <span className="text-slate-400 font-bold">({professional.reviewCount} avaliações)</span>
+                </div>
+              </div>
             </div>
-            <h4 className="text-sm font-black text-emerald-900">Sua Contratação Segura</h4>
+
+            <div className="space-y-12">
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-4 flex items-center gap-2">
+                  <Info size={20} className="text-emerald-500" />
+                  Sobre
+                </h2>
+                <p className="text-base leading-relaxed text-slate-600 font-medium">
+                  {professional.bio}
+                </p>
+              </section>
+
+              {professional.albums && professional.albums.length > 0 && (
+                <section>
+                  <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                    <Camera size={20} className="text-emerald-500" />
+                    Principais Álbuns
+                  </h2>
+                  <AlbumCarousel albums={professional.albums} />
+                </section>
+              )}
+
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                  <Star size={20} className="text-emerald-500" />
+                  O que os clientes dizem
+                </h2>
+                <ReviewList reviews={professional.reviews || []} />
+              </section>
+
+              <section>
+                <h2 className="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
+                  <ExternalLink size={20} className="text-emerald-500" />
+                  Galeria de Projetos
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                  {professional.portfolio.map((img, i) => (
+                    <motion.img 
+                      key={i} 
+                      src={img} 
+                      whileHover={{ scale: 1.05 }}
+                      className="aspect-square rounded-2xl object-cover shadow-md cursor-pointer" 
+                      alt={`Obra ${i}`} 
+                    />
+                  ))}
+                </div>
+              </section>
+            </div>
           </div>
-          <p className="text-xs font-bold text-emerald-800/70 leading-relaxed">
-            Este profissional é verificado pelo ptah.io. Você tem a garantia de que o serviço será entregue com a qualidade que você merece.
-          </p>
+
+          {/* Sidebar Column */}
+          <div className="hidden lg:block">
+            <div className="sticky top-28 space-y-6">
+              <div className="rounded-2xl border border-slate-100 bg-white p-8 shadow-2xl shadow-slate-200/50">
+                <h3 className="text-2xl font-black text-slate-900 mb-6">Contratação Segura</h3>
+                
+                <div className="space-y-6 mb-8">
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                    <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-emerald-600 shadow-sm">
+                      <ShieldCheck size={24} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Status</p>
+                      <p className="text-sm font-black text-emerald-600 mt-1">Verificado Gramin</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                      <p className="text-xl font-black text-slate-900">{professional.projectsCount}</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Obras</p>
+                    </div>
+                    <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                      <p className="text-xl font-black text-slate-900">{professional.rating}</p>
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-1">Rating</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <button className="w-full rounded-xl bg-emerald-600 py-4 font-black text-white shadow-xl shadow-emerald-500/20 hover:bg-emerald-700 transition-all active:scale-95 flex items-center justify-center gap-3">
+                    <MessageCircle size={20} />
+                    Solicitar Orçamento
+                  </button>
+                  <button className="w-full rounded-xl bg-slate-900 py-4 font-black text-white hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3">
+                    <MessageCircle size={20} />
+                    Falar no Chat
+                  </button>
+                </div>
+              </div>
+
+              <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-6">
+                <h4 className="text-sm font-black text-emerald-900 flex items-center gap-2 mb-3">
+                  <CheckCircle2 size={16} />
+                  Garantia de Qualidade
+                </h4>
+                <p className="text-xs font-bold text-emerald-800/70 leading-relaxed">
+                  Este profissional passou pelo nosso processo rigoroso de verificação. Garantimos o suporte do Gramin durante toda a sua obra.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {professional.albums && professional.albums.length > 0 && (
-          <div className="mt-10">
-            <h2 className="mb-6 text-xl font-black text-slate-900">Álbuns de Trabalho</h2>
-            <AlbumCarousel albums={professional.albums} />
-          </div>
-        )}
-
-        <div className="mt-10">
-          <h2 className="mb-2 text-xl font-black text-slate-900">Avaliações</h2>
-          <p className="mb-6 text-xs font-medium text-slate-500 italic">Analise o que outros clientes dizem para garantir uma contratação segura e de qualidade.</p>
-          <ReviewList reviews={professional.reviews || []} />
-        </div>
-
-        <div className="mt-10">
-          <h2 className="mb-4 text-lg font-bold text-slate-900">Portfólio Completo</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {professional.portfolio.map((img, i) => (
-              <img 
-                key={i} 
-                src={img} 
-                className="aspect-square rounded-xl object-cover" 
-                alt={`Obra ${i}`} 
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="fixed bottom-20 left-0 right-0 z-40 border-t border-border bg-white/80 p-4 backdrop-blur-md md:bottom-0">
-          <div className="mx-auto flex max-w-md gap-3">
-            <button className="flex-1 rounded-lg bg-primary py-4 font-black text-white shadow-lg shadow-primary/20 transition-transform active:scale-95">
-              Solicitar Orçamento
+        {/* Mobile Action Bar - Fixed Bottom */}
+        <div className="fixed bottom-20 left-0 right-0 z-40 border-t border-slate-100 bg-white/90 px-6 py-4 backdrop-blur-md md:hidden">
+          <div className="flex gap-3">
+            <button className="flex-1 rounded-xl bg-emerald-600 py-4 font-black text-white shadow-lg active:scale-95">
+              Orçamento
             </button>
-            <button className="rounded-lg bg-slate-900 px-6 py-4 font-black text-white transition-transform active:scale-95">
+            <button className="rounded-xl bg-slate-900 px-6 py-4 font-black text-white active:scale-95">
               Chat
             </button>
           </div>
@@ -1428,84 +1581,106 @@ function StoreDetailView() {
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -20 }}
-      className="p-6 pb-24"
+      className="p-6 pb-24 max-w-7xl mx-auto w-full"
     >
-      <div className="mb-8 flex items-center gap-4">
-        <button 
-          onClick={() => navigate(-1)}
-          className="rounded-full bg-slate-100 p-3 text-slate-600 transition-all active:scale-90"
-        >
-          <ArrowLeft size={24} />
-        </button>
-        <h1 className="text-2xl font-black text-slate-900">Detalhes da Loja</h1>
-      </div>
-
-      <div className="flex flex-col items-center text-center mb-10">
-        <div className="relative h-32 w-32 mb-4">
-          <img src={store.avatar} className="h-full w-full rounded-xl object-cover shadow-xl" />
-          {store.isVerified && (
-            <div className="absolute -bottom-2 -right-2 rounded-md bg-white p-2 shadow-lg">
-              <CheckCircle2 size={24} className="fill-accent text-white" />
-            </div>
-          )}
-        </div>
-        <h2 className="text-3xl font-black text-slate-900">{store.name}</h2>
-        <div className="mt-2 flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <Star size={18} className="fill-amber-400 text-amber-400" />
-            <span className="text-lg font-black text-slate-700">{store.rating}</span>
-          </div>
-          <span className="text-slate-400 font-bold">({store.reviewCount} avaliações)</span>
-        </div>
-        <div className="mt-4 flex items-center gap-2 text-slate-500 font-medium">
-          <MapPin size={18} />
-          <span>{store.location}</span>
-        </div>
-        {store.description && (
-          <p className="mt-6 text-sm font-medium text-slate-500 leading-relaxed max-w-xs">
-            {store.description}
-          </p>
-        )}
-
-        <div className="mt-8 w-full rounded-lg bg-blue-50 p-5 border border-blue-100">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-white">
-              <StoreIcon size={16} />
-            </div>
-            <h4 className="text-sm font-black text-blue-900">Sua Loja de Confiança</h4>
-          </div>
-          <p className="text-xs font-bold text-blue-800/70 leading-relaxed">
-            Compre com total tranquilidade. Analisamos o histórico desta loja para garantir que seus materiais cheguem no prazo.
-          </p>
+      <div className="mb-10 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={() => navigate(-1)}
+            className="rounded-xl bg-slate-100 p-3 text-slate-600 transition-all active:scale-90 hover:bg-slate-200"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          <h1 className="text-3xl font-black text-slate-900 leading-none">Detalhes da Loja</h1>
         </div>
       </div>
 
-      <div className="space-y-12">
-        <section>
-          <h3 className="text-xl font-black text-slate-900 mb-5">Produtos em Destaque</h3>
-          <div className="grid grid-cols-2 gap-4">
-            {MOCK_PRODUCTS.filter(p => p.storeId === store.id).map(product => (
-              <ProductCard key={product.id} product={product} onClick={(p) => navigate(`/product/${p.id}`)} />
-            ))}
-          </div>
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black text-slate-900 mb-2">Avaliações da Loja</h3>
-          <p className="mb-6 text-xs font-medium text-slate-500 italic">Sua compra facilitada começa aqui: veja a experiência de outros compradores.</p>
-          <ReviewList reviews={store.reviews || []} />
-        </section>
-
-        <section>
-          <h3 className="text-xl font-black text-slate-900 mb-5">Categorias da Loja</h3>
-          <div className="flex flex-wrap gap-2">
-            {store.categories.map(cat => (
-              <span key={cat} className="rounded-lg bg-slate-100 px-6 py-3 text-sm font-black text-slate-600">
-                {cat}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        {/* Main Content: Products & Reviews */}
+        <div className="lg:col-span-2 space-y-16">
+          <section>
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-2xl font-black text-slate-900">Vitrine de Produtos</h3>
+              <span className="bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest">
+                {MOCK_PRODUCTS.filter(p => p.storeId === store.id).length} itens
               </span>
-            ))}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+              {MOCK_PRODUCTS.filter(p => p.storeId === store.id).map(product => (
+                <ProductCard key={product.id} product={product} onClick={(p) => navigate(`/product/${p.id}`)} />
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-slate-50 p-8 rounded-3xl border border-slate-100">
+            <h3 className="text-2xl font-black text-slate-900 mb-2">Comentários e Notas</h3>
+            <p className="mb-10 text-sm font-medium text-slate-500 italic">Veja por que os profissionais recomendam esta loja.</p>
+            <ReviewList reviews={store.reviews || []} />
+          </section>
+        </div>
+
+        {/* Sidebar: Store Info */}
+        <div className="order-first lg:order-last">
+          <div className="sticky top-28 space-y-8">
+            <div className="flex flex-col items-center text-center p-8 rounded-3xl bg-white border border-slate-100 shadow-2xl shadow-slate-200/50">
+              <div className="relative h-40 w-40 mb-6">
+                <img src={store.avatar} className="h-full w-full rounded-2xl object-cover shadow-2xl" alt={store.name} />
+                {store.isVerified && (
+                  <div className="absolute -bottom-3 -right-3 rounded-xl bg-emerald-500 p-3 shadow-xl ring-4 ring-white">
+                    <CheckCircle2 size={24} className="text-white" />
+                  </div>
+                )}
+              </div>
+              <h2 className="text-4xl font-black text-slate-900 leading-tight">{store.name}</h2>
+              <div className="mt-4 flex items-center gap-3">
+                <div className="flex items-center gap-1.5 bg-amber-50 px-4 py-1.5 rounded-xl border border-amber-100">
+                  <Star size={20} className="fill-amber-400 text-amber-400" />
+                  <span className="text-lg font-black text-slate-700">{store.rating}</span>
+                </div>
+                <span className="text-slate-400 font-bold">({store.reviewCount})</span>
+              </div>
+              
+              <div className="mt-6 flex flex-col items-center gap-2 text-slate-500 font-bold">
+                <div className="flex items-center gap-2 text-sm bg-slate-100 px-4 py-2 rounded-lg">
+                  <MapPin size={18} className="text-emerald-500" />
+                  <span>{store.location}</span>
+                </div>
+              </div>
+
+              {store.description && (
+                <p className="mt-8 text-base font-medium text-slate-600 leading-relaxed italic">
+                  "{store.description}"
+                </p>
+              )}
+            </div>
+
+            <div className="rounded-3xl border border-slate-100 bg-white p-8">
+              <h3 className="text-lg font-black text-slate-900 mb-6 flex items-center gap-2">
+                <Tag size={20} className="text-emerald-500" />
+                Departamentos
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {store.categories.map(cat => (
+                  <span key={cat} className="rounded-lg bg-slate-100 px-4 py-2 text-xs font-black text-slate-600 border border-transparent hover:border-emerald-200 transition-colors">
+                    {cat}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-3xl border border-blue-100 bg-blue-50 p-6 flex items-start gap-4">
+              <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-blue-600 text-white shadow-lg shadow-blue-500/20">
+                <ShieldCheck size={28} />
+              </div>
+              <div>
+                <h4 className="text-sm font-black text-blue-900 mb-1">Loja de Confiança</h4>
+                <p className="text-xs font-bold text-blue-800/70 leading-relaxed">
+                  Histórico verificado pelo Gramin. Garantia de entrega e procedência dos materiais.
+                </p>
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
     </motion.div>
   );
@@ -1530,97 +1705,102 @@ function ProductDetailView() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="pb-32"
+      className="pb-32 max-w-7xl mx-auto w-full lg:px-8 lg:pt-8"
     >
-      <div className="relative w-full bg-slate-100 overflow-hidden">
-        <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar aspect-square">
-          {(product.images || [product.image]).map((img, i) => (
-            <img key={i} src={img} className="h-full w-full object-cover flex-shrink-0 snap-center" />
-          ))}
-        </div>
-        <button 
-          onClick={() => navigate(-1)}
-          className="absolute left-4 top-4 rounded-lg bg-white/80 p-3 text-slate-600 backdrop-blur-md shadow-lg z-10"
-        >
-          <ArrowLeft size={24} />
-        </button>
-        {product.images && product.images.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-            {product.images.map((_, i) => (
-              <div key={i} className="h-1.5 w-1.5 rounded-full bg-white/50" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Left Column: Image Gallery */}
+        <div className="relative w-full overflow-hidden lg:rounded-3xl shadow-2xl">
+          <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar aspect-square bg-slate-100">
+            {(product.images || [product.image]).map((img, i) => (
+              <img key={i} src={img} className="h-full w-full object-cover flex-shrink-0 snap-center" alt={product.name} />
             ))}
           </div>
-        )}
+          <button 
+            onClick={() => navigate(-1)}
+            className="absolute left-6 top-6 rounded-xl bg-white/90 p-3 text-slate-600 backdrop-blur-md shadow-lg z-10 hover:bg-white transition-all active:scale-95"
+          >
+            <ArrowLeft size={24} />
+          </button>
+          {product.images && product.images.length > 1 && (
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10 px-3 py-1.5 bg-black/20 backdrop-blur-md rounded-full">
+              {product.images.map((_, i) => (
+                <div key={i} className="h-2 w-2 rounded-full bg-white/50" />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Right Column: Product Details */}
+        <div className="p-6 lg:p-0">
+          <div className="flex items-center justify-between mb-4">
+            <button 
+              onClick={() => navigate(`/store/${product.storeId}`)}
+              className="flex items-center gap-2 text-xs font-black text-emerald-600 uppercase tracking-[0.2em] hover:text-emerald-700 transition-colors"
+            >
+              <StoreIcon size={14} />
+              {product.storeName}
+            </button>
+            <div className="flex items-center gap-1.5 bg-amber-50 px-3 py-1 rounded-lg border border-amber-100">
+              <Star size={16} className="fill-amber-400 text-amber-400" />
+              <span className="text-sm font-black text-slate-700">{product.rating || '4.8'}</span>
+            </div>
+          </div>
+
+          <h1 className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight mb-6">{product.name}</h1>
+          
+          <div className="flex items-baseline gap-4 mb-10">
+            <span className="text-5xl font-black text-slate-900">R$ {product.price.toFixed(2)}</span>
+            <span className="text-lg font-bold text-slate-400 line-through">R$ {(product.price * 1.15).toFixed(2)}</span>
+          </div>
+
+          <div className="space-y-8">
+            <div className="rounded-2xl bg-slate-50 p-6 border border-slate-100">
+              <h3 className="text-lg font-black text-slate-900 mb-4 flex items-center gap-2">
+                <Info size={20} className="text-emerald-500" />
+                Especificações
+              </h3>
+              <p className="text-base text-slate-600 leading-relaxed font-medium">
+                Material de alta performance para sua obra. Testado e aprovado pelos melhores profissionais da plataforma Gramin.
+              </p>
+            </div>
+
+            <div className="rounded-2xl bg-amber-50 p-6 border border-amber-100">
+              <div className="flex items-center gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-600 text-white shadow-lg shadow-amber-500/20">
+                  <ShieldCheck size={32} />
+                </div>
+                <div>
+                  <h4 className="text-lg font-black text-amber-900">Compra Garantida</h4>
+                  <p className="text-sm font-bold text-amber-800/70 leading-relaxed">
+                    Receba seu produto ou o Gramin devolve o seu dinheiro. Segurança total para sua obra.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Actions for Desktop */}
+            <div className="hidden lg:grid grid-cols-2 gap-4">
+              <button className="rounded-2xl bg-emerald-600 py-6 font-black text-white shadow-2xl shadow-emerald-500/20 hover:bg-emerald-700 transition-all active:scale-95 flex items-center justify-center gap-3">
+                <ShoppingBag size={24} />
+                Comprar Agora
+              </button>
+              <button className="rounded-2xl bg-slate-900 py-6 font-black text-white hover:bg-slate-800 transition-all active:scale-95 flex items-center justify-center gap-3">
+                <MessageCircle size={24} />
+                Dúvidas no Chat
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="p-6">
-        <div className="flex items-center justify-between">
-          <button 
-            onClick={() => navigate(`/store/${product.storeId}`)}
-            className="text-xs font-black text-accent uppercase tracking-widest hover:underline"
-          >
-            {product.storeName}
-          </button>
-          <div className="flex items-center gap-1 text-amber-400">
-            <Star size={14} className="fill-amber-400" />
-            <span className="text-xs font-black text-slate-700">{product.rating || '4.8'}</span>
-          </div>
-        </div>
-        <h1 className="mt-2 text-2xl font-black text-slate-900">{product.name}</h1>
-        <div className="mt-4 flex items-baseline gap-3">
-          <span className="text-3xl font-black text-slate-900">R$ {product.price.toFixed(2)}</span>
-          <span className="text-sm font-bold text-slate-400 line-through">R$ {(product.price * 1.15).toFixed(2)}</span>
-        </div>
-
-        <div className="mt-10 space-y-10">
-          <div className="rounded-lg bg-amber-50 p-5 border border-amber-100">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-amber-600 text-white">
-                <Zap size={16} />
-              </div>
-              <h4 className="text-sm font-black text-amber-900">Sua Compra Protegida</h4>
-            </div>
-            <p className="text-xs font-bold text-amber-800/70 leading-relaxed">
-              Adicione ao carrinho e receba em casa. O ptah.io garante sua satisfação ou seu dinheiro de volta.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-3">Descrição</h3>
-            <p className="text-sm font-medium text-slate-500 leading-relaxed">
-              {product.description || 'Produto de alta qualidade para sua obra. Garantia de 1 ano e entrega rápida em toda região de São Paulo.'}
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-2">Avaliações do Produto</h3>
-            <p className="mb-6 text-[10px] font-bold text-accent uppercase tracking-tighter">⭐ Feedback real de quem já comprou e aprovou</p>
-            <ReviewList reviews={product.reviews || []} />
-          </div>
-
-          <div 
-            onClick={() => navigate(`/store/${product.storeId}`)}
-            className="rounded-xl bg-slate-50 p-6 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="h-12 w-12 rounded-lg bg-white shadow-sm flex items-center justify-center">
-                <StoreIcon size={24} className="text-primary" />
-              </div>
-              <div>
-                <p className="text-sm font-black text-slate-900">{product.storeName}</p>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ver Perfil da Loja</p>
-              </div>
-            </div>
-            <ChevronRight size={20} className="text-slate-300" />
-          </div>
-        </div>
-
-        <div className="fixed bottom-20 left-0 right-0 p-4 bg-white/80 backdrop-blur-md border-t border-border flex gap-4 z-40 md:bottom-0">
-          <button className="flex-1 rounded-lg bg-slate-100 py-4 font-black text-slate-900 transition-all active:scale-95">
-            Carrinho
-          </button>
-          <button className="flex-1 rounded-lg bg-primary py-4 font-black text-white shadow-xl shadow-primary/20 transition-all active:scale-95">
+      {/* Mobile Action Bar - Fixed Bottom */}
+      <div className="fixed bottom-20 left-0 right-0 z-40 border-t border-slate-100 bg-white/90 px-6 py-4 backdrop-blur-md lg:hidden">
+        <div className="mx-auto flex max-w-md gap-3">
+          <button className="flex-1 rounded-xl bg-emerald-600 py-4 font-black text-white shadow-lg active:scale-95">
             Comprar Agora
+          </button>
+          <button className="rounded-xl bg-slate-900 px-6 py-4 font-black text-white active:scale-95">
+            Chat
           </button>
         </div>
       </div>

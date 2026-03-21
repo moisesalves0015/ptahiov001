@@ -1,0 +1,17 @@
+{
+  "name": "Gramin | Materiais e Profissionais",
+  "short_name": "Gramin",
+  "description": "A plataforma definitiva para conectar você aos especialistas verificados e materiais de alto padrão.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#10b981",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

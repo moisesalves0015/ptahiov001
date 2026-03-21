@@ -64,6 +64,45 @@ export const MOCK_STORES: Store[] = [
     categories: ['Madeira', 'Estrutura'],
     description: 'Madeiras de qualidade para todos os tipos de projetos.',
     reviews: MOCK_REVIEWS
+  },
+  {
+    id: 's4',
+    name: 'Hidráulica Central',
+    avatar: 'https://i.pravatar.cc/150?u=s4',
+    role: 'store',
+    rating: 4.6,
+    reviewCount: 95,
+    location: 'Moema, SP',
+    isVerified: true,
+    categories: ['Hidráulica', 'Metais'],
+    description: 'Tudo para sua rede hidráulica e acabamentos com as melhores marcas.',
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 's5',
+    name: 'Gesso & Estilo',
+    avatar: 'https://i.pravatar.cc/150?u=s5',
+    role: 'store',
+    rating: 4.8,
+    reviewCount: 64,
+    location: 'Santana, SP',
+    isVerified: true,
+    categories: ['Gesso', 'Drywall'],
+    description: 'Excelência em acabamentos em gesso e soluções em drywall.',
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 's6',
+    name: 'Ferragens Total',
+    avatar: 'https://i.pravatar.cc/150?u=s6',
+    role: 'store',
+    rating: 4.4,
+    reviewCount: 42,
+    location: 'Lapa, SP',
+    isVerified: false,
+    categories: ['Ferragens', 'Segurança'],
+    description: 'A solução completa em ferragens e acessórios para sua obra.',
+    reviews: MOCK_REVIEWS
   }
 ];
 
@@ -449,6 +488,39 @@ export const MOCK_PRODUCTS: Product[] = [
     description: 'Aguarrás mineral para diluição de tintas a óleo e esmaltes.',
     rating: 4.3,
     reviewCount: 60
+  },
+  {
+    id: 'pr33',
+    name: 'Misturador Monocomando',
+    price: 890.00,
+    image: 'https://picsum.photos/seed/tap/400/400',
+    storeId: 's4',
+    storeName: 'Hidráulica Central',
+    description: 'Misturador monocomando de alta qualidade para cozinha ou banheiro.',
+    rating: 4.8,
+    reviewCount: 30
+  },
+  {
+    id: 'pr34',
+    name: 'Placa Drywall ST 1.2 x 1.8m',
+    price: 45.00,
+    image: 'https://picsum.photos/seed/drywall/400/400',
+    storeId: 's5',
+    storeName: 'Gesso & Estilo',
+    description: 'Placa de gesso acartonado standard para paredes e forros.',
+    rating: 4.7,
+    reviewCount: 150
+  },
+  {
+    id: 'pr35',
+    name: 'Cadeado Stam 45mm',
+    price: 32.90,
+    image: 'https://picsum.photos/seed/lock/400/400',
+    storeId: 's6',
+    storeName: 'Ferragens Total',
+    description: 'Cadeado de latão maciço com alta resistência a intempéries.',
+    rating: 4.5,
+    reviewCount: 200
   }
 ];
 
@@ -636,6 +708,85 @@ export const MOCK_PROFESSIONALS: Professional[] = [
           'https://picsum.photos/seed/a3-2/600/400'
         ]
       }
+    ],
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 'p3',
+    name: 'Carlos Marceneiro',
+    avatar: 'https://i.pravatar.cc/150?u=p3',
+    role: 'professional',
+    specialty: 'Marcenaria Fina',
+    rating: 4.7,
+    reviewCount: 54,
+    projectsCount: 18,
+    isVerified: true,
+    isPremium: true,
+    location: 'Santo Amaro, São Paulo',
+    bio: 'Móveis sob medida com design contemporâneo e durabilidade.',
+    portfolio: [
+      'https://picsum.photos/seed/p3-1/400/300',
+      'https://picsum.photos/seed/p3-2/400/300',
+      'https://picsum.photos/seed/p3-3/400/300'
+    ],
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 'p4',
+    name: 'Ana Arquiteta',
+    avatar: 'https://i.pravatar.cc/150?u=p4',
+    role: 'professional',
+    specialty: 'Arquitetura de Interiores',
+    rating: 5.0,
+    reviewCount: 42,
+    projectsCount: 25,
+    isVerified: true,
+    isPremium: true,
+    location: 'Jardins, São Paulo',
+    bio: 'Projetos que unem funcionalidade e estética para sua casa ou escritório.',
+    portfolio: [
+      'https://picsum.photos/seed/p4-1/400/300',
+      'https://picsum.photos/seed/p4-2/400/300',
+      'https://picsum.photos/seed/p4-3/400/300'
+    ],
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 'p5',
+    name: 'Ricardo Elétrica',
+    avatar: 'https://i.pravatar.cc/150?u=p5',
+    role: 'professional',
+    specialty: 'Eletricista Predial',
+    rating: 4.6,
+    reviewCount: 110,
+    projectsCount: 85,
+    isVerified: true,
+    isPremium: false,
+    location: 'Tatuapé, São Paulo',
+    bio: 'Manutenção e instalação elétrica residencial e comercial com segurança total.',
+    portfolio: [
+      'https://picsum.photos/seed/p5-1/400/300',
+      'https://picsum.photos/seed/p5-2/400/300'
+    ],
+    reviews: MOCK_REVIEWS
+  },
+  {
+    id: 'p6',
+    name: 'Marcos Encanador',
+    avatar: 'https://i.pravatar.cc/150?u=p6',
+    role: 'professional',
+    specialty: 'Hidráulica & Incêndio',
+    rating: 4.5,
+    reviewCount: 78,
+    projectsCount: 62,
+    isVerified: false,
+    isPremium: false,
+    location: 'Butantã, São Paulo',
+    bio: 'Detecção de vazamentos e instalações hidráulicas complexas.',
+    portfolio: [
+      'https://picsum.photos/seed/p6-1/400/300',
+      'https://picsum.photos/seed/p6-2/400/300',
+      'https://picsum.photos/seed/p6-3/400/300'
     ],
     reviews: MOCK_REVIEWS
   }

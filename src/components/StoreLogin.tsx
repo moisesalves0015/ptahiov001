@@ -38,7 +38,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
           <div className="h-10 w-10 bg-slate-900 rounded-md flex items-center justify-center text-accent shadow-lg shadow-slate-900/10">
             <StoreIcon size={22} />
           </div>
-          <span className="text-xl font-black text-slate-900 italic">ptah.io <span className="text-accent not-italic">Lojas</span></span>
+          <span className="text-xl font-black text-slate-900 italic uppercase">Gramin <span className="text-accent not-italic">Lojas</span></span>
         </div>
         <div className="w-12" />
       </header>

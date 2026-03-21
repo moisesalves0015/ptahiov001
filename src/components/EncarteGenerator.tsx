@@ -12,7 +12,7 @@ export const generateEncartePDF = (products: Product[], storeName: string, store
     name: storeName,
     address: storeInfo?.address || 'Av. das Nações, 1250 — Centro, São Paulo/SP',
     phone: storeInfo?.phone || '(11) 98765-4321',
-    website: storeInfo?.website || 'www.ptah.io/lojas',
+    website: storeInfo?.website || 'www.gramin.com.br',
   };
 
   const date = new Date().toLocaleDateString('pt-BR');
@@ -442,7 +442,7 @@ body{
       <div class="ft-valid">Válido até ${validUntil}</div>
     </div>
   </div>
-  <div class="powered">Gerado por <strong>PTAH.IO</strong> — Todos os direitos reservados</div>
+  <div class="powered">Gerado por <strong>GRAMIN</strong> — Todos os direitos reservados</div>
 
 </div>
 <script>

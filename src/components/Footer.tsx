@@ -15,9 +15,9 @@ export function Footer() {
           <div className="space-y-6">
             <div className="flex items-center gap-2.5">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-900 text-white shadow-lg">
-                <span className="text-xl font-black italic">P</span>
+                <span className="text-xl font-black italic">G</span>
               </div>
-              <span className="text-2xl font-black tracking-tight text-slate-900">ptah.io</span>
+              <span className="text-2xl font-black tracking-tight text-slate-900 uppercase">Gramin</span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed font-medium">
               A plataforma definitiva para conectar você aos especialistas verificados e materiais de alto padrão. Construa com excelência.
@@ -78,7 +78,7 @@ export function Footer() {
                 <Mail className="text-accent mt-1" size={18} />
                 <div>
                   <p className="text-slate-900 text-sm font-black">E-mail</p>
-                  <p className="text-slate-500 text-sm font-medium">contato@ptah.io</p>
+                  <p className="text-slate-500 text-sm font-medium">contato@gramin.com.br</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -101,7 +101,7 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
-            © {currentYear} ptah.io - Todos os direitos reservados.
+            © {currentYear} Gramin - Todos os direitos reservados.
           </p>
           <div className="flex items-center gap-2">
             <span className="text-slate-300 text-[10px] font-black uppercase italic">Feito com excelência para a sua obra</span>
