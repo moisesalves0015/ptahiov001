@@ -38,7 +38,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
   };
 
   return (
-    <div className="p-6 pb-32 space-y-8 max-w-lg mx-auto bg-background min-h-screen">
+    <div className="p-6 pb-32 space-y-8 max-w-lg mx-auto bg-slate-50 min-h-screen">
       {/* Header */}
       <section className="flex items-center gap-4">
         <button 
@@ -47,7 +47,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
         >
           <ArrowLeft size={20} />
         </button>
-        <h1 className="text-2xl font-black text-primary tracking-tight">
+        <h1 className="text-2xl font-black text-slate-900 tracking-tight">
           {product ? 'Editar Produto' : 'Novo Produto'}
         </h1>
       </section>
@@ -90,7 +90,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                 type="text"
                 required
                 placeholder="Ex: Porcelanato Retificado 60x60"
-                className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm placeholder:text-slate-300"
+                className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm placeholder:text-slate-300"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
@@ -107,7 +107,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                   required
                   step="0.01"
                   placeholder="0,00"
-                  className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-black shadow-sm"
+                  className="w-full bg-white border border-slate-100 rounded-lg py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-black shadow-sm"
                   value={formData.price || ''}
                   onChange={handlePriceChange}
                 />
@@ -117,7 +117,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
             <div className="space-y-2">
               <label className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-2">Unidade</label>
               <div className="relative">
-                <select className="w-full bg-white border border-slate-100 rounded-lg py-5 px-5 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm appearance-none">
+                <select className="w-full bg-white border border-slate-100 rounded-lg py-5 px-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-semibold shadow-sm appearance-none">
                   <option>Unidade (un)</option>
                   <option>Metro (m)</option>
                   <option>Metro Quadrado (m²)</option>
@@ -135,7 +135,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
               <AlignLeft className="absolute left-5 top-5 text-slate-300" size={20} />
               <textarea 
                 placeholder="Descreva as especificações técnicas, marca, cores disponíveis..."
-                className="w-full bg-white border border-slate-100 rounded-xl py-5 pl-14 pr-5 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium h-40 resize-none shadow-sm placeholder:text-slate-300"
+                className="w-full bg-white border border-slate-100 rounded-xl py-5 pl-14 pr-5 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium h-40 resize-none shadow-sm placeholder:text-slate-300"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               />
@@ -149,7 +149,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
                 <button 
                   key={cat}
                   type="button"
-                  className="rounded-md px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] transition-all bg-white border border-slate-100 text-slate-400 hover:border-slate-900 hover:text-primary active:scale-95 shadow-sm"
+                  className="rounded-md px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.1em] transition-all bg-white border border-slate-100 text-slate-400 hover:border-slate-900 hover:text-slate-900 active:scale-95 shadow-sm"
                 >
                   {cat}
                 </button>
@@ -184,10 +184,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({ product, onSave }) => 
           <div className="h-10 w-10 bg-accent/10 text-accent rounded-lg flex items-center justify-center">
             <Check size={20} strokeWidth={3} />
           </div>
-          <h3 className="text-xs font-black text-primary uppercase tracking-[0.2em]">Dica de Vendas</h3>
+          <h3 className="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">Dica de Vendas</h3>
         </div>
         <p className="text-sm font-semibold text-slate-400 leading-relaxed">
-          Produtos com <span className="text-primary">descrição detalhada</span> e <span className="text-primary">fotos reais</span> têm 3x mais chances de serem escolhidos em cotações.
+          Produtos com <span className="text-slate-900">descrição detalhada</span> e <span className="text-slate-900">fotos reais</span> têm 3x mais chances de serem escolhidos em cotações.
         </p>
       </section>
     </div>

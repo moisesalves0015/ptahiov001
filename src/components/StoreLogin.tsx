@@ -21,7 +21,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-background flex flex-col relative overflow-hidden font-sans">
+    <div className="min-h-screen w-full bg-slate-50 flex flex-col relative overflow-hidden font-sans">
       {/* Background Decorations */}
       <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-secondary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -30,15 +30,15 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
       <header className="relative z-10 p-6 flex items-center justify-between">
         <button 
           onClick={() => navigate('/profile')}
-          className="p-3 bg-white border border-background rounded-lg text-primary/60 hover:bg-background transition-all active:scale-90 shadow-sm"
+          className="p-3 bg-white border border-slate-100 rounded-lg text-slate-600 hover:bg-slate-50 transition-all active:scale-90 shadow-sm"
         >
           <ArrowLeft size={24} />
         </button>
         <div className="flex items-center gap-2">
-          <div className="h-10 w-10 bg-primary rounded-md flex items-center justify-center text-accent shadow-lg shadow-primary/10">
+          <div className="h-10 w-10 bg-slate-900 rounded-md flex items-center justify-center text-accent shadow-lg shadow-slate-900/10">
             <StoreIcon size={22} />
           </div>
-          <span className="text-xl font-black text-primary italic">ptah.io <span className="text-accent not-italic">Lojas</span></span>
+          <span className="text-xl font-black text-slate-900 italic">ptah.io <span className="text-accent not-italic">Lojas</span></span>
         </div>
         <div className="w-12" />
       </header>
@@ -51,11 +51,11 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-10"
           >
-            <h1 className="text-4xl font-black text-primary leading-tight mb-4 tracking-tight">
+            <h1 className="text-4xl font-black text-slate-900 leading-tight mb-4 tracking-tight">
               Impulsione suas <br />
               <span className="text-accent">vendas na obra.</span>
             </h1>
-            <p className="text-primary/50 font-medium">
+            <p className="text-slate-500 font-medium">
               Venda materiais, responda cotações e gere encartes profissionais para o WhatsApp da sua loja.
             </p>
           </motion.div>
@@ -64,19 +64,19 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="bg-white border border-background rounded-lg p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)]"
+            className="bg-white border border-slate-100 rounded-lg p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)]"
           >
             {/* Tabs */}
             <div className="flex p-1 bg-slate-50 rounded-lg mb-8">
               <button 
                 onClick={() => setIsRegistering(false)}
-                className={`flex-1 py-3 rounded-md text-xs font-black uppercase tracking-widest transition-all ${!isRegistering ? 'bg-white text-primary shadow-md' : 'text-primary/40'}`}
+                className={`flex-1 py-3 rounded-md text-xs font-black uppercase tracking-widest transition-all ${!isRegistering ? 'bg-white text-slate-900 shadow-md' : 'text-slate-400'}`}
               >
                 Entrar
               </button>
               <button 
                 onClick={() => setIsRegistering(true)}
-                className={`flex-1 py-3 rounded-md text-xs font-black uppercase tracking-widest transition-all ${isRegistering ? 'bg-white text-primary shadow-md' : 'text-primary/40'}`}
+                className={`flex-1 py-3 rounded-md text-xs font-black uppercase tracking-widest transition-all ${isRegistering ? 'bg-white text-slate-900 shadow-md' : 'text-slate-400'}`}
               >
                 Cadastrar
               </button>
@@ -92,7 +92,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
                       type="text"
                       required
                       placeholder="Ex: Madeireira Silva"
-                      className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
+                      className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
                       value={storeName}
                       onChange={(e) => setStoreName(e.target.value)}
                     />
@@ -108,7 +108,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
                     type="email"
                     required
                     placeholder="contato@sualoja.com"
-                    className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
+                    className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -126,7 +126,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
                     type="password"
                     required
                     placeholder="••••••••"
-                    className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-primary outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
+                    className="w-full bg-slate-50 border border-slate-100 rounded-lg py-4 pl-12 pr-4 text-slate-900 outline-none focus:ring-2 focus:ring-accent/20 transition-all font-medium"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
@@ -135,7 +135,7 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
 
               <button 
                 type="submit"
-                className="w-full bg-primary hover:bg-primary/90 text-white font-black py-5 rounded-lg flex items-center justify-center gap-2 shadow-xl shadow-primary/10 transition-all active:scale-95 group"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-black py-5 rounded-lg flex items-center justify-center gap-2 shadow-xl shadow-slate-900/10 transition-all active:scale-95 group"
               >
                 {isRegistering ? 'Criar Conta da Loja' : 'Acessar Painel'}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />

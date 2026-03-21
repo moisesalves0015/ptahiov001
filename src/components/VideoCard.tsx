@@ -130,11 +130,11 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
           <div className="flex flex-col items-center gap-1">
             <button
               onClick={(e) => { e.stopPropagation(); setShowProducts(true); }}
-              className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/90 backdrop-blur-xl border border-accent/40 active:scale-90 transition-all shadow-lg shadow-primary/30"
+              className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/90 backdrop-blur-xl border border-emerald-400/40 active:scale-90 transition-all shadow-lg shadow-emerald-900/30"
             >
               <ShoppingBag size={22} className="text-white" />
             </button>
-            <span className="text-[9px] font-bold text-accent uppercase tracking-widest">
+            <span className="text-[9px] font-bold text-emerald-400 uppercase tracking-widest">
               {post.products!.length} {post.products!.length === 1 ? 'item' : 'itens'}
             </span>
           </div>
@@ -167,13 +167,13 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
               className="absolute bottom-0 left-0 right-0 z-50 rounded-t-2xl bg-white shadow-2xl overflow-hidden"
             >
               <div className="px-8 pt-4 pb-8">
-                <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-background" />
+                <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-slate-200" />
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold text-primary tracking-tight">Produtos Utilizados</h3>
-                    <p className="text-xs text-primary/40 mt-1">Toque para ver detalhes e comprar</p>
+                    <h3 className="text-xl font-bold text-slate-900 tracking-tight">Produtos Utilizados</h3>
+                    <p className="text-xs text-slate-400 mt-1">Toque para ver detalhes e comprar</p>
                   </div>
-                  <span className="rounded-md bg-background px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                  <span className="rounded-md bg-slate-100 px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                     {post.products?.length} {post.products?.length === 1 ? 'item' : 'itens'}
                   </span>
                 </div>
@@ -183,7 +183,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
                     <div
                       key={product.id}
                       onClick={() => { onProductClick?.(product); setShowProducts(false); }}
-                      className="group flex cursor-pointer items-center gap-4 rounded-lg border border-background p-3 transition-all hover:bg-background active:scale-[0.98]"
+                      className="group flex cursor-pointer items-center gap-4 rounded-lg border border-slate-100 p-3 transition-all hover:bg-slate-50 active:scale-[0.98]"
                     >
                       <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-slate-50">
                         <img
@@ -194,11 +194,11 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-[9px] font-bold text-accent uppercase tracking-widest truncate">{product.storeName}</p>
-                        <h4 className="font-bold text-primary text-sm truncate mt-0.5">{product.name}</h4>
+                        <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest truncate">{product.storeName}</p>
+                        <h4 className="font-bold text-slate-900 text-sm truncate mt-0.5">{product.name}</h4>
                         <div className="mt-2 flex items-center justify-between">
-                          <p className="text-base font-black text-primary">R$ {product.price.toFixed(2)}</p>
-                          <div className="rounded-lg bg-primary p-2 text-white shadow-lg shadow-primary/10">
+                          <p className="text-base font-black text-slate-900">R$ {product.price.toFixed(2)}</p>
+                          <div className="rounded-lg bg-slate-900 p-2 text-white shadow-lg shadow-slate-900/10">
                             <ShoppingBag size={14} />
                           </div>
                         </div>
@@ -209,7 +209,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
                 <button
                   onClick={() => setShowProducts(false)}
-                  className="mt-6 w-full rounded-lg bg-primary py-4 text-xs font-bold text-white uppercase tracking-[0.2em] transition-all hover:bg-primary/90 active:scale-95 shadow-xl shadow-primary/20"
+                  className="mt-6 w-full rounded-lg bg-slate-900 py-4 text-xs font-bold text-white uppercase tracking-[0.2em] transition-all hover:bg-slate-800 active:scale-95 shadow-xl shadow-slate-900/20"
                 >
                   Continuar Assistindo
                 </button>

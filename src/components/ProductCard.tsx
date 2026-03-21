@@ -15,9 +15,9 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick?.(product)}
-      className="group cursor-pointer overflow-hidden rounded-lg border border-background bg-white shadow-sm transition-all hover:shadow-md"
+      className="group cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
     >
-      <div className="relative aspect-square overflow-hidden bg-background">
+      <div className="relative aspect-square overflow-hidden bg-slate-50">
         <img
           src={product.image}
           alt={product.name}
@@ -32,15 +32,15 @@ export function ProductCard({ product, onClick }: ProductCardProps) {
       </div>
       
       <div className="p-3">
-        <p className="text-[10px] font-medium text-primary/40 truncate">{product.storeName}</p>
-        <h3 className="mt-0.5 truncate text-sm font-semibold text-primary">{product.name}</h3>
+        <p className="text-[10px] font-medium text-slate-400 truncate">{product.storeName}</p>
+        <h3 className="mt-0.5 truncate text-sm font-semibold text-slate-900">{product.name}</h3>
         
         <div className="mt-2 flex items-baseline gap-1.5 whitespace-nowrap">
-          <span className="text-base font-bold text-primary">R$ {product.price.toFixed(2)}</span>
-          <span className="text-[10px] text-primary/40 line-through">R$ {(product.price * 1.15).toFixed(2)}</span>
+          <span className="text-base font-bold text-slate-900">R$ {product.price.toFixed(2)}</span>
+          <span className="text-[10px] text-slate-400 line-through">R$ {(product.price * 1.15).toFixed(2)}</span>
         </div>
 
-        <button className="mt-3 w-full rounded-md bg-primary py-2 text-[10px] font-bold text-white transition-all active:scale-95 whitespace-nowrap truncate">
+        <button className="mt-3 w-full rounded-md bg-slate-900 py-2 text-[10px] font-bold text-white transition-all active:scale-95 whitespace-nowrap truncate">
           Comprar
         </button>
       </div>
