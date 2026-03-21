@@ -577,6 +577,7 @@ export default function App() {
                         <StoreCard 
                           key={store.id} 
                           store={store} 
+                          products={MOCK_PRODUCTS.filter(p => p.storeId === store.id)}
                           onClick={(id) => {
                           handleStoreClick(id);
                         }} 
@@ -1113,6 +1114,7 @@ export default function App() {
                   <StoreCard 
                     key={store.id} 
                     store={store} 
+                    products={MOCK_PRODUCTS.filter(p => p.storeId === store.id)}
                     onClick={(id) => {
                       const s = MOCK_STORES.find(st => st.id === id);
                       if (s) {

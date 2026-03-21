@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Star, MapPin, CheckCircle2, ShoppingBag } from 'lucide-react';
 import { motion } from 'motion/react';
-import { Store } from '../types';
+import { Store, Product } from '../types';
 
 interface StoreCardProps {
   store: Store;
+  products?: Product[];
   onClick?: (id: string) => void;
 }
 
-export const StoreCard: React.FC<StoreCardProps> = ({ store, onClick }) => {
+export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onClick }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    const scrollInterval = setInterval(() => {
+      if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10) {
+        scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        scrollContainer.scrollBy({ left: scrollContainer.clientWidth / 3, behavior: 'smooth' });
+      }
+    }, 3500); // Slightly different timing for visual variety
+
+    return () => clearInterval(scrollInterval);
+  }, []);
+
   return (
     <motion.div
       whileHover={{ y: -2 }}
@@ -16,6 +34,36 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, onClick }) => {
       onClick={() => onClick?.(store.id)}
       className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
     >
+      {/* Product Feed Cover - 3 per view */}
+      <div className="relative h-32 w-full overflow-hidden bg-slate-50 border-b border-slate-50">
+        <div 
+          ref={scrollRef}
+          className="flex h-full w-full overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
+        >
+          {(products.length > 0 ? products : [{ image: store.avatar, name: store.name, price: 0 }]).map((item, idx) => (
+            <div key={idx} className="h-full w-1/3 flex-shrink-0 snap-start relative group/item border-r border-white/20 last:border-none">
+              <img
+                src={'image' in item ? (item as any).image : store.avatar}
+                alt={store.name}
+                className="h-full w-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+              {/* Product Info Overlays */}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 opacity-0 group-hover/item:opacity-100 transition-opacity">
+                <p className="text-[8px] font-black text-white truncate">{(item as any).name}</p>
+                {'price' in item && (item as any).price > 0 && (
+                  <p className="text-[10px] font-black text-emerald-400">R${(item as any).price.toFixed(0)}</p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {/* Indicators */}
+        <div className="absolute top-2 right-2 bg-emerald-500/90 backdrop-blur-md px-1.5 py-0.5 rounded text-[7px] font-black text-white uppercase tracking-tighter shadow-sm">
+          {products.length || 0} Itens
+        </div>
+      </div>
       <div className="flex p-4 gap-4">
         <div className="relative h-16 w-16 flex-shrink-0">
           <img
