@@ -22,7 +22,7 @@ export function BottomNav({ currentView, onViewChange }: BottomNavProps) {
     <nav className={`fixed bottom-0 left-0 right-0 z-50 flex h-20 items-center justify-around px-2 pb-safe backdrop-blur-xl md:hidden transition-all duration-300 ${
       currentView === 'feed' 
         ? 'bg-black/20 border-t border-white/10' 
-        : 'bg-white/80 border-t border-slate-100'
+        : 'bg-white/80 border-t border-border'
     }`}>
       {navItems.map((item) => {
         const Icon = item.icon;
@@ -37,8 +37,8 @@ export function BottomNav({ currentView, onViewChange }: BottomNavProps) {
             <div
               className={`flex h-12 w-12 items-center justify-center rounded-lg transition-all duration-300 ${
                 isActive 
-                  ? (currentView === 'feed' ? 'bg-white text-black shadow-xl shadow-white/10' : 'bg-slate-900 text-white shadow-xl shadow-slate-900/20')
-                  : (currentView === 'feed' ? 'text-white/40 hover:bg-white/5' : 'text-slate-400 hover:bg-slate-50')
+                  ? (currentView === 'feed' ? 'bg-white text-black shadow-xl shadow-white/10' : 'bg-primary text-white shadow-xl shadow-primary/20')
+                  : (currentView === 'feed' ? 'text-white/40 hover:bg-white/5' : 'text-primary/40 hover:bg-background')
               }`}
             >
               <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
@@ -46,8 +46,8 @@ export function BottomNav({ currentView, onViewChange }: BottomNavProps) {
             <span
               className={`text-[9px] font-black uppercase tracking-widest transition-all duration-300 ${
                 isActive 
-                  ? (currentView === 'feed' ? 'text-white opacity-100' : 'text-slate-900 opacity-100')
-                  : 'text-slate-400 opacity-0'
+                  ? (currentView === 'feed' ? 'text-white opacity-100' : 'text-primary opacity-100')
+                  : 'text-primary/40 opacity-0'
               }`}
             >
               {item.label}

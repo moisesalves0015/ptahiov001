@@ -12,7 +12,7 @@ export const generateEncartePDF = (products: Product[], storeName: string, store
     name: storeName,
     address: storeInfo?.address || 'Av. das Nações, 1250 — Centro, São Paulo/SP',
     phone: storeInfo?.phone || '(11) 98765-4321',
-    website: storeInfo?.website || 'www.gramin.com.br',
+    website: storeInfo?.website || 'www.obrabase.com.br',
   };
 
   const date = new Date().toLocaleDateString('pt-BR');
@@ -92,7 +92,7 @@ body{
 
 /* ── HEADER ── */
 .header{
-  background:linear-gradient(120deg,#07192B 0%,#0D2D4A 45%,#0F3D65 100%);
+  background:linear-gradient(120deg,#111835 0%,#1a244a 45%,#0248C1 100%);
   padding:20px 26px 16px;
   display:flex;justify-content:space-between;align-items:center;
   position:relative;overflow:hidden;
@@ -111,7 +111,7 @@ body{
   text-shadow:0 4px 14px rgba(0,0,0,.5);
 }
 .store-tagline{
-  font-size:9.5px;font-weight:600;color:#F59E0B;
+  font-size:9.5px;font-weight:600;color:#F8D613;
   text-transform:uppercase;letter-spacing:4px;margin-top:6px;
 }
 .header-info{position:relative;z-index:1;text-align:right;}
@@ -119,14 +119,14 @@ body{
   display:flex;align-items:center;justify-content:flex-end;
   gap:5px;margin-bottom:4px;
 }
-.h-row .ico{color:#F59E0B;display:flex;}
-.h-phone{font-size:18px;font-weight:700;color:#F59E0B;}
+.h-row .ico{color:#F8D613;display:flex;}
+.h-phone{font-size:18px;font-weight:700;color:#F8D613;}
 .h-addr{font-size:10px;color:#93C5FD;line-height:1.35;}
 .h-web{font-size:10px;color:#60A5FA;font-weight:500;}
 
 /* ── HERO ── */
 .hero{
-  background:linear-gradient(100deg,#C62828 0%,#EF6C00 100%);
+  background:linear-gradient(100deg,#111835 0%,#0248C1 100%);
   padding:14px 26px;
   display:flex;align-items:center;justify-content:space-between;
   color:#fff;
@@ -145,7 +145,7 @@ body{
   padding:9px 18px;border-radius:40px;text-align:center;
   box-shadow:0 6px 20px rgba(0,0,0,.25);min-width:108px;
 }
-.badge-small{font-size:8px;font-weight:700;color:#C62828;letter-spacing:1px;text-transform:uppercase;}
+.badge-small{font-size:8px;font-weight:700;color:#0248C1;letter-spacing:1px;text-transform:uppercase;}
 .badge-large{font-size:34px;font-weight:900;color:#07192B;line-height:1;}
 .badge-text{font-size:8px;font-weight:700;color:#555;}
 
@@ -156,7 +156,7 @@ body{
   display:flex;justify-content:space-between;align-items:center;
   font-size:10px;font-weight:500;color:#475569;letter-spacing:.3px;
 }
-.vbar strong{color:#FCD34D;font-weight:700;}
+.vbar strong{color:#F8D613;font-weight:700;}
 
 /* ── SECTION ── */
 .section{padding:16px 20px;}
@@ -169,8 +169,8 @@ body{
   white-space:nowrap;letter-spacing:.3px;
   color:#fff;
 }
-.sec-tag.red{background:linear-gradient(90deg,#C62828,#EF6C00);}
-.sec-tag.blue{background:linear-gradient(90deg,#0D2D4A,#0F3D65);}
+.sec-tag.red{background:linear-gradient(90deg,#111835,#0248C1);}
+.sec-tag.blue{background:linear-gradient(90deg,#0248C1,#111835);}
 .sec-line{flex:1;height:1.5px;background:linear-gradient(90deg,#CBD5E1 0%,transparent 100%);}
 
 /* ══ FEATURED CARDS — 3 col ══ */
@@ -192,7 +192,7 @@ body{
   overflow:hidden;
   position:relative;
   height:195px;
-  background:#1E3A5F;
+  background:#111835;
   box-shadow:0 8px 24px rgba(0,0,0,.18);
 }
 .fc-img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -208,7 +208,7 @@ body{
 .fc-top-badge{
   position:absolute;top:10px;left:10px;
   display:inline-flex;align-items:center;gap:4px;
-  background:linear-gradient(90deg,#C62828,#EF6C00);
+  background:linear-gradient(90deg,#111835,#0248C1);
   color:#fff;font-size:8px;font-weight:800;letter-spacing:.8px;
   padding:2px 9px;border-radius:20px;text-transform:uppercase;
 }
@@ -223,8 +223,8 @@ body{
 .fc-price-badge{
   position:absolute;
   bottom:-10px;right:-10px;
-  background:linear-gradient(135deg,#0D4F1C,#166534);
-  border:2px solid #22C55E;
+  background:linear-gradient(135deg,#111835,#1a244a);
+  border:2px solid #F8D613;
   border-radius:12px;
   padding:7px 11px;
   color:#fff;
@@ -235,7 +235,7 @@ body{
 }
 .fpb-label{
   display:flex;align-items:center;justify-content:center;gap:3px;
-  font-size:7.5px;font-weight:700;color:#86EFAC;
+  font-size:7.5px;font-weight:700;color:#F8D613;
   text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;
 }
 .fpb-value{
@@ -260,7 +260,7 @@ body{
   overflow:hidden;
   position:relative;
   height:130px;
-  background:#1E3A5F;
+  background:#111835;
   box-shadow:0 4px 14px rgba(0,0,0,.16);
 }
 .gc-img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -284,8 +284,8 @@ body{
 .gc-price-badge{
   position:absolute;
   bottom:-9px;right:-9px;
-  background:linear-gradient(135deg,#0D4F1C,#166534);
-  border:1.5px solid #22C55E;
+  background:linear-gradient(135deg,#111835,#1a244a);
+  border:1.5px solid #F8D613;
   border-radius:9px;
   padding:5px 9px;
   color:#fff;
@@ -296,7 +296,7 @@ body{
 }
 .gpb-label{
   display:flex;align-items:center;justify-content:center;gap:3px;
-  font-size:6.5px;font-weight:700;color:#86EFAC;
+  font-size:6.5px;font-weight:700;color:#F8D613;
   text-transform:uppercase;letter-spacing:.8px;margin-bottom:1px;
 }
 .gpb-value{font-size:13px;font-weight:900;color:#ECFDF5;line-height:1;}
@@ -304,7 +304,7 @@ body{
 
 /* ── FOOTER ── */
 .footer{
-  background:linear-gradient(120deg,#07192B 0%,#0D2D4A 100%);
+  background:linear-gradient(120deg,#111835 0%,#0248C1 100%);
   padding:16px 26px;
   display:grid;grid-template-columns:auto 1fr auto;
   gap:16px;align-items:center;
@@ -323,29 +323,29 @@ body{
   position:relative;z-index:1;
 }
 .ft-del-ico{
-  background:#F59E0B;
+  background:#F8D613;
   width:46px;height:46px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   color:#07192B;flex-shrink:0;
 }
-.ft-del-info h4{font-size:12px;font-weight:700;color:#F59E0B;}
+.ft-del-info h4{font-size:12px;font-weight:700;color:#F8D613;}
 .ft-del-info p{font-size:9.5px;color:#93C5FD;margin-top:1px;}
 .ft-center{text-align:center;position:relative;z-index:1;}
 .ft-clabel{font-size:9px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:1.5px;}
-.ft-phone{font-size:20px;font-weight:700;color:#F59E0B;margin:2px 0;}
+.ft-phone{font-size:20px;font-weight:700;color:#F8D613;margin:2px 0;}
 .ft-addr{font-size:9.5px;color:#93C5FD;}
 .ft-right{text-align:right;position:relative;z-index:1;}
-.ft-web{font-size:10px;color:#FCD34D;font-weight:600;margin-bottom:3px;}
+.ft-web{font-size:10px;color:#F8D613;font-weight:600;margin-bottom:3px;}
 .ft-valid{font-size:9px;color:#475569;}
 
 /* ── POWERED ── */
 .powered{
-  background:#030D17;
-  color:#1A3050;
+  background:#111835;
+  color:#F4F4F4;
   text-align:center;padding:6px;
   font-size:8.5px;letter-spacing:1.5px;text-transform:uppercase;
 }
-.powered strong{color:#243D57;}
+.powered strong{color:#F8D613;}
 
 /* ── PRINT ── */
 @media print{
@@ -442,7 +442,7 @@ body{
       <div class="ft-valid">Válido até ${validUntil}</div>
     </div>
   </div>
-  <div class="powered">Gerado por <strong>GRAMIN</strong> — Todos os direitos reservados</div>
+  <div class="powered">Gerado por <strong>OBRABASE</strong> — Todos os direitos reservados</div>
 
 </div>
 <script>

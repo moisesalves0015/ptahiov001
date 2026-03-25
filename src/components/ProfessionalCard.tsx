@@ -32,10 +32,10 @@ export function ProfessionalCard({ professional, onClick }: ProfessionalCardProp
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick(professional.id)}
-      className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-white shadow-sm transition-all hover:shadow-md"
     >
       {/* Dynamic Portfolio Cover - 3 per view */}
-      <div className="relative h-32 w-full overflow-hidden bg-slate-100 border-b border-slate-50">
+      <div className="relative h-32 w-full overflow-hidden bg-background border-b border-border/50">
         <div 
           ref={scrollRef}
           className="flex h-full w-full overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
@@ -67,7 +67,7 @@ export function ProfessionalCard({ professional, onClick }: ProfessionalCardProp
           />
           {professional.isVerified && (
             <div className="absolute -bottom-1 -right-1 rounded-full bg-white p-0.5 shadow-sm">
-              <CheckCircle2 size={16} className="fill-emerald-500 text-white" />
+              <CheckCircle2 size={16} className="fill-accent text-primary" />
             </div>
           )}
         </div>
@@ -75,34 +75,34 @@ export function ProfessionalCard({ professional, onClick }: ProfessionalCardProp
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between">
             <div>
-              <h3 className="truncate text-base font-semibold text-slate-900">{professional.name}</h3>
-              <p className="text-xs font-medium text-emerald-600 truncate">{professional.specialty}</p>
+              <h3 className="truncate text-base font-semibold text-primary">{professional.name}</h3>
+              <p className="text-xs font-medium text-secondary truncate">{professional.specialty}</p>
             </div>
             {professional.isPremium && (
-              <Award size={16} className="text-amber-500 flex-shrink-0 ml-2" />
+              <Award size={16} className="text-accent flex-shrink-0 ml-2" />
             )}
           </div>
           
           <div className="mt-2 flex items-center gap-3 whitespace-nowrap">
             <div className="flex items-center gap-1">
-              <Star size={14} className="fill-amber-400 text-amber-400" />
-              <span className="text-xs font-semibold text-slate-700">{professional.rating}</span>
+              <Star size={14} className="fill-accent text-accent" />
+              <span className="text-xs font-semibold text-primary">{professional.rating}</span>
             </div>
-            <span className="text-[10px] text-slate-400 font-medium truncate">{professional.projectsCount} obras</span>
+            <span className="text-[10px] text-primary/40 font-medium truncate">{professional.projectsCount} obras</span>
           </div>
 
-          <div className="mt-2 flex items-center gap-1 text-slate-400 whitespace-nowrap">
+          <div className="mt-2 flex items-center gap-1 text-primary/40 whitespace-nowrap">
             <MapPin size={12} className="flex-shrink-0" />
             <span className="text-[10px] font-medium truncate">{professional.location}</span>
           </div>
         </div>
       </div>
 
-      <div className="flex border-t border-slate-100 whitespace-nowrap">
-        <button className="flex-1 px-4 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors border-r border-slate-100 truncate">
+      <div className="flex border-t border-border whitespace-nowrap">
+        <button className="flex-1 px-4 py-3 text-xs font-bold text-primary hover:bg-muted transition-colors border-r border-border truncate">
           Ver Perfil
         </button>
-        <button className="flex-1 px-4 py-3 text-xs font-bold text-emerald-600 hover:bg-emerald-50 transition-colors truncate">
+        <button className="flex-1 px-4 py-3 text-xs font-bold text-secondary hover:bg-secondary/5 transition-colors truncate">
           Orçamento
         </button>
       </div>

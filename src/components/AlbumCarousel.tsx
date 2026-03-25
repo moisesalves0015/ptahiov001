@@ -16,14 +16,14 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
         <div key={album.id} className="space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h4 className="text-lg font-black text-slate-900">{album.title}</h4>
-              <p className="text-xs font-medium text-slate-500">{album.description}</p>
+              <h4 className="text-lg font-black text-primary">{album.title}</h4>
+              <p className="text-xs font-medium text-primary/60">{album.description}</p>
             </div>
             <div className="flex gap-2">
-              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-400 active:scale-95">
+              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-background text-primary/40 active:scale-95">
                 <ChevronLeft size={18} />
               </button>
-              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-100 text-slate-900 active:scale-95">
+              <button className="flex h-8 w-8 items-center justify-center rounded-lg bg-background text-primary active:scale-95 shadow-sm border border-border">
                 <ChevronRight size={18} />
               </button>
             </div>
@@ -34,7 +34,7 @@ export function AlbumCarousel({ albums }: AlbumCarouselProps) {
               <motion.div 
                 key={idx}
                 whileTap={{ scale: 0.98 }}
-                className="relative h-64 w-80 flex-shrink-0 snap-center overflow-hidden rounded-xl bg-slate-100 shadow-sm"
+                className="relative h-64 w-80 flex-shrink-0 snap-center overflow-hidden rounded-xl bg-background shadow-sm border border-border"
               >
                 <img 
                   src={image} 

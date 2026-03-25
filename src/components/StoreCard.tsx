@@ -32,10 +32,10 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
       whileHover={{ y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={() => onClick?.(store.id)}
-      className="group relative flex flex-col overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition-all hover:shadow-md"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-border bg-white shadow-sm transition-all hover:shadow-md"
     >
       {/* Product Feed Cover - 3 per view */}
-      <div className="relative h-32 w-full overflow-hidden bg-slate-50 border-b border-slate-50">
+      <div className="relative h-32 w-full overflow-hidden bg-background border-b border-border">
         <div 
           ref={scrollRef}
           className="flex h-full w-full overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth"
@@ -52,7 +52,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 opacity-0 group-hover/item:opacity-100 transition-opacity">
                 <p className="text-[8px] font-black text-white truncate">{(item as any).name}</p>
                 {'price' in item && (item as any).price > 0 && (
-                  <p className="text-[10px] font-black text-emerald-400">R${(item as any).price.toFixed(0)}</p>
+                  <p className="text-[10px] font-black text-accent">R${(item as any).price.toFixed(0)}</p>
                 )}
               </div>
             </div>
@@ -60,7 +60,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
         </div>
         
         {/* Indicators */}
-        <div className="absolute top-2 right-2 bg-emerald-500/90 backdrop-blur-md px-1.5 py-0.5 rounded text-[7px] font-black text-white uppercase tracking-tighter shadow-sm">
+        <div className="absolute top-2 right-2 bg-accent/90 backdrop-blur-md px-1.5 py-0.5 rounded text-[7px] font-black text-primary uppercase tracking-tighter shadow-sm">
           {products.length || 0} Itens
         </div>
       </div>
@@ -74,7 +74,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
           />
           {store.isVerified && (
             <div className="absolute -bottom-1 -right-1 rounded-full bg-white p-0.5 shadow-sm">
-              <CheckCircle2 size={14} className="fill-emerald-500 text-white" />
+              <CheckCircle2 size={14} className="fill-accent text-primary" />
             </div>
           )}
         </div>
@@ -82,10 +82,10 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between">
             <div className="min-w-0 flex-1">
-              <h3 className="truncate text-base font-semibold text-slate-900">{store.name}</h3>
+              <h3 className="truncate text-base font-semibold text-primary">{store.name}</h3>
               <div className="flex flex-wrap gap-1 mt-1 whitespace-nowrap overflow-hidden">
                 {store.categories.slice(0, 2).map((cat) => (
-                  <span key={cat} className="text-[9px] font-medium text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded truncate">
+                  <span key={cat} className="text-[9px] font-medium text-primary/60 bg-background px-1.5 py-0.5 rounded truncate">
                     {cat}
                   </span>
                 ))}
@@ -95,10 +95,10 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
           
           <div className="mt-2 flex items-center gap-3 whitespace-nowrap">
             <div className="flex items-center gap-1">
-              <Star size={12} className="fill-amber-400 text-amber-400" />
-              <span className="text-xs font-semibold text-slate-700">{store.rating}</span>
+              <Star size={12} className="fill-accent text-accent" />
+              <span className="text-xs font-semibold text-primary">{store.rating}</span>
             </div>
-            <div className="flex items-center gap-1 text-slate-400 truncate">
+            <div className="flex items-center gap-1 text-primary/40 truncate">
               <MapPin size={10} className="flex-shrink-0" />
               <span className="text-[10px] font-medium truncate">{store.location}</span>
             </div>
@@ -107,7 +107,7 @@ export const StoreCard: React.FC<StoreCardProps> = ({ store, products = [], onCl
       </div>
 
       <div className="px-4 pb-4">
-        <button className="w-full flex items-center justify-center gap-2 rounded-md bg-slate-100 py-2.5 text-xs font-bold text-slate-700 transition-all hover:bg-slate-900 hover:text-white active:scale-95 whitespace-nowrap truncate">
+        <button className="w-full flex items-center justify-center gap-2 rounded-md bg-background py-2.5 text-xs font-bold text-primary transition-all hover:bg-primary hover:text-white active:scale-95 whitespace-nowrap truncate">
           <ShoppingBag size={14} className="flex-shrink-0" />
           Ver Catálogo
         </button>
