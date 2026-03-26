@@ -34,11 +34,12 @@ export const StoreLogin: React.FC<StoreLoginProps> = ({ onLogin }) => {
         >
           <ArrowLeft size={24} />
         </button>
-        <div className="flex items-center gap-2">
-          <div className="h-10 w-10 bg-primary rounded-md flex items-center justify-center text-accent shadow-lg shadow-primary/10">
-            <StoreIcon size={22} />
+        <div className="flex flex-col items-center">
+          <div className="flex items-center leading-none">
+            <span className="text-xl font-black tracking-tighter text-primary">Obra</span>
+            <span className="text-xl font-black tracking-tighter text-accent">Base</span>
+            <span className="text-xl font-black tracking-tighter text-secondary ml-2">Lojas</span>
           </div>
-          <span className="text-xl font-black text-primary italic uppercase">ObraBase <span className="text-secondary not-italic">Lojas</span></span>
         </div>
         <div className="w-12" />
       </header>

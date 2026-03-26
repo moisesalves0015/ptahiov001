@@ -200,14 +200,13 @@ export default function App() {
         <header className="sticky top-0 z-50 flex h-20 items-center justify-between border-b border-border bg-white/80 px-6 backdrop-blur-md">
           {/* Logo & Navigation */}
           <div className="flex items-center gap-6">
-            <Link to="/" className="flex items-center gap-3 group">
-              <div className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-primary text-white shadow-xl shadow-primary/10 transition-all group-hover:shadow-accent/20 group-active:scale-95">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-transparent opacity-50" />
-                <span className="relative text-2xl font-black italic">O</span>
-              </div>
-              <div className="hidden sm:flex flex-col">
-                <span className="text-xl font-black tracking-tighter text-primary leading-none group-hover:text-secondary transition-colors uppercase">ObraBase</span>
-                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/60 group-hover:text-secondary transition-colors leading-none mt-1.5">Materiais e profissionais</span>
+            <Link to="/" className="flex items-center gap-1 group transition-all hover:scale-105 active:scale-95">
+              <div className="flex flex-col">
+                <div className="flex items-center leading-none">
+                  <span className="text-2xl font-black tracking-tighter text-primary">Obra</span>
+                  <span className="text-2xl font-black tracking-tighter text-accent">Base</span>
+                </div>
+                <span className="text-[8px] font-black uppercase tracking-[0.3em] text-primary/60 group-hover:text-primary transition-colors leading-none mt-1">Materiais e profissionais</span>
               </div>
             </Link>
           </div>
@@ -298,14 +297,14 @@ export default function App() {
                 {(!user || user.role === 'client') && (
                   <>
                     {/* Hero Banner Section - Full Width & Ultra-Slim with Overflow Image */}
-                    <section className="relative bg-primary w-full border-b border-primary-dark/30 min-h-[300px] lg:h-[320px] pt-8 pb-4 lg:py-0 flex items-center mb-12 lg:mb-12">
+                    <section className="relative bg-primary w-full border-b border-primary-dark/30 min-h-[180px] lg:h-[320px] pt-4 pb-2 lg:py-0 flex items-center mb-24 lg:mb-12 overflow-visible">
                       {/* Decorations Container - Restricted */}
                       <div className="absolute inset-0 overflow-hidden pointer-events-none">
                         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-secondary/10 blur-[120px]" />
                         <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-accent/5 blur-[120px]" />
                       </div>
 
-                      <div className="mx-auto max-w-[1600px] px-6 lg:px-20 flex flex-col items-center text-center lg:text-left lg:grid lg:grid-cols-3 lg:items-center justify-between gap-10 w-full h-full relative z-10">
+                      <div className="mx-auto max-w-[1600px] px-6 lg:px-20 flex flex-col items-center text-center lg:text-left lg:grid lg:grid-cols-3 lg:items-center justify-between gap-2 lg:gap-10 w-full h-full relative z-10 overflow-visible">
                         {/* Left: Content Area - order-1 */}
                         <div className="relative z-20 order-1">
                           <motion.div
@@ -327,14 +326,14 @@ export default function App() {
                         </div>
 
                         {/* Column 2: Image Area - order-3 on mobile, order-2 on desktop */}
-                        <div className="relative flex items-start justify-center h-full overflow-visible lg:pt-8 order-3 lg:order-2">
+                        <div className="relative flex items-start justify-center h-full overflow-visible order-3 lg:order-2 -mt-10 lg:mt-0">
                           <motion.img
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
                             src="/construction_team.png"
                             alt="Equipe ObraBase"
-                            className="max-w-full h-auto lg:h-[115%] object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.5)] z-30 pointer-events-none translate-y-8 lg:translate-y-0"
+                            className="w-[110%] lg:w-auto h-auto lg:h-[139%] object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.5)] z-30 pointer-events-none translate-y-12 lg:-translate-y-12 max-w-[125%]"
                             referrerPolicy="no-referrer"
                           />
                         </div>

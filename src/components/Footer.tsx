@@ -13,11 +13,12 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-white shadow-lg">
-                <span className="text-xl font-black italic">O</span>
+            <div className="flex flex-col">
+              <div className="flex items-center leading-none">
+                <span className="text-2xl font-black tracking-tighter text-primary">Obra</span>
+                <span className="text-2xl font-black tracking-tighter text-accent">Base</span>
               </div>
-              <span className="text-2xl font-black tracking-tight text-primary uppercase">ObraBase</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.3rem] text-primary/40 mt-1">Materiais e profissionais</span>
             </div>
             <p className="text-primary/60 text-sm leading-relaxed font-medium">
               A plataforma definitiva para conectar você aos especialistas verificados e materiais de alto padrão. Construa com excelência.
