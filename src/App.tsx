@@ -328,13 +328,13 @@ export default function App() {
 
                         {/* Column 2: Image Area - order-3 on mobile, order-2 on desktop */}
                         <div className="relative flex items-start justify-center h-full overflow-visible lg:pt-8 order-3 lg:order-2">
-                          <motion.img 
+                          <motion.img
                             initial={{ opacity: 0, y: 40 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.8 }}
-                            src="/src/construction_team.png" 
-                            alt="Equipe ObraBase" 
-                            className="max-w-full h-auto lg:h-[115%] object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.8)] z-30 pointer-events-none translate-y-8 lg:translate-y-0"
+                            src="/construction_team.png"
+                            alt="Equipe ObraBase"
+                            className="max-w-full h-auto lg:h-[115%] object-contain drop-shadow-[0_45px_100px_rgba(0,0,0,0.5)] z-30 pointer-events-none translate-y-8 lg:translate-y-0"
                             referrerPolicy="no-referrer"
                           />
                         </div>
@@ -342,14 +342,14 @@ export default function App() {
                         {/* Right: Actions Area - order-2 on mobile, order-3 on desktop */}
                         <div className="flex flex-col gap-3 flex-shrink-0 lg:min-w-[320px] items-center lg:items-end z-20 order-2 lg:order-3">
                           <div className="space-y-3 w-full max-w-[300px]">
-                            <button 
+                            <button
                               onClick={() => handleViewChange('search')}
                               className="group w-full flex items-center justify-center gap-3 rounded-xl bg-accent px-8 py-4 font-black text-primary shadow-xl shadow-accent/20 transition-all hover:scale-105 active:scale-95 text-sm"
                             >
                               Encontrar Especialista
                               <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleViewChange('photo-request')}
                               className="w-full flex items-center justify-center gap-3 rounded-xl bg-white/5 px-8 py-4 font-black text-white backdrop-blur-md border border-white/10 transition-all hover:bg-white/10 active:scale-95 whitespace-nowrap text-sm"
                             >
@@ -363,263 +363,263 @@ export default function App() {
                   </>
                 )}
 
-                    {/* Wrapper for the rest of the contained content */}
-                    <div className="max-w-7xl mx-auto px-4 space-y-12 mt-12 w-full">
-                      {/* Categories */}
-                      <section>
-                        <div className="mb-5 flex items-center justify-between">
-                          <h2 className="text-xl font-black text-primary">Categorias</h2>
-                          <button
-                            onClick={() => handleViewChange('all-categories')}
-                            className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
-                          >
-                            Ver todas <ChevronRight size={14} />
-                          </button>
-                        </div>
-                        <div className="grid grid-rows-2 lg:grid-rows-1 grid-flow-col gap-x-8 lg:gap-x-12 gap-y-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-                          {[
-                            { name: 'Pedreiro', icon: <HardHat size={28} /> },
-                            { name: 'Pintor', icon: <Paintbrush size={28} /> },
-                            { name: 'Elétrica', icon: <Zap size={28} /> },
-                            { name: 'Hidráulica', icon: <Droplets size={28} /> },
-                            { name: 'Marceneiro', icon: <Hammer size={28} /> },
-                            { name: 'Gesso', icon: <Layers size={28} /> },
-                            { name: 'Telhado', icon: <Home size={28} /> },
-                            { name: 'Arquiteto', icon: <PencilRuler size={28} /> },
-                            { name: 'Engenharia', icon: <Compass size={28} /> },
-                            { name: 'Climatização', icon: <Wind size={28} /> },
-                            { name: 'Jardinagem', icon: <Sprout size={28} /> },
-                            { name: 'Limpeza', icon: <Sparkles size={28} /> }
-                          ].map((cat) => (
-                            <motion.button
-                              key={cat.name}
-                              whileHover={{ y: -5 }}
-                              whileTap={{ scale: 0.95 }}
-                              className="flex flex-col items-center gap-3 flex-shrink-0 group outline-none"
-                            >
-                              <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-muted text-primary/60 shadow-sm transition-all group-hover:shadow-xl group-hover:scale-110 group-hover:bg-accent/10 group-hover:text-secondary border border-border">
-                                {cat.icon}
-                              </div>
-                              <span className="text-[10px] font-black text-primary/40 uppercase tracking-widest leading-none text-center max-w-[80px] group-hover:text-secondary transition-colors">{cat.name}</span>
-                            </motion.button>
-                          ))}
-                        </div>
-                      </section>
-
-                      {/* Video Inspirations */}
-                      <section>
-                        <div className="mb-5 flex items-center justify-between">
-                          <h2 className="text-xl font-black text-primary">Inspirações</h2>
-                          <button
-                            onClick={() => handleViewChange('feed')}
-                            className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
-                          >
-                            Ver feed <ChevronRight size={14} />
-                          </button>
-                        </div>
-                        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                          {MOCK_VIDEOS.map((video, index) => (
-                            <button
-                              key={video.id}
-                              onClick={() => handleVideoClick(index)}
-                              className="relative h-64 w-44 flex-shrink-0 overflow-hidden rounded-xl bg-background shadow-md transition-all active:scale-95"
-                            >
-                              <img
-                                src={video.thumbnail || "https://picsum.photos/seed/video/400/600"}
-                                className="h-full w-full object-cover"
-                                alt={video.description}
-                                referrerPolicy="no-referrer"
-                              />
-                              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                              <div className="absolute bottom-4 left-4 right-4 text-left">
-                                <p className="text-[10px] font-black text-white/80 uppercase tracking-widest">@{video.user.handle}</p>
-                                <p className="mt-1 text-xs font-bold text-white line-clamp-1">{video.description}</p>
-                              </div>
-                              <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md border border-white/20">
-                                <Film size={14} className="text-white" />
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      </section>
-
-                      {/* Flash Deals / Offers */}
-                      <section className="bg-muted/50 -mx-4 p-6 rounded-xl border border-muted">
-                        <div className="mb-5 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <Zap size={20} className="text-accent fill-accent" />
-                            <h2 className="text-xl font-black text-primary">Ofertas Relâmpago</h2>
-                          </div>
-                          <div className="flex items-center gap-2 bg-accent text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
-                            02:45:12
-                          </div>
-                        </div>
-                        <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-                          {MOCK_PRODUCTS.slice(0, 4).map((product) => (
-                            <div key={product.id} className="w-40 sm:w-48 md:w-56 flex-shrink-0">
-                              <ProductCard product={product} onClick={handleProductClick} />
-                            </div>
-                          ))}
-                        </div>
-                      </section>
-
-                      {/* Refined Simulated Search Section - Dark & Side-by-Side */}
-                      <section className="relative overflow-hidden rounded-xl bg-primary border border-primary-dark/50 shadow-2xl">
-                        <div className="grid grid-cols-1 lg:grid-cols-2">
-                          {/* Left Side: Search Simulation */}
-                          <div className="p-10 lg:p-16 relative z-10 flex flex-col justify-center">
-                            <motion.div
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ duration: 0.8 }}
-                            >
-                              <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-8">
-                                A tecnologia que <br /><span className="text-accent">facilita sua obra.</span>
-                              </h2>
-
-                              {/* Search Bar Simulation */}
-                              <div className="relative flex items-center bg-white rounded-xl p-2 shadow-xl mb-6">
-                                <div className="bg-secondary h-10 w-10 lg:h-12 lg:w-12 rounded-lg flex items-center justify-center text-white shadow-lg">
-                                  <Search size={22} />
-                                </div>
-                                <div className="flex-1 ml-4 flex items-center overflow-hidden">
-                                  <span className="text-primary font-bold text-sm lg:text-base whitespace-nowrap">Onde contratar</span>
-                                  <span className="ml-1.5 text-secondary font-black text-sm lg:text-base">
-                                    <Typer words={['um eletricista?', 'um pintor?', 'um pedreiro?', 'um arquiteto?']} />
-                                  </span>
-                                </div>
-                              </div>
-
-                              {/* Suggestions Simulation */}
-                              <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 1.5 }}
-                                className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 space-y-4"
-                              >
-                                {[
-                                  { text: "ObraBase é a", highlight: "escolha perfeita!", icon: <CheckCircle2 size={16} /> },
-                                  { text: "ObraBase vai ser", highlight: "sua melhor escolha!", icon: <CheckCircle2 size={16} /> },
-                                  { text: "Você pesquisou", highlight: "por ObraBase!", icon: <CheckCircle2 size={16} /> }
-                                ].map((item, idx) => (
-                                  <div key={idx} className="flex items-center gap-3 text-white">
-                                    <div className="text-accent">{item.icon}</div>
-                                    <p className="text-xs lg:text-sm font-medium">
-                                      {item.text} <span className="text-accent font-bold">{item.highlight}</span>
-                                    </p>
-                                  </div>
-                                ))}
-                              </motion.div>
-                            </motion.div>
-                          </div>
-
-                          {/* Right Side: Professional Image */}
-                          <div className="relative h-64 lg:h-auto overflow-hidden">
-                            <img
-                              src="/src/professional_electrician.png"
-                              className="h-full w-full object-cover"
-                              alt="Profissional ObraBase"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent lg:block hidden" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent lg:hidden block" />
-
-                            {/* Status Badge */}
-                            <div className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10 bg-secondary/90 backdrop-blur-md px-4 py-2 rounded-full border border-secondary/50 flex items-center gap-2">
-                              <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
-                              <span className="text-white text-[10px] font-black uppercase tracking-widest">Especialistas Disponíveis</span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Background decorations */}
-                        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-secondary/10 blur-[100px]" />
-                        <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-[100px]" />
-                      </section>
-
-                      {/* Featured Professionals */}
-                      <section>
-                        <div className="mb-5 flex items-center justify-between">
-                          <h2 className="text-xl font-black text-primary">Especialistas Top</h2>
-                          <button
-                            onClick={() => handleViewChange('all-professionals')}
-                            className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
-                          >
-                            Ver todos <ChevronRight size={14} />
-                          </button>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                          {MOCK_PROFESSIONALS.slice(0, 6).map((prof) => (
-                            <ProfessionalCard
-                              key={prof.id}
-                              professional={prof}
-                              onClick={handleProfessionalClick}
-                            />
-                          ))}
-                        </div>
-                      </section>
-
-                      {/* Ad Banner 1 */}
-                      <section className="relative h-32 overflow-hidden rounded-xl bg-primary">
-                        <img src="https://picsum.photos/seed/ad1/800/200" className="h-full w-full object-cover opacity-60" />
-                        <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                          <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Patrocinado</span>
-                          <h3 className="text-lg font-black text-white">Reforme sua cozinha com 20% OFF</h3>
-                          <button className="mt-2 rounded-lg bg-white px-4 py-1 text-[10px] font-black uppercase text-primary">Saiba mais</button>
-                        </div>
-                      </section>
-
-                      {/* Featured Stores */}
-                      <section>
-                        <div className="mb-5 flex items-center justify-between">
-                          <h2 className="text-xl font-black text-slate-900">Lojas Parceiras</h2>
-                          <button
-                            onClick={() => handleViewChange('all-stores')}
-                            className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
-                          >
-                            Ver todas <ChevronRight size={14} />
-                          </button>
-                        </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {MOCK_STORES.slice(0, 6).map((store) => (
-                            <StoreCard
-                              key={store.id}
-                              store={store}
-                              products={MOCK_PRODUCTS.filter(p => p.storeId === store.id)}
-                              onClick={(id) => {
-                                handleStoreClick(id);
-                              }}
-                            />
-                          ))}
-                        </div>
-                      </section>
-
-                      {/* Banners - Reposicionados */}
-                      <section>
-                        <BannerCarousel banners={MOCK_BANNERS} onBannerClick={(link) => handleViewChange(link as any)} />
-                      </section>
-
-                      {/* Marketplace Feed */}
-                      <section>
-                        <div className="mb-5 flex items-center justify-between">
-                          <h2 className="text-xl font-black text-primary">Marketplace</h2>
-                          <div className="flex gap-2">
-                            <button className="p-2 bg-background rounded-lg text-primary/60"><Tag size={18} /></button>
-                            <button className="p-2 bg-background rounded-lg text-primary/60"><Filter size={18} /></button>
-                          </div>
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                          {MOCK_PRODUCTS.map((product) => (
-                            <ProductCard key={product.id} product={product} onClick={handleProductClick} />
-                          ))}
-                        </div>
-                        <button
-                          onClick={() => handleViewChange('marketplace')}
-                          className="mt-8 w-full rounded-xl bg-slate-900 py-4 font-black text-white shadow-xl transition-all active:scale-95"
-                        >
-                          Ver Mais Produtos
-                        </button>
-                      </section>
+                {/* Wrapper for the rest of the contained content */}
+                <div className="max-w-7xl mx-auto px-4 space-y-12 mt-12 w-full">
+                  {/* Categories */}
+                  <section>
+                    <div className="mb-5 flex items-center justify-between">
+                      <h2 className="text-xl font-black text-primary">Categorias</h2>
+                      <button
+                        onClick={() => handleViewChange('all-categories')}
+                        className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
+                      >
+                        Ver todas <ChevronRight size={14} />
+                      </button>
                     </div>
+                    <div className="grid grid-rows-2 lg:grid-rows-1 grid-flow-col gap-x-8 lg:gap-x-12 gap-y-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+                      {[
+                        { name: 'Pedreiro', icon: <HardHat size={28} /> },
+                        { name: 'Pintor', icon: <Paintbrush size={28} /> },
+                        { name: 'Elétrica', icon: <Zap size={28} /> },
+                        { name: 'Hidráulica', icon: <Droplets size={28} /> },
+                        { name: 'Marceneiro', icon: <Hammer size={28} /> },
+                        { name: 'Gesso', icon: <Layers size={28} /> },
+                        { name: 'Telhado', icon: <Home size={28} /> },
+                        { name: 'Arquiteto', icon: <PencilRuler size={28} /> },
+                        { name: 'Engenharia', icon: <Compass size={28} /> },
+                        { name: 'Climatização', icon: <Wind size={28} /> },
+                        { name: 'Jardinagem', icon: <Sprout size={28} /> },
+                        { name: 'Limpeza', icon: <Sparkles size={28} /> }
+                      ].map((cat) => (
+                        <motion.button
+                          key={cat.name}
+                          whileHover={{ y: -5 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="flex flex-col items-center gap-3 flex-shrink-0 group outline-none"
+                        >
+                          <div className="flex h-20 w-20 items-center justify-center rounded-xl bg-muted text-primary/60 shadow-sm transition-all group-hover:shadow-xl group-hover:scale-110 group-hover:bg-accent/10 group-hover:text-secondary border border-border">
+                            {cat.icon}
+                          </div>
+                          <span className="text-[10px] font-black text-primary/40 uppercase tracking-widest leading-none text-center max-w-[80px] group-hover:text-secondary transition-colors">{cat.name}</span>
+                        </motion.button>
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Video Inspirations */}
+                  <section>
+                    <div className="mb-5 flex items-center justify-between">
+                      <h2 className="text-xl font-black text-primary">Inspirações</h2>
+                      <button
+                        onClick={() => handleViewChange('feed')}
+                        className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
+                      >
+                        Ver feed <ChevronRight size={14} />
+                      </button>
+                    </div>
+                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
+                      {MOCK_VIDEOS.map((video, index) => (
+                        <button
+                          key={video.id}
+                          onClick={() => handleVideoClick(index)}
+                          className="relative h-64 w-44 flex-shrink-0 overflow-hidden rounded-xl bg-background shadow-md transition-all active:scale-95"
+                        >
+                          <img
+                            src={video.thumbnail || "https://picsum.photos/seed/video/400/600"}
+                            className="h-full w-full object-cover"
+                            alt={video.description}
+                            referrerPolicy="no-referrer"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                          <div className="absolute bottom-4 left-4 right-4 text-left">
+                            <p className="text-[10px] font-black text-white/80 uppercase tracking-widest">@{video.user.handle}</p>
+                            <p className="mt-1 text-xs font-bold text-white line-clamp-1">{video.description}</p>
+                          </div>
+                          <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-lg bg-white/20 backdrop-blur-md border border-white/20">
+                            <Film size={14} className="text-white" />
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Flash Deals / Offers */}
+                  <section className="bg-muted/50 -mx-4 p-6 rounded-xl border border-muted">
+                    <div className="mb-5 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Zap size={20} className="text-accent fill-accent" />
+                        <h2 className="text-xl font-black text-primary">Ofertas Relâmpago</h2>
+                      </div>
+                      <div className="flex items-center gap-2 bg-accent text-white px-3 py-1 rounded-lg text-[10px] font-black uppercase tracking-widest">
+                        02:45:12
+                      </div>
+                    </div>
+                    <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4 sm:mx-0 sm:px-0">
+                      {MOCK_PRODUCTS.slice(0, 4).map((product) => (
+                        <div key={product.id} className="w-40 sm:w-48 md:w-56 flex-shrink-0">
+                          <ProductCard product={product} onClick={handleProductClick} />
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Refined Simulated Search Section - Dark & Side-by-Side */}
+                  <section className="relative overflow-hidden rounded-xl bg-primary border border-primary-dark/50 shadow-2xl">
+                    <div className="grid grid-cols-1 lg:grid-cols-2">
+                      {/* Left Side: Search Simulation */}
+                      <div className="p-10 lg:p-16 relative z-10 flex flex-col justify-center">
+                        <motion.div
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.8 }}
+                        >
+                          <h2 className="text-3xl lg:text-4xl font-black text-white leading-tight mb-8">
+                            A tecnologia que <br /><span className="text-accent">facilita sua obra.</span>
+                          </h2>
+
+                          {/* Search Bar Simulation */}
+                          <div className="relative flex items-center bg-white rounded-xl p-2 shadow-xl mb-6">
+                            <div className="bg-secondary h-10 w-10 lg:h-12 lg:w-12 rounded-lg flex items-center justify-center text-white shadow-lg">
+                              <Search size={22} />
+                            </div>
+                            <div className="flex-1 ml-4 flex items-center overflow-hidden">
+                              <span className="text-primary font-bold text-sm lg:text-base whitespace-nowrap">Onde contratar</span>
+                              <span className="ml-1.5 text-secondary font-black text-sm lg:text-base">
+                                <Typer words={['um eletricista?', 'um pintor?', 'um pedreiro?', 'um arquiteto?']} />
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Suggestions Simulation */}
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1.5 }}
+                            className="bg-white/5 backdrop-blur-xl rounded-xl p-6 border border-white/10 space-y-4"
+                          >
+                            {[
+                              { text: "ObraBase é a", highlight: "escolha perfeita!", icon: <CheckCircle2 size={16} /> },
+                              { text: "ObraBase vai ser", highlight: "sua melhor escolha!", icon: <CheckCircle2 size={16} /> },
+                              { text: "Você pesquisou", highlight: "por ObraBase!", icon: <CheckCircle2 size={16} /> }
+                            ].map((item, idx) => (
+                              <div key={idx} className="flex items-center gap-3 text-white">
+                                <div className="text-accent">{item.icon}</div>
+                                <p className="text-xs lg:text-sm font-medium">
+                                  {item.text} <span className="text-accent font-bold">{item.highlight}</span>
+                                </p>
+                              </div>
+                            ))}
+                          </motion.div>
+                        </motion.div>
+                      </div>
+
+                      {/* Right Side: Professional Image */}
+                      <div className="relative h-64 lg:h-auto overflow-hidden">
+                        <img
+                          src="/professional_electrician.png"
+                          className="h-full w-full object-cover"
+                          alt="Profissional ObraBase"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/40 to-transparent lg:block hidden" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary via-transparent to-transparent lg:hidden block" />
+
+                        {/* Status Badge */}
+                        <div className="absolute bottom-6 left-6 lg:bottom-10 lg:left-10 bg-secondary/90 backdrop-blur-md px-4 py-2 rounded-full border border-secondary/50 flex items-center gap-2">
+                          <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                          <span className="text-white text-[10px] font-black uppercase tracking-widest">Especialistas Disponíveis</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Background decorations */}
+                    <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-secondary/10 blur-[100px]" />
+                    <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-[100px]" />
+                  </section>
+
+                  {/* Featured Professionals */}
+                  <section>
+                    <div className="mb-5 flex items-center justify-between">
+                      <h2 className="text-xl font-black text-primary">Especialistas Top</h2>
+                      <button
+                        onClick={() => handleViewChange('all-professionals')}
+                        className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
+                      >
+                        Ver todos <ChevronRight size={14} />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                      {MOCK_PROFESSIONALS.slice(0, 6).map((prof) => (
+                        <ProfessionalCard
+                          key={prof.id}
+                          professional={prof}
+                          onClick={handleProfessionalClick}
+                        />
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Ad Banner 1 */}
+                  <section className="relative h-32 overflow-hidden rounded-xl bg-primary">
+                    <img src="https://picsum.photos/seed/ad1/800/200" className="h-full w-full object-cover opacity-60" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
+                      <span className="text-[10px] font-black text-accent uppercase tracking-[0.2em]">Patrocinado</span>
+                      <h3 className="text-lg font-black text-white">Reforme sua cozinha com 20% OFF</h3>
+                      <button className="mt-2 rounded-lg bg-white px-4 py-1 text-[10px] font-black uppercase text-primary">Saiba mais</button>
+                    </div>
+                  </section>
+
+                  {/* Featured Stores */}
+                  <section>
+                    <div className="mb-5 flex items-center justify-between">
+                      <h2 className="text-xl font-black text-slate-900">Lojas Parceiras</h2>
+                      <button
+                        onClick={() => handleViewChange('all-stores')}
+                        className="text-xs font-black text-accent uppercase tracking-widest flex items-center gap-1"
+                      >
+                        Ver todas <ChevronRight size={14} />
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {MOCK_STORES.slice(0, 6).map((store) => (
+                        <StoreCard
+                          key={store.id}
+                          store={store}
+                          products={MOCK_PRODUCTS.filter(p => p.storeId === store.id)}
+                          onClick={(id) => {
+                            handleStoreClick(id);
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </section>
+
+                  {/* Banners - Reposicionados */}
+                  <section>
+                    <BannerCarousel banners={MOCK_BANNERS} onBannerClick={(link) => handleViewChange(link as any)} />
+                  </section>
+
+                  {/* Marketplace Feed */}
+                  <section>
+                    <div className="mb-5 flex items-center justify-between">
+                      <h2 className="text-xl font-black text-primary">Marketplace</h2>
+                      <div className="flex gap-2">
+                        <button className="p-2 bg-background rounded-lg text-primary/60"><Tag size={18} /></button>
+                        <button className="p-2 bg-background rounded-lg text-primary/60"><Filter size={18} /></button>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                      {MOCK_PRODUCTS.map((product) => (
+                        <ProductCard key={product.id} product={product} onClick={handleProductClick} />
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => handleViewChange('marketplace')}
+                      className="mt-8 w-full rounded-xl bg-slate-900 py-4 font-black text-white shadow-xl transition-all active:scale-95"
+                    >
+                      Ver Mais Produtos
+                    </button>
+                  </section>
+                </div>
 
                 {user?.role === 'professional' && (
                   <>
