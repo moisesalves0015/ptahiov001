@@ -527,7 +527,7 @@ export const MOCK_PRODUCTS: Product[] = [
 export const MOCK_VIDEOS: VideoPost[] = [
   {
     id: '1',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-worker-drilling-a-hole-in-a-wall-4552-large.mp4',
+    videoUrl: 'https://www.youtube.com/embed/pybCkcQR8Oc',
     user: {
       id: 'p1',
       name: 'João Silva',
@@ -535,8 +535,8 @@ export const MOCK_VIDEOS: VideoPost[] = [
       role: 'professional',
       handle: 'joao_obras'
     },
-    description: 'Instalação de suporte para TV em parede de drywall. Dica rápida de bucha! 🛠️ #reforma #drywall',
-    thumbnail: 'https://picsum.photos/seed/drill-thumb/400/600',
+    description: 'FUNDAÇÃO E ALICERCE FINALIZADO. Mais uma etapa concluída com sucesso! 🏗️ #obra #fundação',
+    thumbnail: 'https://img.youtube.com/vi/pybCkcQR8Oc/maxresdefault.jpg',
     likes: 1240,
     comments: 45,
     products: [
@@ -546,7 +546,7 @@ export const MOCK_VIDEOS: VideoPost[] = [
   },
   {
     id: '2',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-painter-painting-a-wall-with-a-roller-4554-large.mp4',
+    videoUrl: 'https://www.youtube.com/embed/vid8Ra5YQlw',
     user: {
       id: 'p2',
       name: 'Maria Pinturas',
@@ -554,8 +554,8 @@ export const MOCK_VIDEOS: VideoPost[] = [
       role: 'professional',
       handle: 'maria_decor'
     },
-    description: 'Transformação incrível com apenas uma lata de tinta! Cor: Cinza Elefante. 🎨 #pintura #decor',
-    thumbnail: 'https://picsum.photos/seed/paint-thumb/400/600',
+    description: 'Concretando sapata do jeito fácil! Dicas essenciais para sua fundação. 🏗️ #pedreiro #construção #obra',
+    thumbnail: 'https://img.youtube.com/vi/vid8Ra5YQlw/maxresdefault.jpg',
     likes: 3500,
     comments: 120,
     products: [
@@ -565,7 +565,7 @@ export const MOCK_VIDEOS: VideoPost[] = [
   },
   {
     id: '3',
-    videoUrl: 'https://assets.mixkit.co/videos/preview/mixkit-man-working-with-a-circular-saw-4553-large.mp4',
+    videoUrl: 'https://www.youtube.com/embed/-gRCvMRi1aw',
     user: {
       id: 'p3',
       name: 'Carlos Marceneiro',
@@ -573,8 +573,8 @@ export const MOCK_VIDEOS: VideoPost[] = [
       role: 'professional',
       handle: 'carlos_wood'
     },
-    description: 'Corte preciso para móveis planejados. A segurança vem em primeiro lugar! 🪚 #marcenaria #diy',
-    thumbnail: 'https://picsum.photos/seed/wood-thumb/400/600',
+    description: 'Como fazer chapisco de forma rápida e fácil! Dica profissional para agilizar sua obra. 🏗️ #construção #diy #chapisco',
+    thumbnail: 'https://img.youtube.com/vi/-gRCvMRi1aw/maxresdefault.jpg',
     likes: 890,
     comments: 22,
     products: [

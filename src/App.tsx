@@ -421,7 +421,7 @@ export default function App() {
                         <button
                           key={video.id}
                           onClick={() => handleVideoClick(index)}
-                          className="relative h-64 w-44 flex-shrink-0 overflow-hidden rounded-xl bg-background shadow-md transition-all active:scale-95"
+                          className="relative h-80 w-44 flex-shrink-0 overflow-hidden rounded-xl bg-background shadow-md transition-all active:scale-95"
                         >
                           <img
                             src={video.thumbnail || "https://picsum.photos/seed/video/400/600"}

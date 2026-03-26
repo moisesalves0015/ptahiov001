@@ -45,7 +45,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       {/* ── Mídia ── */}
       {isYT ? (
         <iframe
-          src={`${post.videoUrl}?autoplay=${isActive ? 1 : 0}&mute=1&loop=1&controls=0&rel=0&modestbranding=1`}
+          src={`${post.videoUrl}?autoplay=${isActive ? 1 : 0}&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`}
           className="h-full w-full"
           allow="autoplay; fullscreen"
           allowFullScreen
@@ -88,9 +88,9 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
       {/* ── Overlay inferior (autor + descrição) ── */}
       {/* pb-24 garante espaço acima do BottomNav */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/85 via-black/30 to-transparent px-6 pb-44 pt-20 text-white pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-6 pb-32 pt-28 text-white pointer-events-none">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 overflow-hidden rounded-full border border-white/20 p-0.5 flex-shrink-0">
+          <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-white/30 p-0.5 flex-shrink-0 shadow-lg">
             <img
               src={post.user.avatar}
               alt={post.user.name}
@@ -98,17 +98,17 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
               referrerPolicy="no-referrer"
             />
           </div>
-          <span className="font-bold text-base tracking-tight">
+          <span className="font-bold text-base tracking-tight drop-shadow-md">
             @{post.user.handle || post.user.name}
           </span>
         </div>
-        <p className="mt-3 text-sm font-light leading-relaxed max-w-[80%] line-clamp-2 text-white/90">
+        <p className="mt-3 text-sm font-medium leading-relaxed max-w-[85%] line-clamp-2 text-white drop-shadow-md">
           {post.description}
         </p>
       </div>
 
       {/* ── Sidebar de ações (Salvar / Compartilhar / Produtos) ── */}
-      <div className="absolute bottom-48 right-4 z-20 flex flex-col items-center gap-6">
+      <div className="absolute bottom-36 right-4 z-20 flex flex-col items-center gap-6">
         {/* Salvar */}
         <div className="flex flex-col items-center gap-1">
           <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
