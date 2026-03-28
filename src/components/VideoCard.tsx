@@ -66,7 +66,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       // Confetti - ALWAYS on new notification
       const colors = ['#F8D613', '#0248C1', '#111835', '#FFFFFF'];
       const defaults = { 
-        origin: { y: 0.1 }, 
+        origin: { y: 0.08 }, 
         colors, 
         spread: 60, 
         ticks: 120, 
@@ -75,9 +75,9 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
         zIndex: 10000
       };
       
-      confetti({ ...defaults, particleCount: 40, origin: { x: 0.2, y: 0.1 } });
-      confetti({ ...defaults, particleCount: 40, origin: { x: 0.5, y: 0.1 } });
-      confetti({ ...defaults, particleCount: 40, origin: { x: 0.8, y: 0.1 } });
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.2, y: 0.08 } });
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.5, y: 0.08 } });
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.8, y: 0.08 } });
     }
   }, [showNotification, isActive, isMuted]);
 
@@ -148,7 +148,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       )}
 
       {/* ── Topo Premium (Live Notification) ── */}
-      <div className="absolute top-0 left-0 right-0 z-30 flex items-start justify-between p-6 pt-12 pointer-events-none">
+      <div className="absolute top-0 left-0 right-0 z-30 flex items-start justify-between p-6 pt-20 pointer-events-none">
         <div className="flex flex-col gap-2">
           <AnimatePresence mode="wait">
             {showNotification && (
