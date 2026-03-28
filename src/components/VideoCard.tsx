@@ -83,9 +83,17 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
   useEffect(() => {
     if (isYT && iframeRef.current) {
-      const command = isMuted ? 'mute' : 'unMute';
+      // Audio Control
+      const muteCommand = isMuted ? 'mute' : 'unMute';
       iframeRef.current.contentWindow?.postMessage(
-        JSON.stringify({ event: 'command', func: command, args: [] }),
+        JSON.stringify({ event: 'command', func: muteCommand, args: [] }),
+        '*'
+      );
+
+      // Playback Control
+      const playCommand = isActive ? 'playVideo' : 'pauseVideo';
+      iframeRef.current.contentWindow?.postMessage(
+        JSON.stringify({ event: 'command', func: playCommand, args: [] }),
         '*'
       );
     }
@@ -109,13 +117,21 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
       {/* ── Mídia ── */}
       {isYT ? (
-        <div className="absolute inset-x-0 -top-[8%] -bottom-[8%] overflow-hidden pointer-events-none">
+        <div className="absolute inset-x-0 -top-[8%] -bottom-[8%] overflow-hidden">
           <iframe
             ref={iframeRef}
-            src={`${post.videoUrl}?autoplay=${isActive ? 1 : 0}&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`}
-            className="h-full w-full scale-[1.16]"
+            src={`${post.videoUrl}?mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1&origin=${window.location.origin}`}
+            className="h-full w-full scale-[1.16] pointer-events-auto"
             allow="autoplay; fullscreen"
             allowFullScreen
+            onLoad={() => {
+              if (isActive) {
+                iframeRef.current?.contentWindow?.postMessage(
+                  JSON.stringify({ event: 'command', func: 'playVideo', args: [] }),
+                  '*'
+                );
+              }
+            }}
             title={post.description}
           />
         </div>
