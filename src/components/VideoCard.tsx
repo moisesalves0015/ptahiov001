@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Bookmark, Share2, ShoppingBag, Volume2, VolumeX } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import confetti from 'canvas-confetti';
 import { VideoPost, Product } from '../types';
 
 interface VideoCardProps {
@@ -13,12 +14,82 @@ interface VideoCardProps {
 const isYouTubeUrl = (url: string) =>
   url.includes('youtube.com/embed') || url.includes('youtu.be');
 
+// Small professional success chime (base64)
+const CHIME_SOUND = 'data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTdvT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19v';
+
 export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
   const [showProducts, setShowProducts] = useState(false);
-  const [isMuted, setIsMuted]           = useState(true);
-  const [progress, setProgress]         = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const [showNotification, setShowNotification] = useState(true);
+  const [activeEvent, setActiveEvent] = useState(0);
+  const [progress, setProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const isYT     = isYouTubeUrl(post.videoUrl);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const isYT = isYouTubeUrl(post.videoUrl);
+
+  const events = [
+    { user: 'Carlos', action: 'economizou R$ 540 no Kit Elétrico!' },
+    { user: 'Ricardo', action: 'contratou Pedreiro em 3 min!' },
+    { user: 'SUL Materiais', action: 'com 15 pessoas comprando agora!' },
+    { user: 'Ana', action: 'recebeu 5 orçamentos p/ Pintura!' },
+    { user: 'Marcos', action: 'acabou de fechar Obra em SP!' }
+  ];
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveEvent((prev) => (prev + 1) % events.length);
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [events.length]);
+
+  useEffect(() => {
+    setShowNotification(true);
+    const timer = setTimeout(() => setShowNotification(false), 8000);
+    return () => clearTimeout(timer);
+  }, [activeEvent]);
+
+  useEffect(() => {
+    if (showNotification && isActive) {
+      // Sound - ONLY if NOT muted
+      if (!isMuted) {
+        const audio = new Audio(CHIME_SOUND);
+        audio.volume = 0.15;
+        audio.play().catch(() => {});
+      }
+      
+      // Confetti - ALWAYS on new notification
+      const colors = ['#F8D613', '#0248C1', '#111835', '#FFFFFF'];
+      const defaults = { 
+        origin: { y: 0.1 }, 
+        colors, 
+        spread: 60, 
+        ticks: 120, 
+        gravity: 1.2, 
+        scalar: 0.9,
+        zIndex: 10000
+      };
+      
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.2, y: 0.1 } });
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.5, y: 0.1 } });
+      confetti({ ...defaults, particleCount: 40, origin: { x: 0.8, y: 0.1 } });
+    }
+  }, [showNotification, isActive, isMuted]);
+
+  useEffect(() => {
+    if (isYT && iframeRef.current) {
+      const command = isMuted ? 'mute' : 'unMute';
+      iframeRef.current.contentWindow?.postMessage(
+        JSON.stringify({ event: 'command', func: command, args: [] }),
+        '*'
+      );
+    }
+  }, [isMuted, isYT, isActive]);
 
   useEffect(() => {
     if (!isYT && videoRef.current) {
@@ -31,12 +102,6 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
     }
   }, [isActive, isYT]);
 
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100);
-    }
-  };
-
   const hasProducts = post.products && post.products.length > 0;
 
   return (
@@ -44,13 +109,16 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
 
       {/* ── Mídia ── */}
       {isYT ? (
-        <iframe
-          src={`${post.videoUrl}?autoplay=${isActive ? 1 : 0}&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0`}
-          className="h-full w-full"
-          allow="autoplay; fullscreen"
-          allowFullScreen
-          title={post.description}
-        />
+        <div className="absolute inset-x-0 -top-[8%] -bottom-[8%] overflow-hidden pointer-events-none">
+          <iframe
+            ref={iframeRef}
+            src={`${post.videoUrl}?autoplay=${isActive ? 1 : 0}&mute=1&loop=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&disablekb=1&fs=0&enablejsapi=1`}
+            className="h-full w-full scale-[1.16]"
+            allow="autoplay; fullscreen"
+            allowFullScreen
+            title={post.description}
+          />
+        </div>
       ) : (
         <video
           ref={videoRef}
@@ -63,34 +131,47 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
         />
       )}
 
-      {/* ── Topo ── */}
-      <div className="absolute top-0 left-0 right-0 z-30 flex items-center justify-between p-6 pt-10">
-        <div className="flex gap-6 text-sm font-bold text-white/40">
-          <button className="text-white border-b border-white pb-1 tracking-widest uppercase text-[10px]">
-            Para você
-          </button>
-          <button className="hover:text-white transition-colors tracking-widest uppercase text-[10px]">
-            Seguindo
-          </button>
+      {/* ── Topo Premium (Live Notification) ── */}
+      <div className="absolute top-0 left-0 right-0 z-30 flex items-start justify-between p-6 pt-12 pointer-events-none">
+        <div className="flex flex-col gap-2">
+          <AnimatePresence mode="wait">
+            {showNotification && (
+              <motion.div
+                key={activeEvent}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 20, opacity: 0 }}
+                className="flex items-center gap-3 rounded-xl bg-zinc-950/80 border border-white/10 pl-2 pr-4 py-2 backdrop-blur-2xl shadow-2xl"
+              >
+                <div className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
+                  <div className="absolute inset-0 rounded-lg bg-accent/20 animate-ping" />
+                  <div className="h-2 w-2 rounded-full bg-accent shadow-[0_0_10px_#F8D613]" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black text-white/40 uppercase tracking-tighter leading-none mb-0.5">Live agora</span>
+                  <p className="text-[11px] font-bold text-white leading-tight">
+                    <span className="text-accent">{events[activeEvent].user}</span> {events[activeEvent].action}
+                  </p>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-        {/* Mudo só para mp4 */}
-        {!isYT && (
-          <button
-            onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
-            className="rounded-lg bg-black/10 p-2 backdrop-blur-sm border border-white/10"
-          >
-            {isMuted
-              ? <VolumeX size={18} className="text-white/80" />
-              : <Volume2 size={18} className="text-white/80" />}
-          </button>
-        )}
+        
+        <button
+          onClick={(e) => { e.stopPropagation(); setIsMuted(!isMuted); }}
+          className="pointer-events-auto flex h-11 w-11 items-center justify-center rounded-xl bg-zinc-950/60 p-2 backdrop-blur-xl border border-white/10 active:scale-95 transition-all shadow-lg hover:bg-zinc-900/80"
+        >
+          {isMuted
+            ? <VolumeX size={20} className="text-white/70" />
+            : <Volume2 size={20} className="text-accent" />}
+        </button>
       </div>
 
       {/* ── Overlay inferior (autor + descrição) ── */}
-      {/* pb-24 garante espaço acima do BottomNav */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/90 via-black/40 to-transparent px-6 pb-32 pt-28 text-white pointer-events-none">
+      <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black via-black/60 to-transparent px-6 pb-[100px] lg:pb-12 pt-40 text-white pointer-events-none transition-all">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-white/30 p-0.5 flex-shrink-0 shadow-lg">
+          <div className="h-11 w-11 overflow-hidden rounded-full border-2 border-accent/30 p-0.5 flex-shrink-0 shadow-2xl shadow-accent/10 bg-zinc-900">
             <img
               src={post.user.avatar}
               alt={post.user.name}
@@ -108,37 +189,37 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
       </div>
 
       {/* ── Sidebar de ações (Salvar / Compartilhar / Produtos) ── */}
-      <div className="absolute bottom-36 right-4 z-20 flex flex-col items-center gap-6">
+      <div className="absolute bottom-[120px] lg:bottom-16 right-4 z-20 flex flex-col items-center gap-5 transition-all pointer-events-auto">
         {/* Salvar */}
-        <div className="flex flex-col items-center gap-1">
-          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
+        <div className="flex flex-col items-center gap-1.5">
+          <button className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 backdrop-blur-2xl border border-white/10 ring-1 ring-white/5 active:scale-90 transition-all shadow-xl hover:bg-white/20">
             <Bookmark size={22} className="text-white/90" />
           </button>
-          <span className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Salvar</span>
+          <span className="text-[10px] font-black text-white/60 uppercase tracking-tighter drop-shadow-lg">Salvar</span>
         </div>
 
         {/* Compartilhar */}
-        <div className="flex flex-col items-center gap-1">
-          <button className="flex h-12 w-12 items-center justify-center rounded-lg bg-black/30 backdrop-blur-xl border border-white/10 active:bg-white/20 transition-all">
+        <div className="flex flex-col items-center gap-1.5">
+          <button className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 backdrop-blur-2xl border border-white/10 ring-1 ring-white/5 active:scale-90 transition-all shadow-xl hover:bg-white/20">
             <Share2 size={22} className="text-white/90" />
           </button>
-          <span className="text-[9px] font-bold text-white/60 uppercase tracking-widest">Enviar</span>
+          <span className="text-[10px] font-black text-white/60 uppercase tracking-tighter drop-shadow-lg">Enviar</span>
         </div>
 
-        {/* Produtos (só aparece se houver produtos) */}
-        {hasProducts && (
-          <div className="flex flex-col items-center gap-1">
-            <button
-              onClick={(e) => { e.stopPropagation(); setShowProducts(true); }}
-              className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent backdrop-blur-xl border border-accent/40 active:scale-90 transition-all shadow-lg shadow-accent/20"
-            >
-              <ShoppingBag size={22} className="text-primary" />
-            </button>
-            <span className="text-[9px] font-bold text-accent uppercase tracking-widest">
-              {post.products!.length} {post.products!.length === 1 ? 'item' : 'itens'}
-            </span>
-          </div>
-        )}
+        {/* Ver Produtos */}
+        <div className="flex flex-col items-center gap-1.5">
+          <button
+            onClick={(e) => { e.stopPropagation(); setShowProducts(true); }}
+            className={`flex h-12 w-12 items-center justify-center rounded-xl backdrop-blur-2xl border ring-1 transition-all shadow-xl active:scale-90 hover:scale-105 ${
+              hasProducts
+                ? 'bg-accent text-primary border-accent ring-accent/20'
+                : 'bg-white/10 text-white/40 border-white/10 ring-white/5'
+            }`}
+          >
+            <ShoppingBag size={22} />
+          </button>
+          <span className="text-[10px] font-black text-white/60 uppercase tracking-tighter drop-shadow-lg">Itens</span>
+        </div>
       </div>
 
       {/* ── Barra de progresso (só mp4) ── */}
@@ -164,7 +245,7 @@ export function VideoCard({ post, isActive, onProductClick }: VideoCardProps) {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="absolute bottom-0 left-0 right-0 z-50 rounded-t-2xl bg-white shadow-2xl overflow-hidden"
+              className="absolute bottom-20 lg:bottom-0 left-0 right-0 z-50 rounded-2xl lg:rounded-b-none bg-white shadow-2xl overflow-hidden"
             >
               <div className="px-8 pt-4 pb-8">
                 <div className="mx-auto mb-6 h-1 w-10 rounded-full bg-border" />

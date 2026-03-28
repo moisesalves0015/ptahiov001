@@ -193,7 +193,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-background font-sans">
+    <div className="relative h-dvh w-full overflow-hidden bg-background font-sans">
       <ScrollToTop />
       {/* Header - Hidden on Feed View */}
       {currentView !== 'feed' && (
